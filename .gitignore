@@ -1,0 +1,23 @@
+# Dataset files (too large for GitHub)
+M3D_RefSeg/
+M3D_RefSeg_npy/
+
+# Zip archives
+*.zip
+
+# IDE / editor
+.idea/
+.vscode/
+
+# Claude Code local settings
+.claude/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.ipynb_checkpoints/
+
+# OS
+.DS_Store
+Thumbs.db

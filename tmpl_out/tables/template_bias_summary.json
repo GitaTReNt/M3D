@@ -1,0 +1,81 @@
+{
+  "notes": {
+    "prefix_template": "first N tokens after normalization (<NUM>, <LAT>)",
+    "frame_template": "keep stopwords + key action words, replace other content with <ENT>",
+    "interpretation": "Higher Top-K coverage / higher HHI / lower effective_num indicates stronger templating (potential shortcut risk)."
+  },
+  "summaries": [
+    {
+      "name": "prefix_n3",
+      "n_rows": 2777,
+      "n_unique_templates": 254,
+      "top1_coverage": 0.15592365862441485,
+      "top5_coverage": 0.3727043572200216,
+      "top10_coverage": 0.579402232625135,
+      "top20_coverage": 0.7223622614332013,
+      "hhi": 0.04799637020439905,
+      "effective_num_templates": 20.834908884596157,
+      "entropy_bits": 5.606465959030267,
+      "gini": 0.8065365388923071
+    },
+    {
+      "name": "prefix_n4",
+      "n_rows": 2777,
+      "n_unique_templates": 625,
+      "top1_coverage": 0.12675549153763055,
+      "top5_coverage": 0.29312207418077063,
+      "top10_coverage": 0.4072740367302845,
+      "top20_coverage": 0.5297083183291321,
+      "hhi": 0.028476234058536037,
+      "effective_num_templates": 35.1170031101862,
+      "entropy_bits": 7.060206112082894,
+      "gini": 0.7106972992437882
+    },
+    {
+      "name": "prefix_n5",
+      "n_rows": 2777,
+      "n_unique_templates": 1071,
+      "top1_coverage": 0.08966510622974433,
+      "top5_coverage": 0.22974432841195536,
+      "top10_coverage": 0.29636298163485775,
+      "top20_coverage": 0.38278718041051496,
+      "hhi": 0.015554877511904267,
+      "effective_num_templates": 64.28851652703098,
+      "entropy_bits": 8.330429945574794,
+      "gini": 0.572402289447768
+    },
+    {
+      "name": "frame",
+      "n_rows": 2777,
+      "n_unique_templates": 2387,
+      "top1_coverage": 0.006121714079942384,
+      "top5_coverage": 0.022326251350378107,
+      "top10_coverage": 0.036730284479654304,
+      "top20_coverage": 0.05905653583003241,
+      "hhi": 0.0006298198497379771,
+      "effective_num_templates": 1587.7556104591308,
+      "entropy_bits": 11.049556720840535,
+      "gini": 0.13410746211285202
+    }
+  ],
+  "per_question_type_frame": {
+    "0": {
+      "n_rows": 1665,
+      "n_unique_frame_templates": 1287,
+      "top10_coverage": 0.06126126126126126,
+      "top20_coverage": 0.09789789789789789,
+      "hhi": 0.0013364716067418767,
+      "effective_num_templates": 748.2388663967613,
+      "entropy_bits": 10.06822282640891
+    },
+    "1": {
+      "n_rows": 1112,
+      "n_unique_frame_templates": 1101,
+      "top10_coverage": 0.018884892086330936,
+      "top20_coverage": 0.02787769784172662,
+      "hhi": 0.0009186895088245952,
+      "effective_num_templates": 1088.507042253521,
+      "entropy_bits": 10.098478044394225
+    }
+  }
+}

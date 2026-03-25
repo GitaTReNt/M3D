@@ -1,0 +1,12 @@
+{
+  "n_rows": 2777,
+  "n_cases": 193,
+  "n_regions": 556,
+  "question_type_counts": {
+    "0": 1665,
+    "1": 1112
+  },
+  "has_seg_token_rate": 0.9877565718401152,
+  "q_has_unc_rate": 0.40331292761973353,
+  "q_has_neg_rate": 0.011523226503420959
+}

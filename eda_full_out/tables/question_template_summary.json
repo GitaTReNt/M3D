@@ -1,0 +1,10 @@
+{
+  "n_rows": 2777,
+  "n_unique_questions": 2767,
+  "n_unique_templates": 2765,
+  "top5_coverage": 0.0036010082823190494,
+  "top10_coverage": 0.007202016564638099,
+  "top20_coverage": 0.011523226503420959,
+  "top50_coverage": 0.022326251350378107,
+  "top100_coverage": 0.04033129276197335
+}
