@@ -19,9 +19,7 @@ import argparse
 import json
 import sys
 import time
-import copy
 from pathlib import Path
-from functools import partial
 
 import cv2
 import numpy as np
@@ -36,6 +34,9 @@ from tqdm import tqdm
 sys.path.insert(0, str(Path(__file__).parent / "MedSAM"))
 from segment_anything import sam_model_registry
 
+# HuggingFace (for BiomedCLIP)
+sys.path.insert(0, str(Path(__file__).parent / "MedCLIP-SAMv2" / "saliency_maps"))
+
 
 # ============================================================
 # BiomedCLIP + IBA saliency (adapted from MedCLIP-SAMv2)
@@ -46,124 +47,6 @@ def normalize(x):
     if xmax - xmin < 1e-8:
         return np.zeros_like(x)
     return (x - xmin) / (xmax - xmin)
-
-
-def permute_then_forward(self, x):
-    x = x.permute(1, 0, 2)
-    x = x + self.attn(self.norm1(x))
-    x = x + self.mlp(self.norm2(x))
-    x = x.permute(1, 0, 2)
-    return x
-
-
-class VisionEmbeddings(nn.Module):
-    def __init__(self, cls_token, patch_embed, pos_embed, dtype):
-        super().__init__()
-        self.cls_token = cls_token
-        self.patch_embed = patch_embed
-        self.pos_embed = pos_embed
-        self.dtype = dtype
-
-    def forward(self, x):
-        x = self.patch_embed(x.to(self.dtype))
-        x = x.flatten(2).transpose(1, 2)
-        cls_tokens = self.cls_token.expand(x.size(0), -1, -1).permute(0, 2, 1)
-        x = torch.cat((cls_tokens, x), dim=2).permute(0, 2, 1)
-        x = x + self.pos_embed
-        return x
-
-
-class ImageEncoderWrapper(nn.Module):
-    def __init__(self, model, dtype):
-        super().__init__()
-        self.transformer = model.trunk
-        self.embeddings = VisionEmbeddings(
-            model.trunk.cls_token, model.trunk.patch_embed,
-            model.trunk.pos_embed, dtype
-        )
-        self.norm = model.trunk.norm
-        self.proj = model.head
-        self.dtype = dtype
-        for layer in self.transformer.blocks:
-            layer.forward = partial(permute_then_forward, layer)
-
-    def forward(self, x, output_hidden_states=False, emb_input=False):
-        if not emb_input:
-            x = self.embeddings(x)
-        x = self.norm(x).to(self.dtype)
-        hidden_states = [x.clone().detach()]
-        for layer in self.transformer.blocks:
-            x = layer(x.to(self.dtype))
-            if isinstance(x, tuple):
-                x = x[0]
-            hidden_states.append(x.clone().detach())
-        x = self.proj(x[:, 0])
-        if output_hidden_states:
-            return {"pooler_output": x, "hidden_states": hidden_states}
-        return x
-
-
-class TextEmbeddings(nn.Module):
-    def __init__(self, word_emb, pos_emb, dtype):
-        super().__init__()
-        self.word_emb = word_emb
-        self.pos_emb = pos_emb
-        self.dtype = dtype
-
-    def forward(self, text):
-        x = self.word_emb(text).type(self.dtype)
-        seq_len = x.shape[1]
-        position_ids = torch.arange(seq_len, device=x.device).unsqueeze(0)
-        x = x + self.pos_emb(position_ids).type(self.dtype)
-        return x
-
-
-class TextEncoderWrapper(nn.Module):
-    def __init__(self, model):
-        super().__init__()
-        self.transformer = model.text.transformer.encoder
-        self.embeddings = TextEmbeddings(
-            model.text.transformer.embeddings.word_embeddings,
-            model.text.transformer.embeddings.position_embeddings,
-            model.text.transformer.dtype,
-        )
-        self.text_projection = model.text.proj
-        self.dtype = model.text.transformer.dtype
-        # Note: do NOT patch BERT layers — they have different attributes than ViT
-
-    def forward(self, x, output_hidden_states=False, emb_input=False):
-        if not emb_input:
-            x = self.embeddings(x)
-        hidden_states = [x.clone().detach()]
-        for layer in self.transformer.layer:
-            layer_out = layer(x.to(self.dtype))
-            if isinstance(layer_out, tuple):
-                x = layer_out[0]
-            else:
-                x = layer_out
-            hidden_states.append(x.clone().detach())
-        # Take last token representation and project
-        pooled = x[:, -1, :]  # (B, hidden_dim)
-        projected = self.text_projection(pooled)  # (B, embed_dim)
-        if output_hidden_states:
-            return {"pooler_output": projected, "hidden_states": hidden_states}
-        return projected
-
-
-class BiomedCLIPWrapper(nn.Module):
-    def __init__(self, model):
-        super().__init__()
-        self.dtype = model.logit_scale.dtype
-        self.vision_model = ImageEncoderWrapper(
-            copy.deepcopy(model.visual), self.dtype
-        )
-        self.text_model = TextEncoderWrapper(copy.deepcopy(model))
-
-    def get_image_features(self, x, output_hidden_states=False, emb_input=False):
-        return self.vision_model(x, output_hidden_states, emb_input)
-
-    def get_text_features(self, x, output_hidden_states=False, emb_input=False):
-        return self.text_model(x, output_hidden_states, emb_input)
 
 
 # --- IBA (Information Bottleneck Attribution) ---
@@ -435,8 +318,8 @@ def main():
     parser.add_argument("--max_cases", type=int, default=0)
     parser.add_argument("--device", default="cuda:0")
     # IBA hyperparams
-    parser.add_argument("--vlayer", type=int, default=8)
-    parser.add_argument("--vbeta", type=float, default=1.0)
+    parser.add_argument("--vlayer", type=int, default=7)
+    parser.add_argument("--vbeta", type=float, default=0.1)
     parser.add_argument("--vvar", type=float, default=1.0)
     parser.add_argument("--iba_steps", type=int, default=10)
     args = parser.parse_args()
@@ -446,18 +329,15 @@ def main():
     npy_root = Path(args.npy_root)
     device = torch.device(args.device if torch.cuda.is_available() else "cpu")
 
-    # --- Load BiomedCLIP ---
-    print("Loading BiomedCLIP...")
-    import open_clip
-    biomed_model, _, biomed_preprocess = open_clip.create_model_and_transforms(
-        "hf-hub:microsoft/BiomedCLIP-PubMedBERT_256-vit_base_patch16_224"
-    )
-    tokenizer = open_clip.get_tokenizer(
-        "hf-hub:microsoft/BiomedCLIP-PubMedBERT_256-vit_base_patch16_224"
-    )
-    clip_wrapper = BiomedCLIPWrapper(biomed_model).to(device)
+    # --- Load BiomedCLIP (HuggingFace format with DHN-NCE fine-tuned weights) ---
+    print("Loading BiomedCLIP (fine-tuned)...")
+    from transformers import AutoModel, AutoTokenizer
+    clip_model_dir = str(Path(__file__).parent / "MedCLIP-SAMv2" / "saliency_maps" / "model")
+    clip_wrapper = AutoModel.from_pretrained(clip_model_dir, trust_remote_code=True).to(device)
     clip_wrapper.eval()
-    del biomed_model
+    tokenizer = AutoTokenizer.from_pretrained(
+        "microsoft/BiomedNLP-BiomedBERT-base-uncased-abstract-fulltext"
+    )
     print("  BiomedCLIP loaded.")
 
     # --- Load MedSAM ---
@@ -497,20 +377,21 @@ def main():
             gt_3d = (mask_vol == lid).astype(np.uint8)
 
             # Tokenize text once
-            text_tokens = tokenizer([desc]).to(device)
+            text_tokens = tokenizer(
+                desc, return_tensors="pt", truncation=True, max_length=256
+            )["input_ids"].to(device)
 
             pred_3d = np.zeros_like(gt_3d)
             slices_with_bbox = 0
 
-            # Run BiomedCLIP saliency on each slice
+            # Pass 1: compute saliency for all slices and rank by focus
+            slice_saliencies = []
             for z in range(D):
                 ct_slice = ct_vol[z]
                 if ct_slice.max() - ct_slice.min() < 1e-8:
-                    continue  # skip empty slices
+                    continue
 
-                # BiomedCLIP: text+image → saliency
                 img_clip = prepare_slice_biomedclip(ct_slice).to(device)
-
                 try:
                     saliency = vision_heatmap_iba(
                         text_tokens, img_clip, clip_wrapper,
@@ -518,34 +399,48 @@ def main():
                         train_steps=args.iba_steps, batch_size=5, device=device,
                     )
                 except Exception as e:
+                    del img_clip
                     continue
-
                 del img_clip
 
-                # Saliency → bbox (in 224 space)
                 bbox_224 = saliency_to_bbox(saliency, threshold=0.5)
                 if bbox_224 is None:
                     continue
 
-                slices_with_bbox += 1
+                # Focus score: how concentrated is the saliency?
+                # High peak + low coverage = focused = good
+                coverage = (saliency > 0.3).sum() / saliency.size
+                peak = saliency.max()
+                focus_score = peak * (1.0 - coverage)
 
-                # Scale bbox from 224 to original (H, W)
+                slice_saliencies.append((z, saliency, bbox_224, focus_score))
+
+            # Pass 2: select top slices and segment
+            # Sort by focus score, keep top fraction
+            if slice_saliencies:
+                slice_saliencies.sort(key=lambda x: x[3], reverse=True)
+                # Keep at most half the slices (best focused ones)
+                max_slices = max(1, len(slice_saliencies) // 2)
+                selected = slice_saliencies[:max_slices]
+
                 scale_x = W / 224.0
                 scale_y = H / 224.0
-                bbox_orig = [
-                    max(0, int(bbox_224[0] * scale_x) - 3),
-                    max(0, int(bbox_224[1] * scale_y) - 3),
-                    min(W, int(bbox_224[2] * scale_x) + 3),
-                    min(H, int(bbox_224[3] * scale_y) + 3),
-                ]
 
-                # MedSAM: bbox → segmentation
-                emb = encode_slice_medsam(medsam_model, ct_slice, device)
-                box_1024 = np.array(bbox_orig, dtype=float) / np.array([W, H, W, H]) * 1024
-                box_1024 = box_1024[None, :]
-                pred_slice = medsam_infer_slice(medsam_model, emb, box_1024, H, W, device)
-                pred_3d[z] = pred_slice
-                del emb
+                for z, saliency, bbox_224, focus in selected:
+                    slices_with_bbox += 1
+                    bbox_orig = [
+                        max(0, int(bbox_224[0] * scale_x) - 3),
+                        max(0, int(bbox_224[1] * scale_y) - 3),
+                        min(W, int(bbox_224[2] * scale_x) + 3),
+                        min(H, int(bbox_224[3] * scale_y) + 3),
+                    ]
+
+                    emb = encode_slice_medsam(medsam_model, ct_vol[z], device)
+                    box_1024 = np.array(bbox_orig, dtype=float) / np.array([W, H, W, H]) * 1024
+                    box_1024 = box_1024[None, :]
+                    pred_slice = medsam_infer_slice(medsam_model, emb, box_1024, H, W, device)
+                    pred_3d[z] = pred_slice
+                    del emb
 
             torch.cuda.empty_cache()
 

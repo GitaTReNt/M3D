@@ -1,243 +1,443 @@
-# M3D-RefSeg: Text-Guided 3D Medical Image Segmentation — Project Status
+# M3D-RefSeg: Text-Guided 3D Medical Image Segmentation — 项目完整记录
 
-## 1. Project Overview
+## 1. 项目概述
 
-**Task**: Given a 3D CT volume and a free-text radiology description, segment the corresponding 3D region of interest (Referring Expression Segmentation).
+**任务**：给定一个3D CT体积和一段放射科自由文本描述，分割出对应的3D区域（Referring Expression Segmentation）。
 
-**Dataset**: M3D-RefSeg
-- 208 cases, 784 annotated regions
-- Data format: `ct.npy` (1, 32, 256, 256) float32 [0,1], `mask.npy` (1, 32, 256, 256), `text.json` {mask_id: description}
-- Text descriptions are detailed radiology findings, e.g.:
-  - "An irregular-shaped mass in the right inguinal region with enhancement at the edge on enhanced scanning"
-  - "Multiple round transparent shadows in both lungs, considering bilateral emphysema"
+**数据集**：M3D-RefSeg
+- 208个病例，784个标注区域
+- 数据格式：`ct.npy` (1, 32, 256, 256) float32 [0,1]，`mask.npy` (1, 32, 256, 256)，`text.json` {mask_id: 描述}
+- 文本为详细的放射科发现，例如：
+  - "右侧腹股沟区不规则肿块，增强扫描边缘强化"
+  - "双肺多发圆形透亮影，考虑双侧肺气肿"
 
-**Repository**: GitHub (public), with MedSAM cloned into the project directory.
+**硬件环境**：
+- GPU: NVIDIA RTX 4070, 12GB VRAM
+- OS: Windows 11
+- PyTorch 2.11.0+cu126, CUDA 13.0
 
----
-
-## 2. Current Approach: MedSAM with Oracle Bounding Box
-
-### Pipeline
-
-MedSAM is a 2D model (SAM ViT-B fine-tuned on medical images). Our inference pipeline:
-
-1. For each CT volume, iterate over 32 slices
-2. For each target region on each slice, extract 2D bounding box from ground-truth mask (oracle bbox, margin=5px)
-3. Resize slice to 1024x1024, encode with ViT-B image encoder (fp16)
-4. Feed bbox prompt to mask decoder, get binary mask prediction
-5. Stack 2D predictions into 3D volume, compute Dice/IoU vs ground truth
-
-**Key implementation**: `inference_medsam_refseg.py` — GPU-based, fp16 image encoder, single-slice-at-a-time to fit in 12GB VRAM (RTX 4070).
-
-### Results: Oracle Bounding Box (30 cases, MedSAM fine-tuned weights)
-
-| Metric | Value |
-|--------|-------|
-| Mean Dice | 0.5221 |
-| Mean IoU | 0.4046 |
-| Median Dice | 0.4872 |
-| Dice >= 0.5 | 43 / 91 (47.3%) |
-
-### Results: Comparison with Original SAM Weights (50 cases)
-
-| Checkpoint | Mean Dice | Mean IoU | Dice >= 0.5 |
-|------------|-----------|----------|-------------|
-| SAM ViT-B (original) | 0.4496 | 0.3420 | 40.5% |
-| MedSAM fine-tuned | **0.5221** | **0.4046** | **47.3%** |
-
-MedSAM fine-tuned weights improve Dice by ~7 points over original SAM.
+**仓库**：GitHub (public)，MedSAM 和 MedCLIP-SAMv2 作为子目录克隆到项目中。
 
 ---
 
-## 3. Failure Analysis
+## 2. 实验总览
 
-### 3.1 Over-Segmentation is the Dominant Failure Mode
+### 全部实验结果汇总
 
-46% of targets (38/83 non-empty) have prediction volume > 3x ground truth. Mean Dice for these: **0.263**.
+| 编号 | 方法 | Mean Dice | Mean IoU | Dice≥0.5 | 说明 |
+|------|------|-----------|----------|----------|------|
+| Exp1 | SAM ViT-B (oracle bbox) | 0.4496 | 0.3420 | 40.5% | 原始SAM权重，50 cases |
+| Exp2 | **MedSAM fine-tuned (oracle bbox)** | **0.5221** | **0.4046** | **47.3%** | Fine-tuned权重，30 cases |
+| Exp3 | MedSAM + 推理tricks | 0.4986~0.5150 | — | — | multimask/refine/cc3d均无提升 |
+| Exp4 | TF-IDF文本检索 → bbox → MedSAM | 0.0308 | — | 0% | 纯文本检索，30 cases |
+| Exp5 | Prompt Compiler (解析+atlas+检索) | 0.0235 | — | 0% | 结构化规则，30 cases |
+| Exp6 | MedCLIP-SAMv2 (无slice过滤) | 0.0073 | 0.0038 | 0% | BiomedCLIP saliency→bbox→MedSAM，3 cases |
+| Exp7 | **MedCLIP-SAMv2 (有slice过滤)** | **0.0284** | **0.0156** | **0%** | 加入聚焦度排序过滤，5 cases |
 
-### 3.2 Performance by Target Size
-
-| GT Size | Count | Mean Dice | Over-Seg Ratio | Dice >= 0.5 |
-|---------|-------|-----------|----------------|-------------|
-| < 50 voxels | 12 | 0.329 | 5.3x | 0/12 |
-| 50 - 500 | 26 | 0.469 | 4.1x | 11/26 |
-| 500 - 5K | 31 | 0.422 | 3.8x | 12/31 |
-| 5K - 50K | 12 | 0.756 | 1.4x | 11/12 |
-| > 50K | 2 | 0.601 | 2.6x | 1/2 |
-
-Small targets are universally poor. Large, compact structures (>5K voxels) perform well.
-
-### 3.3 Spine/Bone vs Other Structures
-
-| Category | Count | Mean Dice |
-|----------|-------|-----------|
-| Spine/bone-related | 27 | 0.376 |
-| Other structures | 56 | 0.525 |
-
-Diffuse, distributed structures (osteophytes, disc degeneration, vertebral changes) are particularly hard for bbox-based segmentation.
-
-### 3.4 Worst-Performing Targets (Bottom 10)
-
-| Case | Dice | GT Voxels | Pred Voxels | Description |
-|------|------|-----------|-------------|-------------|
-| s0000-2 | 0.039 | 461 | 8,246 | Enlarged lymph nodes (scattered) |
-| s0057-3 | 0.093 | 1,049 | 9,568 | Lumbar spine weight-bearing line |
-| s0012-1 | 0.108 | 153 | 2,067 | Abdominal calcification foci |
-| s0061-1 | 0.117 | 182 | 2,159 | Lumbar vertebral bone density |
-| s0046-1 | 0.122 | 786 | 6,575 | Bilateral emphysema |
-
-Common pattern: scattered/diffuse pathology where bbox is an inherently poor prompt.
+**核心结论**：Oracle bbox Dice=0.52 vs 所有text-guided方法 Dice≈0.02~0.03，差距约20倍。瓶颈不在分割模型，而在**如何从文本定位到空间位置**。
 
 ---
 
-## 4. Improvement Attempts (Without Retraining)
+## 3. 实验详情
 
-### 4.1 Inference-Time Tricks
+### Exp1 & Exp2: MedSAM Oracle Bounding Box 基线
 
-Tested on same 30 cases with MedSAM fine-tuned weights:
+**脚本**：`inference_medsam_refseg.py`
 
-| Configuration | Mean Dice | Mean IoU | Dice >= 0.5 |
-|---------------|-----------|----------|-------------|
-| **Baseline** (single mask) | **0.5221** | **0.4046** | 43/91 |
-| Multi-mask (IoU head selection) | 0.5150 | 0.3951 | **48/91** |
-| Multi-mask + iterative refinement | 0.5063 | 0.3918 | 44/91 |
-| Multi-mask + refinement + CC3D | 0.4986 | 0.3869 | 44/91 |
-| CC3D only | 0.5074 | 0.3945 | 43/91 |
+**流程**：
+1. 遍历CT volume的32个slice
+2. 对每个目标区域，从ground-truth mask提取2D bounding box（oracle bbox, margin=5px）
+3. Slice resize到1024×1024，ViT-B编码器fp16编码
+4. Bbox prompt送入mask decoder，获取binary mask
+5. 堆叠2D预测为3D，计算Dice/IoU
 
-**Conclusion**: None of these tricks improved Mean Dice. Reasons:
-- MedSAM was trained with single-mask output; its IoU head is unreliable for multi-mask selection
-- Iterative refinement amplifies the initial over-segmentation
-- Connected component filtering hurts scattered but correct predictions (e.g., multi-focal calcifications)
+**结果对比**：
 
-### 4.2 Implementation
+| 权重 | Mean Dice | Mean IoU | Dice≥0.5 |
+|------|-----------|----------|----------|
+| SAM ViT-B 原始 (50 cases) | 0.4496 | 0.3420 | 40.5% |
+| MedSAM fine-tuned (30 cases) | **0.5221** | **0.4046** | **47.3%** |
 
-- `inference_medsam_improved.py` — supports configurable tricks via `--tricks multimask,refine,cc3d,tta`
+MedSAM fine-tuned权重比原始SAM提升约7个百分点。
 
----
+### Exp3: 推理时优化尝试
 
-## 5. Core Problem: Text-Guided Performance
+**脚本**：`inference_medsam_improved.py`（支持 `--tricks multimask,refine,cc3d,tta`）
 
-The real task is **text-guided** segmentation, not oracle bbox. Previous server experiments showed:
+| 配置 | Mean Dice | 说明 |
+|------|-----------|------|
+| Baseline (single mask) | **0.5221** | 最优 |
+| Multi-mask (IoU head选择) | 0.5150 | IoU head不可靠 |
+| Multi-mask + 迭代refinement | 0.5063 | 放大初始过分割 |
+| Multi-mask + refinement + CC3D | 0.4986 | 伤害散在正确预测 |
+| CC3D only | 0.5074 | 轻微下降 |
 
-| Mode | Mean Dice |
-|------|-----------|
-| Oracle bounding box | ~0.51 |
-| Text-guided | ~0.02 |
-
-The **50x gap** shows that the bottleneck is entirely in converting text descriptions to spatial prompts, not in the segmentation model itself. MedSAM has no text understanding capability — it only accepts visual prompts (bbox, point, mask).
-
----
-
-## 6. Text-Guided Experiments (No Retraining)
-
-### Exp 4: TF-IDF Retrieval → bbox → MedSAM (30 cases)
-
-- **Method**: For each text description, retrieve top-3 similar descriptions (leave-one-case-out) via TF-IDF cosine similarity, use their normalized bounding boxes as MedSAM prompt
-- **Result**: Mean Dice = **0.0308**, 53/91 targets Dice=0
-- **Why it failed**: Bag-of-words similarity cannot provide spatial localization. Different patients' same anatomy occupies different pixel coordinates in the (32, 256, 256) npy format
-
-### Exp 5: Prompt Compiler (structured parsing + atlas + retrieval) (30 cases)
-
-- **Method**: Parse text → structured slots (anatomy, side, finding_type, target_form) → atlas spatial prior → structured retrieval refinement → type-aware post-processing → MedSAM
-- **Result**: Mean Dice = **0.0235**, 0/91 Dice≥0.5
-- **Why it failed**: Same root cause — **spatial coordinates are not transferable across patients** in the npy format. The npy volumes are cropped/resized differently per case, so "right kidney" can be anywhere in pixel space. No amount of text parsing fixes this geometric misalignment
-
-### Key Lesson from Exp 4-5
-
-The fundamental problem is not text understanding — it's that **text cannot be mapped to pixel coordinates without looking at the image**. Any method that tries to predict spatial location from text alone (retrieval, atlas, rules) will fail on this data format. The solution must involve **joint text-image reasoning**: a model that reads both the text AND the image to determine where to segment.
+**结论**：所有tricks均无法提升Mean Dice，baseline即最优。
 
 ---
 
-## 7. Potential Solutions (Requiring Image-Text Joint Reasoning)
+### Exp4: TF-IDF 文本检索 → bbox → MedSAM
 
-### 6.1 VoxTell (DKFZ, January 2026) — Recommended Priority 1
+**脚本**：`inference_medsam_retrieval.py`
 
-- **What**: Free-text promptable universal 3D medical segmentation model
-- **Why**: Directly accepts clinical free-text as prompt, outputs 3D segmentation
-- **Trained on**: 62K+ volumes, 1000+ anatomical and pathological classes
-- **Usage**: `pip install voxtell`, CLI: `voxtell-predict -i input.nii.gz -p "liver cyst"`
-- **GitHub**: https://github.com/MIC-DKFZ/VoxTell
-- **Challenge**: Our data is npy format, needs conversion to NIfTI; GPU requirements TBD
-- **Paper**: https://arxiv.org/abs/2511.11450
+**方法**：
+1. 用TF-IDF (max_features=5000, ngram_range=(1,2)) 对784条描述建立向量
+2. Leave-one-case-out检索top-3相似描述
+3. 用检索到的归一化bbox加权平均作为MedSAM prompt
 
-### 6.2 BiomedParse v2 (Microsoft) — Recommended Priority 2
+**结果**：Mean Dice = **0.0308**，53/91 targets Dice=0
 
-- **What**: Text-prompted medical image segmentation across 9 modalities
-- **Why**: Won 1st place at CVPR 2025 Foundation Models for Text-Guided 3D Segmentation Challenge (DSC 0.7497)
-- **Method**: 2.5D approach — encodes 3D context via Fractal Volumetric Encoding
-- **GitHub**: https://github.com/microsoft/BiomedParse
-- **Challenge**: Complex setup (detectron2, CUDA 12.4), specific preprocessing required
-
-### 6.3 M3D-LaMed (BAAI) — Recommended Priority 3
-
-- **What**: Multi-modal LLM for 3D medical image analysis, with referring expression segmentation
-- **Why**: **Designed specifically for M3D-RefSeg dataset** — zero data format conversion needed. Input is exactly our (1, 32, 256, 256) npy files
-- **Models**: Phi-3-4B (recommended, ~16GB VRAM) or Llama-2-7B
-- **GitHub**: https://github.com/BAAI-DCAI/M3D
-- **HuggingFace**: `GoodBaiBai88/M3D-LaMed-Phi-3-4B`
-- **Challenge**: 16GB VRAM needed, may be tight on RTX 4070 12GB
-
-### 6.4 SegVol (BAAI, NeurIPS 2024)
-
-- **What**: 3D CT segmentation with text/point/bbox prompts
-- **Limitation**: Only supports predefined anatomical labels (200+), not free-form text
-- **Workaround**: Use LLM to map free-text descriptions to anatomical label names
-- **GitHub**: https://github.com/BAAI-DCAI/SegVol
-
-### 6.5 Hybrid Pipeline (Combine Models)
-
-- **Stage 1**: Use VoxTell/BiomedParse for text-guided coarse localization
-- **Stage 2**: Extract bbox from coarse prediction, feed to MedSAM for refined segmentation
-- **Rationale**: Leverage text understanding of one model + segmentation quality of another
-
-### 7.6 MedCLIP-SAMv2 (MICCAI 2024 / MedIA 2025)
-
-- **What**: BiomedCLIP + M2IB generates spatial saliency from text+image → derives bbox → SAM segments
-- **Architecture**: Three-stage pipeline — text+image → Information Bottleneck saliency map → bbox/point prompts → SAM
-- **Text encoder**: BiomedCLIP (PubMedBERT + ViT-B), fine-tuned with DHN-NCE loss
-- **Key mechanism**: M2IB optimizes a learnable mask at ViT layer to find image regions most relevant to text (10 gradient steps per image)
-- **Limitation**: 2D only, need to process slice-by-slice
-- **Best use**: Extract BiomedCLIP+M2IB as text→saliency module, convert saliency to bbox, feed to MedSAM (fully decoupled)
-- **GitHub**: https://github.com/HealthX-Lab/MedCLIP-SAMv2
-- **GPU**: ~4-6 GB with SAM ViT-B, fits RTX 4070
+**失败原因**：词袋相似度无法提供空间定位。不同患者的同一解剖结构在npy中占据不同像素坐标（因裁剪/缩放不同）。
 
 ---
 
-## 8. Recommended Next Steps
+### Exp5: Prompt Compiler（结构化解析 + Atlas先验 + 检索）
 
-1. **Try MedCLIP-SAMv2 pipeline** — BiomedCLIP+M2IB generates per-slice saliency from text+image → bbox → MedSAM. The only approach that does joint text-image reasoning. Fits 12GB.
-2. **Try M3D-LaMed** — zero data conversion, designed for our exact task. May need fp16/quantization to fit 12GB.
-3. **Try VoxTell** — strongest free-text capability, pip-installable. Convert npy → NIfTI.
-4. **Try BiomedParse v2** — CVPR 2025 challenge winner, likely strongest overall performance.
-5. Compare all results on same 30 cases as current MedSAM baseline.
+**脚本**：`experiments/scripts/inference_prompt_compiler.py`
+
+**方法**：
+1. 文本解析 → 结构化slots（anatomy, side, finding_type, target_form, level）
+2. Atlas空间先验（硬编码的解剖位置映射）
+3. 结构化相似度检索（anatomy=4分, side=2分, finding_type=2分, level=2分）
+4. Alpha混合atlas先验和检索先验
+5. 按目标类型路由：focal/diffuse/bony/multifocal不同后处理
+
+**结果**：Mean Dice = **0.0235**，0/91 Dice≥0.5
+
+**失败原因**：与Exp4相同 — **空间坐标在不同患者间不可迁移**。npy volume经过不同裁剪/缩放，"右肾"在不同患者的像素空间中位置完全不同。
 
 ---
 
-## 8. Environment
+### Exp4-5 的关键教训
 
-- **Hardware**: NVIDIA RTX 4070, 12GB VRAM
-- **Software**: Python (Miniconda PBAI env), PyTorch 2.11.0+cu126, CUDA 13.0
-- **OS**: Windows 11
+> **文本无法在不看图像的情况下映射到像素坐标。** 任何text-only → spatial的方法（检索、atlas、规则）在这个数据格式下注定失败。解决方案必须涉及**联合text-image推理**：模型必须同时看到图像和理解文本。
 
 ---
 
-## 9. File Structure
+### Exp6 & Exp7: MedCLIP-SAMv2 (BiomedCLIP + M2IB → bbox → MedSAM)
+
+**脚本**：`inference_medclip_medsam.py`
+
+**这是第一个真正做联合text-image推理的方案。**
+
+#### 架构与原理
+
+```
+Text ("右侧腹股沟区肿块")
+       ↓
+  BiomedCLIP Text Encoder → text features (512-dim)
+       ↓                           ↓
+  BiomedCLIP Vision Encoder    cos_similarity
+  (224×224 CT slice)               ↓
+       ↓                    loss = β×compression - fitting
+  M2IB Information Bottleneck
+  (在ViT第7层插入可学习mask，
+   10步梯度优化)
+       ↓
+  Saliency Map (224×224 热力图)
+       ↓
+  二值化 → Bounding Box
+       ↓
+  Scale到原始分辨率 → MedSAM → 分割mask
+```
+
+**核心机制 — M2IB（Multi-Modal Information Bottleneck）**：
+- 在ViT的某一层插入一个可学习的mask（alpha参数）
+- 通过sigmoid将alpha转为[0,1]的"通过率"lambda
+- 目标函数：最大化text-image余弦相似度，同时最小化信息流量
+- 优化10步后，alpha的分布就反映了图像中哪些patch对当前文本最重要
+- 最终从alpha提取saliency map → 二值化 → bbox
+
+#### 实现过程与bug修复
+
+**模型加载**：
+- 最初使用 `open_clip` 加载BiomedCLIP base → saliency map完全均匀（mean=0.6，不区分文本）
+- 下载DHN-NCE fine-tuned权重（784MB）→ 发现权重是HuggingFace格式，与open_clip不兼容
+- **最终方案**：直接用 `AutoModel.from_pretrained("MedCLIP-SAMv2/saliency_maps/model", trust_remote_code=True)` 加载HF格式模型
+- 修复了 `modeling_biomed_clip.py` 中 `from transformers.models.clip.modeling_clip import *` 在新版transformers中的导入问题
+
+**Wrapper重构**：
+- 移除了6个自定义wrapper类（VisionEmbeddings, ImageEncoderWrapper, TextEmbeddings, TextEncoderWrapper, BiomedCLIPWrapper, permute_then_forward）
+- HF模型原生支持IBA所需的所有接口：
+  - `model.vision_model(img, output_hidden_states=True)` → hidden_states
+  - `model.get_text_features(text_ids)` → 512-dim features
+  - `model.get_image_features(pixel_values)` → 512-dim features
+  - `model.vision_model.encoder.layers[i]` → 可被replace_layer替换
+
+**之前在open_clip wrapper上修复的6个bug**（已被重构淘汰）：
+1. `TypeError: 'Embedding' object is not subscriptable` — BiomedCLIP的pos_emb是nn.Embedding
+2. `AttributeError: 'BertLayer' has no attribute 'attn'` — BERT层属性名不同于ViT
+3. `AttributeError: 'tuple' object has no attribute 'clone'` — InformationBottleneck返回tuple
+4. `TypeError: unsupported operand @ for Sequential` — text_projection是Sequential不是矩阵
+5. `RuntimeError: size mismatch 768 vs 512` — 返回了hidden state而非projected output
+6. Saliency map均匀 — 使用base BiomedCLIP而非fine-tuned
+
+#### 实验结果
+
+**Exp6（无slice过滤，3 cases）**：
+
+| case | target | GT voxels | Pred voxels | Dice |
+|------|--------|-----------|-------------|------|
+| s0000 | 腹股沟肿块 | 9,913 | 226,168 | 0.049 |
+| s0000 | 盆腔淋巴结 | 461 | 276,282 | 0.002 |
+| s0001 | 胆囊窝结节 | 0 | 474,321 | 0.0 |
+| s0002 | 颈椎低密度结节 | 62 | 618,351 | 0.0 |
+
+Mean Dice = **0.0073**。严重过分割：每个slice都生成bbox，pred远超gt。
+
+**诊断**：
+- 每个slice都有saliency响应 → 32/32 slices都产生bbox
+- BiomedCLIP无法判断哪些slice包含目标
+
+**Exp7（加入slice聚焦度过滤，5 cases）**：
+
+改进：按saliency聚焦度 `focus = peak × (1 - coverage)` 排序，只保留top一半slice。
+
+| case | target | GT voxels | Pred voxels | Slices | Dice |
+|------|--------|-----------|-------------|--------|------|
+| s0000 | 腹股沟肿块 | 9,913 | 79,854 | 16 | 0.060 |
+| s0003 | 颈椎曲度反弓 | 12,338 | 34,470 | 16 | **0.236** |
+| s0004 | 肝缘不规则(肝硬化) | 45,600 | 199,082 | 16 | 0.086 |
+| s0004 | 脾大 | 34,142 | 136,153 | 16 | 0.000 |
+
+Mean Dice = **0.0284**。大面积弥漫性目标（颈椎病0.24）有一定效果，小目标仍然失败。
+
+#### Saliency map质量分析
+
+对同一slice测试不同文本query的saliency：
+
+| 文本 | Mean | >0.5覆盖率 | BBox (224空间) |
+|------|------|-----------|---------------|
+| "右侧腹股沟肿块" | 0.240 | 4.2% | [108,85,143,111] (小) |
+| "盆腔淋巴结" | 0.312 | 10.6% | [82,77,156,114] (中) |
+| "正常肝实质" | 0.315 | 9.6% | [75,76,155,111] (中) |
+
+Saliency有一定区分度（不同文本产生不同热力图），但不够精确。
+
+#### CLS级别slice排序测试
+
+测试用全局cosine similarity在32个slice中定位目标slice：
+
+- **腹股沟肿块（11个GT slice）**：Top-10中命中9个（recall=82%），效果好
+- **盆腔淋巴结（3个GT slice）**：Top-10中只命中1个（recall=33%），效果差
+
+结论：大/明显的病变可以定位，小/散在的病变无法定位。
+
+---
+
+## 4. 失败分析总结
+
+### 4.1 过分割是主要失败模式
+
+Oracle bbox下：46%目标预测量>GT的3倍。
+
+### 4.2 按目标大小的表现（Oracle bbox）
+
+| GT大小 | 数量 | Mean Dice | 过分割比 |
+|--------|------|-----------|----------|
+| < 50 voxels | 12 | 0.329 | 5.3x |
+| 50 - 500 | 26 | 0.469 | 4.1x |
+| 500 - 5K | 31 | 0.422 | 3.8x |
+| 5K - 50K | 12 | 0.756 | 1.4x |
+| > 50K | 2 | 0.601 | 2.6x |
+
+### 4.3 三种text-guided方法失败的根本原因
+
+| 方法 | 失败原因 |
+|------|----------|
+| TF-IDF检索 | 词袋相似度无法映射空间位置 |
+| Prompt Compiler | Atlas先验在不同裁剪/缩放的npy间不可迁移 |
+| MedCLIP-SAMv2 | BiomedCLIP是2D模型，CT切片与训练数据差异大；saliency太散；无法判断目标在哪些slice上 |
+
+**共同根因**：在不训练的条件下，没有模型能同时理解（1）医学文本的语义（2）CT切片的空间解剖（3）两者之间的对应关系。
+
+---
+
+## 5. 下一步方案调研
+
+### 方案一：M3D-LaMed（⭐推荐优先级最高）
+
+**来源**：BAAI（智源研究院），2024年4月发布
+
+**架构**：
+- 3D视觉编码器（CLIP策略预训练，12万image-text对）
+- 3D空间池化感知器（压缩3D token序列）
+- LLM骨干：LLaMA-2-7B 或 Phi-3-4B（轻量版）
+- SegVol分割模块：通过`[SEG]`token触发3D mask生成
+
+**为什么推荐**：
+- **M3D-RefSeg就是它的benchmark** — 数据格式完全匹配 (1×32×256×256 npy)
+- 不需要任何数据转换，直接推理
+- 原生支持自由文本 → 3D分割
+- 有Phi-3-4B轻量版，12GB fp16可能够用
+
+**代码/权重**：
+- GitHub: `BAAI-DCAI/M3D`
+- HuggingFace: `GoodBaiBai88/M3D-LaMed-Phi-3-4B`
+- Apache 2.0开源
+
+**显存**：7B版本fp16约14GB（偏紧），4B版本推荐
+
+---
+
+### 方案二：SegVol
+
+**来源**：BAAI，NeurIPS 2024
+
+**架构**：
+- 3D ViT编码器（SimMIM预训练，9.6万CT）
+- CLIP文本编码器（冻结）
+- Prompt编码器（点/框/文本）
+- Mask解码器（交叉注意力融合）
+- Zoom-Out-Zoom-In推理机制
+
+**特点**：
+- 支持200+解剖结构
+- 文本prompt限于标准解剖学术语（"liver"、"kidney"），非自由文本
+- 需从描述中提取关键词
+
+**代码/权重**：
+- GitHub: `BAAI-DCAI/SegVol`
+- HuggingFace: `BAAI/SegVol`
+- 输入格式支持 npy、NIfTI、DICOM
+
+---
+
+### 方案三：BiomedParse v2
+
+**来源**：Microsoft Research，发表于Nature Methods 2025
+
+**架构**：
+- BoltzFormer架构
+- 600万 image-mask-text 三元组训练
+- 82种目标类型，9种影像模态
+- v2新增3D支持（逐slice+邻近context编码为RGB）
+
+**特点**：
+- 原生支持text-guided分割
+- 文本prompt比bbox更好用
+- 支持CT、MR、PET、超声、病理等
+
+**局限**：
+- 逐slice处理3D（和MedCLIP-SAMv2类似）
+- 显存需求≥16GB
+- 环境搭建复杂（Python 3.10.14, CUDA 12.4）
+
+**代码/权重**：
+- GitHub: `microsoft/BiomedParse`
+- HuggingFace: `microsoft/BiomedParse` (biomedparse_v2.ckpt)
+
+---
+
+### 方案四：Fine-tune BiomedCLIP
+
+**目标**：在现有MedCLIP-SAMv2框架下，用M3D-RefSeg数据fine-tune BiomedCLIP，提升saliency map质量。
+
+**方法**：
+- DHN-NCE对比学习loss（代码已有：`MedCLIP-SAMv2/biomedclip_finetuning/`）
+- 或 LoRA低秩适配（参数减少99.5%，12GB够用）
+- 784个text-image对超过最低可行阈值（200-300）
+
+**训练配置**：
+```
+batch_size=16, epochs=32~50, lr=2e-4
+LoRA: rank=16, alpha=32
+DHN-NCE: temperature=0.6, beta1=beta2=0.15
+```
+
+**预计时间**：RTX 4070上 4-8小时
+
+**预期效果**：
+- Saliency map从覆盖30-50% → 缩小到更聚焦区域
+- 但仍是2D逐slice方案，无法解决"目标在哪些slice"的问题
+- 预估Dice可能从0.03提升到0.05-0.10
+
+---
+
+### 方案对比
+
+| | M3D-LaMed | SegVol | BiomedParse v2 | Fine-tune BiomedCLIP |
+|---|---|---|---|---|
+| **数据兼容** | 完美（专用） | 需适配 | 需转格式 | 需转2D |
+| **3D原生** | ✅ | ✅ | ❌（逐slice） | ❌（逐slice） |
+| **自由文本** | ✅ | ❌（关键词） | ✅ | ✅ |
+| **12GB可行** | 4B版勉强 | 需测试 | 可能不够 | ✅（LoRA） |
+| **部署难度** | 低（pip） | 中 | 高 | 中（需训练） |
+| **需要训练** | ❌ | ❌ | ❌ | ✅（4-8h） |
+| **预期效果** | 最高 | 中高 | 高 | 中 |
+
+---
+
+## 6. 文件结构
 
 ```
 D:/M3D/
-├── inference_medsam_refseg.py          # Baseline MedSAM inference (oracle bbox)
-├── inference_medsam_improved.py        # Improved version with tricks
-├── MedSAM/                             # Cloned MedSAM repository
-│   ├── segment_anything/               # SAM model code
+├── inference_medsam_refseg.py              # Exp1-2: MedSAM oracle bbox推理
+├── inference_medsam_improved.py            # Exp3: 推理tricks消融
+├── inference_medsam_retrieval.py           # Exp4: TF-IDF文本检索→bbox→MedSAM
+├── inference_medclip_medsam.py             # Exp6-7: MedCLIP-SAMv2 pipeline
+├── project_status.md                       # 本文档
+├── plan.md                                 # 用户提供的改进路线图
+│
+├── MedSAM/                                 # MedSAM仓库
+│   ├── segment_anything/                   # SAM模型代码
 │   └── work_dir/
-│       ├── MedSAM/medsam_vit_b.pth            # Original SAM ViT-B weights (358MB)
-│       └── MedSAM_finetuned/medsam_vit_b.pth  # MedSAM fine-tuned weights (375MB)
-├── M3D_RefSeg_npy/                     # Dataset (208 cases, .gitignored)
+│       ├── MedSAM/medsam_vit_b.pth               # SAM ViT-B原始权重 (358MB)
+│       └── MedSAM_finetuned/medsam_vit_b.pth     # MedSAM fine-tuned权重 (375MB)
+│
+├── MedCLIP-SAMv2/                          # MedCLIP-SAMv2仓库
+│   ├── saliency_maps/
+│   │   ├── model/                          # BiomedCLIP HF模型 + fine-tuned权重
+│   │   │   ├── pytorch_model.bin           # DHN-NCE fine-tuned权重 (784MB)
+│   │   │   ├── modeling_biomed_clip.py     # 自定义HF模型定义
+│   │   │   └── config.json
+│   │   ├── scripts/                        # IBA/M2IB原始代码
+│   │   └── generate_saliency_maps.py       # 原始saliency生成脚本
+│   └── biomedclip_finetuning/              # BiomedCLIP fine-tuning代码
+│
+├── experiments/                            # Exp5: Prompt Compiler实验
+│   ├── scripts/
+│   │   ├── prompt_compiler/                # 编译器代码 (compiler.py, retrieval.py)
+│   │   └── inference_prompt_compiler.py    # 推理脚本
+│   ├── results/
+│   └── README.md
+│
+├── M3D_RefSeg_npy/                         # 数据集 (208 cases, .gitignored)
 │   ├── s0000/ {ct.npy, mask.npy, text.json}
-│   ├── s0001/ ...
 │   └── ...
-├── results_medsam/                     # SAM weights results (50 cases)
-├── results_medsam_ft/                  # MedSAM fine-tuned results (30 cases)
-├── results_medsam_improved/            # Improved tricks results (30 cases)
-└── project_status.md                   # This document
+│
+├── results_medsam/                         # Exp1结果 (SAM权重, 50 cases)
+├── results_medsam_ft/                      # Exp2结果 (MedSAM权重, 30 cases)
+├── results_medsam_improved/                # Exp3结果 (tricks消融, 30 cases)
+├── results_medsam_retrieval/               # Exp4结果 (TF-IDF检索, 30 cases)
+├── results_medclip_medsam/                 # Exp6结果 (MedCLIP-SAMv2 v1, 3 cases)
+└── results_medclip_medsam_v2/              # Exp7结果 (MedCLIP-SAMv2 v2, 5 cases)
 ```
+
+---
+
+## 7. 技术笔记
+
+### MedSAM vs CLIP 的本质区别
+
+- **MedSAM (SAM)**：纯视觉模型，接受视觉prompt（bbox/point/mask）→ 分割mask。**没有文本理解能力**。
+- **CLIP/BiomedCLIP**：视觉-语言对齐模型，将图像和文本映射到同一embedding空间。**有文本理解但没有分割能力**。
+- **MedCLIP-SAMv2**：用CLIP做text-image对齐 → 生成saliency → 转为bbox → 送入SAM分割。桥接两者。
+
+### M2IB Information Bottleneck 原理
+
+1. 在ViT的第k层（默认layer=7）插入一个可学习的mask α（shape同hidden state）
+2. 通过sigmoid(α)得到"通过率"λ∈[0,1]
+3. 原始hidden state × λ = 被mask后的表示
+4. 优化目标：`loss = β × compression - cos_sim(text, image)`
+   - compression = KL散度，衡量信息流量
+   - cos_sim = 文本和图像特征的余弦相似度
+5. 10步Adam优化后，α的分布反映了哪些patch对当前文本最重要
+
+### 数据格式核心问题
+
+M3D-RefSeg的npy volume (1, 32, 256, 256) 是经过**per-patient裁剪和缩放**的：
+- 不同患者的相同解剖结构在像素空间中位置不同
+- 没有统一的世界坐标系
+- 因此任何"从文本推断像素坐标"的方法都会失败
+- 必须**看图像**才能定位
