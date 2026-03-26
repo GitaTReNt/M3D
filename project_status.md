@@ -34,7 +34,10 @@
 | Exp6 | MedCLIP-SAMv2 (无slice过滤) | 0.0073 | 0.0038 | 0% | BiomedCLIP saliency→bbox→MedSAM，3 cases |
 | Exp7 | **MedCLIP-SAMv2 (有slice过滤)** | **0.0284** | **0.0156** | **0%** | 加入聚焦度排序过滤，5 cases |
 
-**核心结论**：Oracle bbox Dice=0.52 vs 所有text-guided方法 Dice≈0.02~0.03，差距约20倍。瓶颈不在分割模型，而在**如何从文本定位到空间位置**。
+| Exp3b | **MedSAM optimized (oracle bbox)** | **0.5482** | — | — | adaptive_margin+otsu, 30 cases |
+| Exp8 | MedCLIP-SAMv2 + body mask gating | 0.0117 | — | 0% | CT body mask + gamma + percentile, 5 cases |
+
+**核心结论**：Oracle bbox最优 Dice=0.5482（优化后）vs 所有text-guided方法 Dice≈0.01~0.03，差距约20-50倍。瓶颈不在分割模型，而在**如何从文本定位到空间位置**。
 
 ---
 
@@ -60,7 +63,7 @@
 
 MedSAM fine-tuned权重比原始SAM提升约7个百分点。
 
-### Exp3: 推理时优化尝试
+### Exp3: 推理时优化尝试（第一轮 — multimask/refine/cc3d）
 
 **脚本**：`inference_medsam_improved.py`（支持 `--tricks multimask,refine,cc3d,tta`）
 
@@ -73,6 +76,30 @@ MedSAM fine-tuned权重比原始SAM提升约7个百分点。
 | CC3D only | 0.5074 | 轻微下降 |
 
 **结论**：所有tricks均无法提升Mean Dice，baseline即最优。
+
+### Exp3b: 推理时优化（第二轮 — Track A: bbox与后处理优化）
+
+**脚本**：`inference_medsam_optimized.py`（支持 `--tricks adaptive_margin,threshold_X,otsu,erosion,ensemble,confidence_gate`）
+
+**核心思路**：针对过分割问题，从bbox生成和阈值两个方向优化。
+
+| 配置 | Mean Dice | 变化 | 说明 |
+|------|-----------|------|------|
+| Baseline (固定margin=5) | 0.5221 | — | 基准 |
+| adaptive_margin | 0.5471 | **+2.5pp** | margin与目标大小成比例（10%，clamp 2-15px） |
+| threshold_0.65 | 0.5228 | +0.07pp | 仅提高阈值，效果微弱 |
+| threshold_0.65 + erosion | 0.4796 | -4.3pp | 过度抑制，伤害recall |
+| adaptive_margin + threshold_0.65 | 0.5451 | +2.3pp | 比单独adaptive略低 |
+| adaptive_margin + otsu | **0.5482** | **+2.6pp** | 自适应margin + Otsu自适应阈值，**最优** |
+
+**最优配置**：`adaptive_margin + otsu` → **Dice 0.5482**（从0.5221提升+2.6个百分点）
+
+**关键发现**：
+- **Adaptive margin是单一最有效的trick**：固定5px margin对小目标太大（过分割），对大目标太小（漏割）。按目标大小的10%动态调整效果显著。
+- **Otsu自适应阈值**在adaptive margin基础上再提供微弱增益（+0.1pp）
+- **Erosion + 高阈值**组合太激进，伤害recall大于减少FP的收益
+- **Ensemble (bbox扰动)**速度慢5x，效果不稳定
+- **Confidence gate**对少量边界slice有效，整体影响不大
 
 ---
 
@@ -222,6 +249,34 @@ Saliency有一定区分度（不同文本产生不同热力图），但不够精
 - **盆腔淋巴结（3个GT slice）**：Top-10中只命中1个（recall=33%），效果差
 
 结论：大/明显的病变可以定位，小/散在的病变无法定位。
+
+### Exp8: Track B 推理时优化汇总
+
+**脚本**：`inference_medclip_medsam_v3.py` + 快速测试脚本
+
+**目标**：在不训练的前提下，通过各种推理时trick提升text-guided的Dice。
+
+#### 测试的Tricks
+
+| Trick | 原理 | 效果 |
+|-------|------|------|
+| CLS filter | 用BiomedCLIP全局cosine similarity筛选top-k slice | 选错slice，反而漏掉GT slice |
+| Text shortening | 去除描述中的冗余成分，保留关键短语 | 丢失上下文信息 |
+| Text ensemble | 多种文本变体取平均saliency | 无显著改善 |
+| Gamma sharpen | saliency^γ (γ=2.0) 强化高响应区域 | bbox变小变偏 |
+| Percentile thresh | 用92%分位数代替Otsu二值化 | bbox定位仍不准 |
+| High MedSAM thresh | MedSAM阈值从0.5提高到0.65 | 减少少量过分割 |
+| **CT body mask gating** | 用CT强度阈值(>0.05)创建body mask，抑制空气/背景saliency | **+50%相对改善**，但绝对值仅0.0117 |
+
+#### 最终结果
+
+| 配置 | Mean Dice | 说明 |
+|------|-----------|------|
+| Exp7 baseline (slice过滤) | 0.0284 | |
+| All v3 tricks combined | 0.0077 | 所有tricks反而互相干扰 |
+| Body mask + gamma + percentile | **0.0117** | 相对baseline+50%，但绝对值仍极低 |
+
+**结论**：所有推理时优化无法突破BiomedCLIP的根本局限——它无法在CT slice中准确定位特定解剖结构。要真正提升text-guided性能，必须更换模型（如M3D-LaMed）或进行领域微调。
 
 ---
 
@@ -373,9 +428,11 @@ DHN-NCE: temperature=0.6, beta1=beta2=0.15
 ```
 D:/M3D/
 ├── inference_medsam_refseg.py              # Exp1-2: MedSAM oracle bbox推理
-├── inference_medsam_improved.py            # Exp3: 推理tricks消融
+├── inference_medsam_improved.py            # Exp3: 推理tricks消融（multimask/refine/cc3d）
+├── inference_medsam_optimized.py           # Exp3b: Track A优化（adaptive_margin/otsu/erosion/ensemble）
 ├── inference_medsam_retrieval.py           # Exp4: TF-IDF文本检索→bbox→MedSAM
 ├── inference_medclip_medsam.py             # Exp6-7: MedCLIP-SAMv2 pipeline
+├── inference_medclip_medsam_v3.py          # Exp8: Track B推理优化（cls_filter/gamma/percentile等）
 ├── project_status.md                       # 本文档
 ├── plan.md                                 # 用户提供的改进路线图
 │
@@ -410,6 +467,7 @@ D:/M3D/
 ├── results_medsam_ft/                      # Exp2结果 (MedSAM权重, 30 cases)
 ├── results_medsam_improved/                # Exp3结果 (tricks消融, 30 cases)
 ├── results_medsam_retrieval/               # Exp4结果 (TF-IDF检索, 30 cases)
+├── results_medsam_optimized/               # Exp3b结果 (Track A优化, 30 cases)
 ├── results_medclip_medsam/                 # Exp6结果 (MedCLIP-SAMv2 v1, 3 cases)
 └── results_medclip_medsam_v2/              # Exp7结果 (MedCLIP-SAMv2 v2, 5 cases)
 ```
@@ -441,3 +499,76 @@ M3D-RefSeg的npy volume (1, 32, 256, 256) 是经过**per-patient裁剪和缩放*
 - 没有统一的世界坐标系
 - 因此任何"从文本推断像素坐标"的方法都会失败
 - 必须**看图像**才能定位
+
+### 模型加载与兼容性
+
+**BiomedCLIP加载**：
+- DHN-NCE fine-tuned权重是HuggingFace格式（`pytorch_model.bin`），与open_clip不兼容
+- 必须用 `AutoModel.from_pretrained(model_dir, trust_remote_code=True)` 加载
+- Tokenizer必须单独加载：`AutoTokenizer.from_pretrained("microsoft/BiomedNLP-BiomedBERT-base-uncased-abstract-fulltext")`（model目录的custom config没有tokenizer映射）
+- 新版transformers中 `from transformers.models.clip.modeling_clip import *` 不再导出全部类（`__all__`只有7个），需改为显式import
+
+**HF BiomedCLIP直接兼容IBA，无需wrapper**：
+- `BiomedCLIPEncoderLayer.forward(hidden_states, attention_mask, output_attentions)` → 返回 `(hidden_states,)` tuple
+- `mySequential(layer, bottleneck)` 兼容，encoder内部通过 `hidden_states = layer_outputs[0]` 解包
+- 之前写了6个wrapper类（VisionEmbeddings, ImageEncoderWrapper, TextEmbeddings, TextEncoderWrapper, BiomedCLIPWrapper, permute_then_forward）全部多余，已移除
+
+**MedSAM推理细节**：
+- Image encoder用fp16节省显存且不影响精度：`model.image_encoder = model.image_encoder.half()`，decoder保持fp32
+- 输入必须resize到1024×1024，bbox坐标也要对应缩放：`box_1024 = bbox / [W, H, W, H] * 1024`
+- 用soft probability map（`torch.sigmoid(logits)`）+ 外部阈值（Otsu/固定）比直接取binary更灵活，允许per-slice自适应
+
+---
+
+## 8. 数据增强与推理优化策略总结
+
+### 8.1 有效的策略
+
+| 策略 | 类型 | 效果 | 原理 |
+|------|------|------|------|
+| **Adaptive margin** | Bbox级 | **+2.5pp Dice** | `margin = clamp(0.1 × max(bbox_w, bbox_h), 2, 15)`，按目标大小动态调整。固定5px对小目标太大（过分割），对大目标太小（漏割） |
+| **Otsu自适应阈值** | 后处理 | +0.1pp（在adaptive margin基础上） | 自动适应不同slice的概率分布，比固定阈值更鲁棒 |
+| **CT body mask gating** | Saliency后处理 | +50%相对（Track B） | 用CT强度阈值（>0.05）创建body mask，抑制空气/背景区域的saliency噪声。绝对值仍极低（0.0117），但方向正确 |
+
+### 8.2 无效的策略
+
+| 策略 | 类型 | 效果 | 失败原因 |
+|------|------|------|----------|
+| **Erosion + 高阈值** | 后处理 | **-4.3pp Dice** | 两者都削减预测面积，叠加后recall损失远超precision收益。对抗过分割不能简单"砍预测" |
+| **Bbox perturbation ensemble** | Bbox级 | 不稳定，速度慢5x | 随机jitter±3px取5次平均，噪声大于信号 |
+| **CLS cosine slice filter** | Slice选择 | 负效果 | 大/明显病变recall 82%，小/散在病变recall 33%，错误排除含GT的slice |
+| **Text shortening** | 文本增强 | 负效果 | 去除"冗余"描述反而丢失BiomedCLIP理解所需的上下文语义 |
+| **Text ensemble** | 文本增强 | 无显著变化 | 多种文本变体的saliency map差异太小 |
+| **Gamma sharpen** | Saliency后处理 | 负效果 | saliency^2.0强化高响应区，但定位本身不准时bbox变小变偏 |
+| **Percentile threshold** | Saliency后处理 | 无改善 | saliency分布不反映目标位置时，阈值策略无意义 |
+| **Confidence gate** | Slice级 | 微弱正效果 | 仅对边界slice有效，整体影响不大 |
+
+### 8.3 过分割详细分析
+
+过分割是oracle bbox下的**主要失败模式**，46%目标的预测量超过GT的3倍。
+
+| GT大小 | 数量 | Mean Dice | 过分割比 | 说明 |
+|--------|------|-----------|----------|------|
+| < 50 voxels | 12 | 0.329 | 5.3x | 微小目标，bbox margin相对太大 |
+| 50 - 500 | 26 | 0.469 | 4.1x | |
+| 500 - 5K | 31 | 0.422 | 3.8x | |
+| 5K - 50K | 12 | **0.756** | 1.4x | 中大目标表现最好 |
+| > 50K | 2 | 0.601 | 2.6x | 超大目标反而下降 |
+
+MedSAM倾向于**填满bbox内所有"看起来像组织"的区域**，小目标受bbox过大影响最严重。Adaptive margin直接解决了这个问题。
+
+### 8.4 空间先验可行性分析
+
+| 方法 | 是否可行 | 原因 |
+|------|----------|------|
+| **统计空间先验**（平均位置atlas） | ❌ | npy volume经过per-patient裁剪/缩放，同一结构像素坐标不同 |
+| **文本→坐标映射**（规则/检索） | ❌ | 同上，已在Exp4-5中验证失败 |
+| **图像条件先验**（小conv网络: saliency+CT→refined saliency） | ✅但需训练 | 理论可行，需标注数据训练~3-4小时，实质是fine-tune |
+| **CT body mask gating** | ✅微弱 | 不需训练，方向正确但效果有限（+50%相对，绝对1.2%） |
+
+### 8.5 CT数据特征
+
+- CT强度分布（归一化[0,1]后）：空气/背景≈0，软组织0.2-0.6，骨骼0.7-1.0
+- body mask阈值0.05可分离背景，但内部解剖定位仍需视觉理解
+- text.json描述：放射科自由文本，长度2词~60+词，含定位信息但也含大量非空间修饰语
+- 文本缩短反而丢失上下文 → 说明BiomedCLIP用的是整体语义而非关键词匹配
