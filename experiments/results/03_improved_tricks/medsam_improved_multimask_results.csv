@@ -1,0 +1,92 @@
+case_id,mask_id,label_desc,gt_voxels,pred_voxels,slices_with_roi,dice,iou
+s0000,1,"An irregular-shaped mass in the right inguinal region with enhancement at the edge on enhanced scanning, with high-densi",9913,12501,11,0.7826,0.6429
+s0000,2,"Several enlarged lymph nodes in the pelvic vessels and right inguinal region, with a tendency towards benign inflammator",461,8684,3,0.0359,0.0183
+s0001,1,"A small nodular density shadow is seen in the gallbladder fossa, and the gallbladder is not displayed. It is considered ",0,0,0,1.0,1.0
+s0001,2,"Right renal pelvis dilation extending towards the renal hilum, considering it as a pelvicalyceal type renal pelvis",152,133,1,0.8211,0.6964
+s0001,3,"High-density small nodular shadows are seen in the lower segment of the right ureter, which is considered to be small ca",4,25,1,0.1379,0.0741
+s0002,1,"A low-density nodule on the left side of the sixth cervical vertebra. The boundary is clear, the vertebral body is intac",62,81,1,0.3497,0.2119
+s0002,2,A high-density nodule is seen above the vocal cords and above the ring-shaped cartilage. It may be a foreign body.,38,94,1,0.5303,0.3608
+s0003,1,"Cervical lordosis is reversed, the sequence is uneven, and cervical spondylosis is considered.",12338,10553,20,0.834,0.7153
+s0003,2,"The mucosa of the left floor of the mouth is slightly thickened, suggesting benign changes, possibly indicative of chron",228,220,2,0.6652,0.4983
+s0004,1,Ascites,52910,262657,20,0.2801,0.1629
+s0004,2,"Irregular liver edge, considering cirrhosis",45600,51018,8,0.8076,0.6773
+s0004,3,"Dilation of portal vein and splenic vein, considering portal hypertension caused by cirrhosis",1386,5130,4,0.3554,0.2161
+s0004,4,"Multiple low-density nodules in both kidneys, considering multiple renal cysts",392,415,1,0.7633,0.6172
+s0004,5,Splenomegaly,34142,36889,9,0.9262,0.8625
+s0006,1,"High density nodules in the intramural segment of the right ureteral wall, considered as small calculi",0,0,0,1.0,1.0
+s0009,1,Linear high density shadow seen in the posterior margin of the spinal cord extramedullary epidural space within the spin,3040,5380,23,0.5732,0.4017
+s0010,1,A small cyst with no enhancement is seen in the upper pole of the right kidney.,204,240,2,0.6532,0.4849
+s0010,2,"A round slightly low-density nodule is seen in the lower pole of the right kidney, with unclear boundaries. It may be no",85,160,2,0.449,0.2895
+s0012,1,"Multiple high-density calcification foci in the abdominal cavity, benign change",153,1443,4,0.1115,0.0591
+s0012,2,"Fracture of the lamina of the L5 vertebral body, with anterior displacement, suggestive of Grade II spondylolisthesis.",4213,5115,4,0.7191,0.5614
+s0012,3,Fatty liver,120217,149371,13,0.8535,0.7444
+s0021,1,Cervical vertebral body upper edge localized osteosclerosis at C7,0,0,0,1.0,1.0
+s0021,2,Multiple nodular low-density shadows in the cervical vertebral body at C5,18,54,1,0.2222,0.125
+s0021,3,"Bony sclerosis seen at the relative margins of C5 and C6 vertebrae, considering spondylitis",507,738,3,0.604,0.4327
+s0021,4,Localized osteosclerosis at the upper edge of the cervical vertebral body at C7,2946,5272,4,0.6238,0.4532
+s0024,1,"Aortic intima double cavity image seen, consider dissection",6490,12978,15,0.5646,0.3934
+s0024,2,Multiple cystic low density shadows in liver,168,274,2,0.6063,0.4351
+s0024,3,"Low density shadow in upper pole of left kidney, possible cyst",23,55,1,0.5385,0.3684
+s0024,4,High density nodule in upper lobe of left lung,0,0,0,1.0,1.0
+s0028,1,"Hazy shadows in the form of plaques around the mesenteric vessels, considering mesenteric panniculitis",1621,1069,4,0.5524,0.3816
+s0028,2,"Cardia, lesser curvature, greater curvature, and antrum of the stomach show irregular thickening of the gastric wall.",664,1833,4,0.3596,0.2192
+s0029,1,Left renal low-density shadow with nodular metal shadow inside,52,141,2,0.3834,0.2372
+s0029,2,Multiple cystic low-density shadows in both kidneys,9,26,1,0.4,0.25
+s0029,3,"Soft tissue density shadow on the medial side of the spleen, considered accessory spleen",0,0,0,1.0,1.0
+s0029,4,Calcified lesion at the right margin of the liver,7,49,1,0.25,0.1429
+s0029,5,Postoperative bilateral hip joint replacement,3604,8233,7,0.5153,0.3471
+s0034,1,"Large areas of low density are seen in the left abdomen, with local liquid and mass-like mixed density. Consider local h",49005,65101,23,0.7709,0.6273
+s0037,1,Left lower lobe ground glass nodule,19,63,1,0.3902,0.2424
+s0038,1,Liver left lobe cystic low-density shadow,0,0,0,1.0,1.0
+s0038,2,Round low-density shadows in both kidneys.,0,0,0,1.0,1.0
+s0038,3,Spleen inspection slightly enlarged,13230,15241,9,0.8747,0.7773
+s0040,1,"Dilation of the bilateral renal pelvis with low density shadow, no dilation of the ureter, considering it as a calyx-sha",256,234,3,0.6041,0.4327
+s0043,1,"C5 vertebral body lower edge patchy high-density shadow, and local bone depression is visible",2146,3299,3,0.6017,0.4303
+s0044,1,Cervical vertebra 5 anterior and lower edge osteophyte,3867,6141,4,0.6037,0.4324
+s0044,2,Cervical vertebra 6 anterior and upper edge osteophyte,3672,6080,5,0.614,0.443
+s0046,1,"Multiple round transparent shadows in both lungs, considering bilateral emphysema",786,4909,9,0.1089,0.0576
+s0046,2,"Multiple nodular high-density shadows scattered in both lungs, considering pulmonary proliferation foci",28,122,2,0.2133,0.1194
+s0046,3,"Fibrillar shadow seen in the lower and lingual segments of the upper lobe of the left lung, clear boundary, considering ",103,134,2,0.3291,0.197
+s0046,4,"Focal calcification shadow seen in the wall of the aorta, considering atherosclerosis",191,449,9,0.3625,0.2214
+s0046,5,"A nodule-like low-density shadow is seen in the left lobe of the thyroid gland, with clear boundaries, suggesting ultras",384,657,3,0.5533,0.3825
+s0046,6,"A patchy slightly low-density shadow is seen in the right anterior segment of the liver, with unclear boundaries, sugges",1302,1752,2,0.7675,0.6227
+s0046,7,Cystic shadows are seen in the liver and left kidney,5209,14971,7,0.4521,0.2921
+s0046,8,"Osteophyte seen at the edge of the vertebral body of the spine, considering spinal degenerative changes",69,170,1,0.4184,0.2646
+s0050,1,"Lymph node behind the peritoneum larger than 1 cm, clear boundary, indicating lymph node enlargement",36,106,2,0.4085,0.2566
+s0056,1,"Soft tissue density shadow in the right maxillary sinus, CT value is about 25Hu, clear and smooth boundary, no expansion",346,468,5,0.6757,0.5102
+s0057,1,"Increased bone density at the margin of the vertebrae, irregular shape and equivalent to the density of the bone cortex,",2836,11647,30,0.273,0.1581
+s0057,2,"Loss of water in the intervertebral disc of the lumbar spine, causing narrowing of the intervertebral space due to bulgi",754,6429,19,0.1646,0.0897
+s0057,3,"The weight-bearing line of the lumbar spine is not centered and bending to the left (right), indicating poor stability o",1049,8800,21,0.0999,0.0526
+s0057,4,"Low-density shadow in the renal parenchyma. CT value is about 5HU, clear boundary, increased scanning is not enhanced, c",1840,8071,11,0.2912,0.1704
+s0057,5,"Diffuse distribution of low-density shadows in both renal pelvises, consistent with the distribution of renal pelvises, ",1391,13544,10,0.1742,0.0954
+s0058,1,"Increased bone density at the edge of the lumbar vertebrae, irregular shape, and similar density to the bone cortex, sug",914,4856,18,0.1712,0.0936
+s0058,2,"Loss of water in the intervertebral disc, herniation, or other causes leading to narrowing of the intervertebral space, ",747,3292,10,0.2976,0.1748
+s0058,3,"Mixed high-density shadows in the gallbladder, with irregular calcifications inside, suggesting gallstones.",225,232,2,0.7352,0.5813
+s0058,4,"The spleen is larger than 5 rib units. Length>10-12CM, width>6-8CM, thickness>3-4CM, suggesting splenomegaly.",13721,15545,8,0.8557,0.7478
+s0058,5,"Intestinal tube and mesentery fat seen in subcutaneous tissue in front of the abdominal rectus muscle, suggesting an abd",8099,7864,8,0.772,0.6287
+s0059,1,"Increased bone density at the edge of the lumbar vertebrae, irregular shape, and equivalent density to the cortical bone",726,4385,12,0.1295,0.0692
+s0059,2,"Loss of moisture in the intervertebral disc, herniation, etc., leading to narrowing of the intervertebral space, suggest",825,3532,15,0.2924,0.1712
+s0059,3,"The weight-bearing line of the lumbar spine is not centered, bending to the left (right), suggesting poor lumbar stabili",202,508,5,0.3352,0.2014
+s0059,4,"Acute pancreatitis causes local necrosis of pancreatic tissue, forming a cyst with a CT value of about 10Hu, suggesting ",9211,13816,7,0.6227,0.4522
+s0059,5,"Segmental lung volume reduction, increased density, with small gas shadows inside, suggesting incomplete atelectasis of ",1696,1419,3,0.6767,0.5114
+s0061,1,"Increased bone density at the edge of the lumbar vertebrae, irregular shape, and equivalent density to the bone cortex, ",182,2007,14,0.1087,0.0575
+s0061,2,"Loss of water in the lumbar intervertebral disc, herniation, etc., leading to narrowing of the intervertebral space, ind",488,3110,16,0.2285,0.129
+s0061,3,"The weight-bearing line of the cervical spine is not centered, deviating to the left (right) side, suggesting poor cervi",75,102,6,0.3277,0.1959
+s0061,4,Thickening of the right vocal cord,20,37,1,0.386,0.2391
+s0061,5,"Shallow left piriform sinus, thickening of anterior neck tissue, mild enhancement on enhanced scan, considering infectio",128,139,1,0.7491,0.5988
+s0063,1,"Increased bone density at the edge of the cervical vertebrae, irregular shape, and equivalent density to the cortical bo",1724,3859,16,0.4252,0.27
+s0063,2,"Retroflexed cervical lordosis suggests poor cervical stability, that is, cervical instability.",668,3318,17,0.2173,0.1219
+s0063,3,"High-density shadow in the right carotid sheath area, consistent with neck vein enhancement, and connected to the neck v",3117,4179,5,0.7637,0.6177
+s0067,1,"Increased bone density on the edge of the lumbar vertebra, irregular shape, and equal to the density of the bone cortex,",2031,11375,19,0.225,0.1267
+s0067,2,"Loss of water in the cervical intervertebral disc, herniation, etc., leading to narrowing of the intervertebral space, s",739,3052,12,0.3123,0.1851
+s0067,3,"The weight-bearing line of the cervical spine is not centered, bending to the left (right) side, suggesting poor cervica",208,450,4,0.4924,0.3266
+s0067,4,"Left pleural arc-shaped water-like density shadow, CT value about 10Hu, suggesting pleural effusion.",15232,15250,10,0.5189,0.3504
+s0067,5," Patchy, nodular, linear shadows in the upper left lung, thickening and effusion of the pleura along the oblique fissure",706,2678,4,0.2388,0.1356
+s0070,1,"Increased bone density at the edge of the lumbar vertebrae, with a density equivalent to that of the bone cortex, irregu",464,3990,19,0.1401,0.0753
+s0070,2,Narrowing of the intervertebral space in the lumbar spine indicates degenerative changes in the intervertebral disc due ,128,337,3,0.5118,0.3439
+s0070,3,"Lymph nodes in the mediastinum with a diameter greater than 1CM, mild enhancement on enhanced scanning, suggesting lymph",1429,1944,5,0.7394,0.5865
+s0071,1,"High density shadow on the surface of the heart, considered to be coronary calcification plaque",0,0,0,1.0,1.0
+s0071,2,"High density shadow in the gallbladder fossa, considered to be postoperative manifestation after cholecystectomy",20,40,1,0.5,0.3333
+s0071,3,"Low density shadow in the right kidney, considered to be renal cyst",26,142,1,0.2976,0.1748
+s0071,4,"Liquid density shadow in the left pleural cavity, considered to be pleural effusion",1991,5837,14,0.2443,0.1391
+s0071,5,"Leaf-shaped nodule in the upper lobe of the left lung, with calcification inside, blurred margins, and linear shadow aro",354,443,6,0.532,0.3624
