@@ -8,6 +8,9 @@ M3D_RefSeg_npy/
 *.bin
 *.safetensors
 
+# Cloned third-party repos
+MedCLIP-SAMv2/
+
 # Zip archives
 *.zip
 
