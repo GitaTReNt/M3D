@@ -128,7 +128,27 @@ The **50x gap** shows that the bottleneck is entirely in converting text descrip
 
 ---
 
-## 6. Potential Solutions
+## 6. Text-Guided Experiments (No Retraining)
+
+### Exp 4: TF-IDF Retrieval → bbox → MedSAM (30 cases)
+
+- **Method**: For each text description, retrieve top-3 similar descriptions (leave-one-case-out) via TF-IDF cosine similarity, use their normalized bounding boxes as MedSAM prompt
+- **Result**: Mean Dice = **0.0308**, 53/91 targets Dice=0
+- **Why it failed**: Bag-of-words similarity cannot provide spatial localization. Different patients' same anatomy occupies different pixel coordinates in the (32, 256, 256) npy format
+
+### Exp 5: Prompt Compiler (structured parsing + atlas + retrieval) (30 cases)
+
+- **Method**: Parse text → structured slots (anatomy, side, finding_type, target_form) → atlas spatial prior → structured retrieval refinement → type-aware post-processing → MedSAM
+- **Result**: Mean Dice = **0.0235**, 0/91 Dice≥0.5
+- **Why it failed**: Same root cause — **spatial coordinates are not transferable across patients** in the npy format. The npy volumes are cropped/resized differently per case, so "right kidney" can be anywhere in pixel space. No amount of text parsing fixes this geometric misalignment
+
+### Key Lesson from Exp 4-5
+
+The fundamental problem is not text understanding — it's that **text cannot be mapped to pixel coordinates without looking at the image**. Any method that tries to predict spatial location from text alone (retrieval, atlas, rules) will fail on this data format. The solution must involve **joint text-image reasoning**: a model that reads both the text AND the image to determine where to segment.
+
+---
+
+## 7. Potential Solutions (Requiring Image-Text Joint Reasoning)
 
 ### 6.1 VoxTell (DKFZ, January 2026) — Recommended Priority 1
 
@@ -170,21 +190,26 @@ The **50x gap** shows that the bottleneck is entirely in converting text descrip
 - **Stage 2**: Extract bbox from coarse prediction, feed to MedSAM for refined segmentation
 - **Rationale**: Leverage text understanding of one model + segmentation quality of another
 
-### 6.6 MedCLIP-SAM v2 (MICCAI 2024 / MedIA 2025)
+### 7.6 MedCLIP-SAMv2 (MICCAI 2024 / MedIA 2025)
 
-- **What**: BiomedCLIP generates spatial attention from text → derives prompts for SAM
+- **What**: BiomedCLIP + M2IB generates spatial saliency from text+image → derives bbox → SAM segments
+- **Architecture**: Three-stage pipeline — text+image → Information Bottleneck saliency map → bbox/point prompts → SAM
+- **Text encoder**: BiomedCLIP (PubMedBERT + ViT-B), fine-tuned with DHN-NCE loss
+- **Key mechanism**: M2IB optimizes a learnable mask at ViT layer to find image regions most relevant to text (10 gradient steps per image)
 - **Limitation**: 2D only, need to process slice-by-slice
+- **Best use**: Extract BiomedCLIP+M2IB as text→saliency module, convert saliency to bbox, feed to MedSAM (fully decoupled)
 - **GitHub**: https://github.com/HealthX-Lab/MedCLIP-SAMv2
+- **GPU**: ~4-6 GB with SAM ViT-B, fits RTX 4070
 
 ---
 
-## 7. Recommended Next Steps
+## 8. Recommended Next Steps
 
-1. **Try M3D-LaMed** first — zero data conversion, designed for our exact task. May need fp16/quantization to fit 12GB.
-2. **Try VoxTell** — strongest free-text capability, pip-installable. Convert npy → NIfTI.
-3. **Try BiomedParse v2** — CVPR 2025 challenge winner, likely strongest overall performance.
-4. Compare all results on same 30 cases as current MedSAM baseline.
-5. If any model works well, run full 208-case evaluation.
+1. **Try MedCLIP-SAMv2 pipeline** — BiomedCLIP+M2IB generates per-slice saliency from text+image → bbox → MedSAM. The only approach that does joint text-image reasoning. Fits 12GB.
+2. **Try M3D-LaMed** — zero data conversion, designed for our exact task. May need fp16/quantization to fit 12GB.
+3. **Try VoxTell** — strongest free-text capability, pip-installable. Convert npy → NIfTI.
+4. **Try BiomedParse v2** — CVPR 2025 challenge winner, likely strongest overall performance.
+5. Compare all results on same 30 cases as current MedSAM baseline.
 
 ---
 
