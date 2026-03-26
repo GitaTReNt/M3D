@@ -2,6 +2,12 @@
 M3D_RefSeg/
 M3D_RefSeg_npy/
 
+# Model weights
+*.pth
+*.pt
+*.bin
+*.safetensors
+
 # Zip archives
 *.zip
 

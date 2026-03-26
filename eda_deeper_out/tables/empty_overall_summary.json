@@ -1,8 +1,0 @@
-{
-  "n_regions": 556,
-  "n_empty": 46,
-  "empty_rate": 0.08273381294964029,
-  "voxels_p50": 520.5,
-  "voxels_p90": 35934.0,
-  "voxels_p95": 62276.5
-}

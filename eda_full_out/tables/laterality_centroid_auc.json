@@ -1,8 +1,0 @@
-{
-  "n_left": 116,
-  "n_right": 116,
-  "auc_x": 0.5682966706302021,
-  "auc_flip": 0.4317033293697979,
-  "best_auc": 0.5682966706302021,
-  "inferred_orientation": "x_small=left (right tends to larger x)"
-}
