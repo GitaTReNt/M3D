@@ -1,8 +1,0 @@
-case_id,mask_id,label_desc,gt_voxels,pred_voxels,slices_with_bbox,dice,iou
-s0000,1,"An irregular-shaped mass in the right inguinal region with enhancement at the edge on enhanced scanning, with high-densi",9913,226168,32,0.0491,0.0252
-s0000,2,"Several enlarged lymph nodes in the pelvic vessels and right inguinal region, with a tendency towards benign inflammator",461,276282,32,0.0017,0.0008
-s0001,1,"A small nodular density shadow is seen in the gallbladder fossa, and the gallbladder is not displayed. It is considered ",0,474321,32,0.0,0.0
-s0001,2,"Right renal pelvis dilation extending towards the renal hilum, considering it as a pelvicalyceal type renal pelvis",152,591104,32,0.0005,0.0003
-s0001,3,"High-density small nodular shadows are seen in the lower segment of the right ureter, which is considered to be small ca",4,492638,32,0.0,0.0
-s0002,1,"A low-density nodule on the left side of the sixth cervical vertebra. The boundary is clear, the vertebral body is intac",62,618351,32,0.0,0.0
-s0002,2,A high-density nodule is seen above the vocal cords and above the ring-shaped cartilage. It may be a foreign body.,38,612255,32,0.0001,0.0001

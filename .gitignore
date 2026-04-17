@@ -1,15 +1,14 @@
-# Dataset files (too large for GitHub)
-M3D_RefSeg/
-M3D_RefSeg_npy/
+# Data (gitignored — see docs/ for download instructions)
+data/
+
+# Third-party cloned repos (see third_party/README.md for clone commands)
+third_party/
 
 # Model weights
 *.pth
 *.pt
 *.bin
 *.safetensors
-
-# Cloned third-party repos
-MedCLIP-SAMv2/
 
 # Zip archives
 *.zip
@@ -26,6 +25,9 @@ __pycache__/
 *.pyc
 *.pyo
 .ipynb_checkpoints/
+
+# HuggingFace cache (local only, do not commit)
+hf_cache/
 
 # OS
 .DS_Store
