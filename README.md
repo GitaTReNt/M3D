@@ -6,7 +6,7 @@ Referring expression segmentation on 3D CT volumes — given a radiology text de
 
 Given `(ct_volume, text_description)`, output a 3D binary mask.
 
-- **Input**: CT volume `(D, H, W)`, free-form radiology text (e.g., "双肺多发圆形透亮影，考虑双侧肺气肿")
+- **Input**: CT volume `(D, H, W)`, free-form English radiology text (e.g., `"An irregular-shaped mass in the right inguinal region with enhancement at the edge..."`)
 - **Output**: Binary mask over the volume
 
 ## Dataset: M3D-RefSeg
@@ -30,12 +30,12 @@ Given `(ct_volume, text_description)`, output a 3D binary mask.
 | 07 | MedCLIP-SAMv2 v1 (no slice filter) | 0.0073 | Text-guided, BiomedCLIP saliency → bbox → MedSAM |
 | 08 | MedCLIP-SAMv2 v2 (focus-rank slice filter) | 0.0284 | Earlier best text-guided |
 | 09 | MedCLIP-SAMv2 v3 (body-mask gating + gamma + percentile) | 0.0117 | Text-guided |
-| 10 | **VoxTell zero-shot (raw Chinese clinical prompts)** | **0.1327** | 208 cases / 783 masks; 13.4% reach Dice≥0.5 |
-| 11 | VoxTell zero-shot (structured finding-type keyword) | 0.0587 | Same cases; regex-extracted English keyword |
+| 10 | **VoxTell zero-shot (raw English clinical prompt)** | **0.1327** | 208 cases / 783 masks; 13.4% reach Dice≥0.5 |
+| 11 | VoxTell zero-shot (structured finding-type keyword) | 0.0587 | Same cases; regex-extracted keyword (`mass`/`nodule`/…) |
 
 **Headline gap**: oracle-bbox ceiling 0.55 vs best text-guided **0.13** (VoxTell raw) → text→spatial is still the bottleneck, but VoxTell closes the gap ~4.7× over the prior MedCLIP-SAMv2 best.
 
-**Raw > Structured (surprising)**: on 783 masks, the original Chinese clinical description beats the single-word English keyword by 2.3×. Single-case sanity testing had suggested the opposite — full-dataset statistics tell a different story. VoxTell's Qwen3-Embedding-4B text encoder extracts useful signal from long multilingual clinical text.
+**Raw > Structured (surprising)**: on 783 masks, the full clinical sentence beats the single-word keyword by 2.3×. Single-case sanity testing had suggested the opposite — full-dataset statistics tell a different story. VoxTell's Qwen3-Embedding-4B encoder extracts joint signal from *finding type + anatomical location + morphology* that a lone keyword throws away.
 
 ## Repository layout
 
