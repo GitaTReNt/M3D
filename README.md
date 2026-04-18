@@ -28,10 +28,14 @@ Given `(ct_volume, text_description)`, output a 3D binary mask.
 | 05 | TF-IDF retrieval → bbox → MedSAM | 0.0308 | Text-guided baseline |
 | 06 | Prompt Compiler (rule-based parse + atlas + retrieval) | 0.0235 | Text-guided |
 | 07 | MedCLIP-SAMv2 v1 (no slice filter) | 0.0073 | Text-guided, BiomedCLIP saliency → bbox → MedSAM |
-| 08 | **MedCLIP-SAMv2 v2 (focus-rank slice filter)** | **0.0284** | Best text-guided so far |
+| 08 | MedCLIP-SAMv2 v2 (focus-rank slice filter) | 0.0284 | Earlier best text-guided |
 | 09 | MedCLIP-SAMv2 v3 (body-mask gating + gamma + percentile) | 0.0117 | Text-guided |
+| 10 | **VoxTell zero-shot (raw Chinese clinical prompts)** | **0.1327** | 208 cases / 783 masks; 13.4% reach Dice≥0.5 |
+| 11 | VoxTell zero-shot (structured finding-type keyword) | 0.0587 | Same cases; regex-extracted English keyword |
 
-**Headline gap**: oracle-bbox ceiling 0.55 vs best text-guided 0.03 → the bottleneck is **text → spatial prompt**, not the mask decoder.
+**Headline gap**: oracle-bbox ceiling 0.55 vs best text-guided **0.13** (VoxTell raw) → text→spatial is still the bottleneck, but VoxTell closes the gap ~4.7× over the prior MedCLIP-SAMv2 best.
+
+**Raw > Structured (surprising)**: on 783 masks, the original Chinese clinical description beats the single-word English keyword by 2.3×. Single-case sanity testing had suggested the opposite — full-dataset statistics tell a different story. VoxTell's Qwen3-Embedding-4B text encoder extracts useful signal from long multilingual clinical text.
 
 ## Repository layout
 
@@ -105,6 +109,8 @@ python scripts/inference_medclip_medsam_v3.py \
 
 ### VoxTell zero-shot (requires raw `.nii.gz`, RAS orientation)
 
+Single case (CLI):
+
 ```bash
 voxtell-predict \
     -i data/M3D_RefSeg/s0000/ct.nii.gz \
@@ -112,6 +118,19 @@ voxtell-predict \
     -m third_party/VoxTell/weights/voxtell_v1.1 \
     -p "right inguinal mass"
 ```
+
+Full-dataset evaluation (both raw + structured prompts, ~70 min on a 4070):
+
+```bash
+PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True \
+python scripts/voxtell_evaluate.py \
+    --data_root data/M3D_RefSeg \
+    --model_dir third_party/VoxTell/weights/voxtell_v1.1 \
+    --out_dir results \
+    --max_cases 0
+```
+
+The script pre-encodes all unique prompts in a single Qwen residence, deletes the text backbone, then runs per-case sliding-window inference with cached embeddings — avoiding the repeated GPU↔CPU dance that causes CPU-RAM fragmentation OOM on Windows.
 
 ## What to read next
 

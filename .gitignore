@@ -29,6 +29,10 @@ __pycache__/
 # HuggingFace cache (local only, do not commit)
 hf_cache/
 
+# Experiment run logs and one-off smoke-test outputs
+results/_logs/
+results/voxtell_smoke/
+
 # OS
 .DS_Store
 Thumbs.db
