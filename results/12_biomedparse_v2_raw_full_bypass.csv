@@ -1,0 +1,785 @@
+case,mask_id,mode,prompt,dice,gt_pos,pred_pos
+s0000,1,raw,"An irregular-shaped mass in the right inguinal region with enhancement at the edge on enhanced scanning, with high-density nodular shadows inside, and the femoral artery seen at the edge. The surrounding muscles show swelling around the lesion, which is more likely to be benign.",0.0,9913,303
+s0000,2,raw,"Several enlarged lymph nodes in the pelvic vessels and right inguinal region, with a tendency towards benign inflammatory lesions.",0.0,461,356
+s0001,1,raw,"A small nodular density shadow is seen in the gallbladder fossa, and the gallbladder is not displayed. It is considered to be a postoperative manifestation of cholecystectomy.",0.0,0,2141
+s0001,2,raw,"Right renal pelvis dilation extending towards the renal hilum, considering it as a pelvicalyceal type renal pelvis",0.007049170855723118,152,17155
+s0001,3,raw,"High-density small nodular shadows are seen in the lower segment of the right ureter, which is considered to be small calculi; accompanied by dilation of the upper segment of the ureter",0.0,4,2877
+s0002,1,raw,"A low-density nodule on the left side of the sixth cervical vertebra. The boundary is clear, the vertebral body is intact, and there is no destruction. Consider benign lesions such as hemangioma.",0.0,62,3285
+s0002,2,raw,A high-density nodule is seen above the vocal cords and above the ring-shaped cartilage. It may be a foreign body.,0.0,38,4039
+s0003,1,raw,"Cervical lordosis is reversed, the sequence is uneven, and cervical spondylosis is considered.",0.21792728792310906,12338,6806
+s0003,2,raw,"The mucosa of the left floor of the mouth is slightly thickened, suggesting benign changes, possibly indicative of chronic inflammation.",0.0,228,343
+s0004,1,raw,Ascites,0.008805461766149544,52910,14321
+s0004,2,raw,"Irregular liver edge, considering cirrhosis",0.3698439370223736,45600,128176
+s0004,3,raw,"Dilation of portal vein and splenic vein, considering portal hypertension caused by cirrhosis",0.0908374901548963,1386,2423
+s0004,4,raw,"Multiple low-density nodules in both kidneys, considering multiple renal cysts",0.02755620014503263,392,2366
+s0004,5,raw,Splenomegaly,0.0374310985771055,34142,4863
+s0006,1,raw,"High density nodules in the intramural segment of the right ureteral wall, considered as small calculi",0.0,0,3752
+s0009,1,raw,"Linear high density shadow seen in the posterior margin of the spinal cord extramedullary epidural space within the spinal canal, which may be hemorrhage",0.003980382401023527,3040,11029
+s0010,1,raw,A small cyst with no enhancement is seen in the upper pole of the right kidney.,0.0,204,30
+s0010,2,raw,"A round slightly low-density nodule is seen in the lower pole of the right kidney, with unclear boundaries. It may be normal renal medulla or a renal tumor.",0.028941096356826693,85,5789
+s0012,1,raw,"Multiple high-density calcification foci in the abdominal cavity, benign change",0.0,153,3725
+s0012,2,raw,"Fracture of the lamina of the L5 vertebral body, with anterior displacement, suggestive of Grade II spondylolisthesis.",0.12052987067385727,4213,14886
+s0012,3,raw,Fatty liver,0.5582085968647917,120217,196317
+s0021,1,raw,Cervical vertebral body upper edge localized osteosclerosis at C7,0.0,0,2151
+s0021,2,raw,Multiple nodular low-density shadows in the cervical vertebral body at C5,0.006924408540103866,18,5181
+s0021,3,raw,"Bony sclerosis seen at the relative margins of C5 and C6 vertebrae, considering spondylitis",0.0,507,728
+s0021,4,raw,Localized osteosclerosis at the upper edge of the cervical vertebral body at C7,0.0,2946,2024
+s0024,1,raw,"Aortic intima double cavity image seen, consider dissection",0.47963855421686746,6490,10110
+s0024,2,raw,Multiple cystic low density shadows in liver,0.004021771188031209,168,37129
+s0024,3,raw,"Low density shadow in upper pole of left kidney, possible cyst",0.0,23,1429
+s0024,4,raw,High density nodule in upper lobe of left lung,0.0,0,23519
+s0028,1,raw,"Hazy shadows in the form of plaques around the mesenteric vessels, considering mesenteric panniculitis",0.0,1621,3828
+s0028,2,raw,"Cardia, lesser curvature, greater curvature, and antrum of the stomach show irregular thickening of the gastric wall.",0.0,664,3596
+s0029,1,raw,Left renal low-density shadow with nodular metal shadow inside,0.0,52,2840
+s0029,2,raw,Multiple cystic low-density shadows in both kidneys,0.0,9,8275
+s0029,3,raw,"Soft tissue density shadow on the medial side of the spleen, considered accessory spleen",0.0,0,1615
+s0029,4,raw,Calcified lesion at the right margin of the liver,0.0,7,3352
+s0029,5,raw,Postoperative bilateral hip joint replacement,0.08662142916980815,3604,8333
+s0034,1,raw,"Large areas of low density are seen in the left abdomen, with local liquid and mass-like mixed density. Consider local hematoma of the abdominal cavity, accompanied by multiple exudation and effusion around.",0.026791187394079256,49005,6461
+s0037,1,raw,Left lower lobe ground glass nodule,0.0,19,74759
+s0038,1,raw,Liver left lobe cystic low-density shadow,0.0,0,19426
+s0038,2,raw,Round low-density shadows in both kidneys.,0.0,0,5299
+s0038,3,raw,Spleen inspection slightly enlarged,0.7486790802754801,13230,14213
+s0040,1,raw,"Dilation of the bilateral renal pelvis with low density shadow, no dilation of the ureter, considering it as a calyx-shaped renal pelvis",0.0,256,2045
+s0043,1,raw,"C5 vertebral body lower edge patchy high-density shadow, and local bone depression is visible",0.13542310067943175,2146,10806
+s0044,1,raw,Cervical vertebra 5 anterior and lower edge osteophyte,0.0,3867,3116
+s0044,2,raw,Cervical vertebra 6 anterior and upper edge osteophyte,0.0,3672,3886
+s0046,1,raw,"Multiple round transparent shadows in both lungs, considering bilateral emphysema",0.0,786,940
+s0046,2,raw,"Multiple nodular high-density shadows scattered in both lungs, considering pulmonary proliferation foci",0.0,28,954
+s0046,3,raw,"Fibrillar shadow seen in the lower and lingual segments of the upper lobe of the left lung, clear boundary, considering pulmonary fibrosis",0.001660769730666474,103,110689
+s0046,4,raw,"Focal calcification shadow seen in the wall of the aorta, considering atherosclerosis",0.013120131201312012,191,16882
+s0046,5,raw,"A nodule-like low-density shadow is seen in the left lobe of the thyroid gland, with clear boundaries, suggesting ultrasound examination",0.0,384,603
+s0046,6,raw,"A patchy slightly low-density shadow is seen in the right anterior segment of the liver, with unclear boundaries, suggesting abdominal enhanced CT",0.0,1302,1676
+s0046,7,raw,Cystic shadows are seen in the liver and left kidney,0.19421044570378312,5209,1320
+s0046,8,raw,"Osteophyte seen at the edge of the vertebral body of the spine, considering spinal degenerative changes",0.0,69,2572
+s0050,1,raw,"Lymph node behind the peritoneum larger than 1 cm, clear boundary, indicating lymph node enlargement",0.0,36,1209
+s0056,1,raw,"Soft tissue density shadow in the right maxillary sinus, CT value is about 25Hu, clear and smooth boundary, no expansion of the sinus cavity, normal sinus wall bone, suggesting submucosal cyst in the right maxillary sinus",0.0,346,1523
+s0057,1,raw,"Increased bone density at the margin of the vertebrae, irregular shape and equivalent to the density of the bone cortex, suggesting osteosclerosis.",0.008125677139761646,2836,856
+s0057,2,raw,"Loss of water in the intervertebral disc of the lumbar spine, causing narrowing of the intervertebral space due to bulging or other reasons, suggesting degenerative changes in the intervertebral disc.",0.0,754,404
+s0057,3,raw,"The weight-bearing line of the lumbar spine is not centered and bending to the left (right), indicating poor stability of the lumbar spine. Suggests lumbar instability.",0.001041124414367517,1049,6635
+s0057,4,raw,"Low-density shadow in the renal parenchyma. CT value is about 5HU, clear boundary, increased scanning is not enhanced, considering simple renal cyst.",0.0,1840,350
+s0057,5,raw,"Diffuse distribution of low-density shadows in both renal pelvises, consistent with the distribution of renal pelvises, suggesting renal parenchymal infection.",0.16147947677041047,1391,3043
+s0058,1,raw,"Increased bone density at the edge of the lumbar vertebrae, irregular shape, and similar density to the bone cortex, suggesting osteosclerosis.",0.042544651816175,914,4069
+s0058,2,raw,"Loss of water in the intervertebral disc, herniation, or other causes leading to narrowing of the intervertebral space, suggesting degenerative changes in the intervertebral disc.",0.0,747,546
+s0058,3,raw,"Mixed high-density shadows in the gallbladder, with irregular calcifications inside, suggesting gallstones.",0.0033514872224549644,225,2162
+s0058,4,raw,"The spleen is larger than 5 rib units. Length>10-12CM, width>6-8CM, thickness>3-4CM, suggesting splenomegaly.",0.2956690482490959,13721,8953
+s0058,5,raw,"Intestinal tube and mesentery fat seen in subcutaneous tissue in front of the abdominal rectus muscle, suggesting an abdominal rectus hernia.",0.0,8099,3378
+s0059,1,raw,"Increased bone density at the edge of the lumbar vertebrae, irregular shape, and equivalent density to the cortical bone, suggesting osteophyte.",0.020515589148333107,726,6683
+s0059,2,raw,"Loss of moisture in the intervertebral disc, herniation, etc., leading to narrowing of the intervertebral space, suggesting degenerative changes in the intervertebral disc.",0.005893909626719057,825,193
+s0059,3,raw,"The weight-bearing line of the lumbar spine is not centered, bending to the left (right), suggesting poor lumbar stability. Suggesting lumbar instability.",0.0,202,9781
+s0059,4,raw,"Acute pancreatitis causes local necrosis of pancreatic tissue, forming a cyst with a CT value of about 10Hu, suggesting a pseudocyst of the pancreas.",0.0,9211,2552
+s0059,5,raw,"Segmental lung volume reduction, increased density, with small gas shadows inside, suggesting incomplete atelectasis of the lungs.",0.06880397161136943,1696,26907
+s0061,1,raw,"Increased bone density at the edge of the lumbar vertebrae, irregular shape, and equivalent density to the bone cortex, suggesting osteophyte formation.",0.016069221260815822,182,3054
+s0061,2,raw,"Loss of water in the lumbar intervertebral disc, herniation, etc., leading to narrowing of the intervertebral space, indicating degenerative changes in the intervertebral disc.",0.061233290211297975,488,1831
+s0061,3,raw,"The weight-bearing line of the cervical spine is not centered, deviating to the left (right) side, suggesting poor cervical stability. Indicating cervical instability.",0.0,75,739
+s0061,4,raw,Thickening of the right vocal cord,0.0,20,3486
+s0061,5,raw,"Shallow left piriform sinus, thickening of anterior neck tissue, mild enhancement on enhanced scan, considering infection.",0.0,128,970
+s0063,1,raw,"Increased bone density at the edge of the cervical vertebrae, irregular shape, and equivalent density to the cortical bone, suggesting osteophyte.",0.0,1724,4563
+s0063,2,raw,"Retroflexed cervical lordosis suggests poor cervical stability, that is, cervical instability.",0.0,668,2069
+s0063,3,raw,"High-density shadow in the right carotid sheath area, consistent with neck vein enhancement, and connected to the neck vein, suggesting jugular venous tumor.",0.0,3117,1232
+s0067,1,raw,"Increased bone density on the edge of the lumbar vertebra, irregular shape, and equal to the density of the bone cortex, suggesting osteosclerosis.",0.03659727576458494,2031,17424
+s0067,2,raw,"Loss of water in the cervical intervertebral disc, herniation, etc., leading to narrowing of the intervertebral space, suggesting degenerative changes in the cervical intervertebral disc.",0.008845491097070649,739,16671
+s0067,3,raw,"The weight-bearing line of the cervical spine is not centered, bending to the left (right) side, suggesting poor cervical stability. Suggesting cervical instability.",0.0,208,417
+s0067,4,raw,"Left pleural arc-shaped water-like density shadow, CT value about 10Hu, suggesting pleural effusion.",0.0,15232,17946
+s0067,5,raw," Patchy, nodular, linear shadows in the upper left lung, thickening and effusion of the pleura along the oblique fissure, suggesting possible pulmonary tuberculosis.",0.01323424615697852,706,87701
+s0070,1,raw,"Increased bone density at the edge of the lumbar vertebrae, with a density equivalent to that of the bone cortex, irregular in shape, indicating osteosclerosis",0.005238344683080147,464,1445
+s0070,2,raw,Narrowing of the intervertebral space in the lumbar spine indicates degenerative changes in the intervertebral disc due to loss of water and bulging,0.0,128,1266
+s0070,3,raw,"Lymph nodes in the mediastinum with a diameter greater than 1CM, mild enhancement on enhanced scanning, suggesting lymph node enlargement",0.0,1429,356
+s0071,1,raw,"High density shadow on the surface of the heart, considered to be coronary calcification plaque",0.0,0,4795
+s0071,2,raw,"High density shadow in the gallbladder fossa, considered to be postoperative manifestation after cholecystectomy",0.0,20,84
+s0071,3,raw,"Low density shadow in the right kidney, considered to be renal cyst",0.0,26,241
+s0071,4,raw,"Liquid density shadow in the left pleural cavity, considered to be pleural effusion",0.015649712811121284,1991,10022
+s0071,5,raw,"Leaf-shaped nodule in the upper lobe of the left lung, with calcification inside, blurred margins, and linear shadow around, considering lung cancer or pulmonary tuberculosis",0.00296007508483142,354,27348
+s0079,1,raw,"Thyroid isthmus low density nodule with calcification at the edge, considered as thyroid tumor",0.0,72,3235
+s0080,1,raw,A nodular and dense shadow in the gallbladder cavity is considered to be cholelithiasis.,0.0,16,1737
+s0080,2,raw,"A patchy and linear high-density shadow is seen in the subpleural area of the right lower lobe, with thickening of the adjacent pleura. Consider local chronic inflammatory foci in the subpleural area of the right lung.",0.0031003704126756197,262,61021
+s0080,3,raw,"A dense shadow is seen in the region of the coronary artery of the heart, considering coronary atherosclerosis.",0.0,30,3434
+s0086,1,raw,A small nodular low-density shadow in the left renal region is considered a simple left renal cyst.,0.0,10,324
+s0086,2,raw,"Multiple dense shadows are seen in the wall of the aorta and the course of the coronary artery, suggesting atherosclerosis of the aorta and coronary artery.",0.0,14,4366
+s0089,1,raw,"Liver segment 8 (S8) shows a small round low-density shadow, suggestive of a small hepatic cyst.",0.0,0,526
+s0089,2,raw,"Outside the lateral branch of the left adrenal gland, there is a small nodular-like low-density shadow, suggestive of a possible adrenal adenoma on the left side.",0.0,0,218
+s0102,1,raw,"Multiple cyst-like low-density shadows in the subpleural area of both apices of the lungs, considered as bilateral apical pulmonary bullae.",0.002072002072002072,1184,2677
+s0102,2,raw,"Scattered linear shadows in the subpleura of both lungs, considering the possibility of chronic foci in the subpleura of both lungs.",0.0,183,5727
+s0103,1,raw,"In the periventricular and basal ganglia regions on both sides, there are spot-like low-density shadows, suggestive of potential intracerebral lacunar lesions.",0.0,17,3310
+s0108,1,raw,"Small nodular high-density shadow in the prostate, considered as prostatic calcification.",0.0,0,5346
+s0110,1,raw,"Cervical vertebrae kyphosis, lip-like changes at the edges of the vertebral body, suspected cervical spondylosis.",0.007941142123087703,5797,2766
+s0117,1,raw,"Left renal sinus shows nodular high-density shadow, considered as left renal calculus.",0.0,0,23644
+s0117,2,raw,"Left ureter shows nodular high-density shadow in the middle and lower segments, considered as left ureteric calculi in the middle and lower segments.",0.0,31,6278
+s0117,3,raw,"Left renal pelvis and left ureter show dilatation in the upper and middle segments, considering hydronephrosis of left renal pelvis and ureteral upper and middle segments.",0.0,1003,658
+s0119,1,raw,"Bilateral parapelvic cystic low-density shadows, considering the possibility of bilateral parapelvic cysts.",0.0,2887,1842
+s0119,2,raw,"Small nodular dense shadow seen in the prostate, considering small calcification foci in the prostate.",0.0,0,1308
+s0120,1,raw,"Low density nodules in both kidneys, considered cystic foci, right renal pelvis cyst.",0.0,1890,1061
+s0123,1,raw,"Multiple nodules in the right axilla, considering multiple enlarged lymph nodes.",0.0,579,1586
+s0123,2,raw,"Solitary nodule and patchy high-density shadows in the right middle lobe of the lung, first consider inflammatory lesions, other possibilities are not excluded.",0.01373651700931133,758,42630
+s0124,1,raw,Aortic atherosclerosis with multiple aneurysms and mural hematoma in the abdominal aorta and bilateral iliac arteries.,0.12843029637760703,3335,7597
+s0124,2,raw,Cystic lesion in the left kidney with clear margins. Considered to be a cyst.,0.0,76,8009
+s0124,3,raw,Multiple dense nodules in the renal sinus of both kidneys. Considered to be renal stones.,0.03338391502276176,88,5184
+s0124,4,raw,Cystic nodule in the spleen with clear margins. Considered to be a cystic lesion.,0.0,1738,613
+s0128,1,raw,Bilateral pleural effusion.,0.11142543733040818,10624,6697
+s0128,2,raw,"Large-area, patchy high-density shadows in the lower lobe of the right lung, considering inflammatory foci, and partial atelectasis of the lower lobe of the right lung.",0.02209586257534621,5290,53273
+s0131,1,raw,"Multiple dense shadows in the renal sinus of both kidneys, considering multiple calculi in both kidneys.",0.005221397491681597,73,19462
+s0132,1,raw,Mild fatty liver,0.9244794916888863,169168,183372
+s0133,1,raw,"density increase on both sides of the urinary system, considering contrast agent residue.",0.045762401610836535,586,4877
+s0137,1,raw,LIVER AND KIDNEY Cysts,0.0,218,592
+s0139,1,raw,Slight expansion of the uterine cavity,0.01974496092143151,204,16813
+s0141,1,raw,"Dilated left renal pelvis, considering calyx-shaped renal pelvis.",0.23899953682260305,407,1752
+s0141,2,raw,"Circling dense nodules in the gallbladder, considering gallstones.",0.0,0,876
+s0141,3,raw,"L4-L5 vertebrae are flattened, considering compression fracture.",0.033012379642365884,1380,74
+s0143,1,raw,"Left adrenal gland outer branch local nodule-like thickening, considering adenoma possibility",0.0,87,92
+s0143,2,raw,"Left renal calyx punctate high-density focus, considering left renal calculi",0.0,0,10515
+s0143,3,raw,Pelvis sees multiple punctate calcification foci,0.0,90,6066
+s0146,1,raw,"High density foci on the surface of the heart vessel, considered to be calcified plaques of the coronary artery",0.0,259,4357
+s0146,2,raw,"Multiple calcification foci in the aortic wall, suggesting atherosclerosis",0.8137484152697563,17398,18097
+s0146,3,raw,"Reduced liver density, consistent with fatty liver",0.7145753767099507,68955,75055
+s0146,4,raw,Linear opacity seen in the lower lobe of the left lung,0.8188201151487728,64111,64071
+s0146,5,raw,Linear opacity seen in the lower lobe of the right lung,0.8048591530738622,88892,100853
+s0150,1,raw,"L1 vertebral wedge deformity, suspected compression fracture",0.0,780,2954
+s0150,2,raw,"Multiple round low-density lesions in the liver, suspected cysts",0.0,124,2694
+s0150,3,raw,"Multiple round low-density lesions in both kidneys, suspected cysts",0.000455684666210982,3797,592
+s0150,4,raw,Point-like calcification foci in the prostate,0.0,0,598
+s0150,5,raw,"Local dilatation of the abdominal aorta, calcified plaque displacement, suspected aortic aneurysm with mural thrombus",0.17277420979725475,1536,6405
+s0151,1,raw,"Local thickening of the anterior wall of the bladder, possible chronic cystitis.",0.0,0,6419
+s0151,2,raw,"Punctate low-density lesion in the prostate, possible cyst.",0.0,64,1770
+s0152,1,raw,Right subcutaneous neck to superior vena cava catheterization after surgery.,0.0,234,309
+s0152,2,raw,"Local wall calcification of C4-7 segment on both sides of internal carotid artery, dilatation of lumen.",0.002828854314002829,139,1275
+s0152,3,raw,"Atherosclerotic plaque seen in the aortic wall, consistent with atherosclerosis.",0.0013745704467353953,797,2113
+s0152,4,raw,Effusion is visible in both pleural cavities.,0.003469640644361834,6408,1662
+s0153,1,raw,Fatty liver with decreased density of liver substance.,0.786557714068533,110890,120648
+s0153,2,raw,"Linear slightly high density shadow seen in the right lower abdomen, considered postoperative scar.",0.0,646,10643
+s0156,1,raw,"Metal clip shadow is seen at the gallbladder fossa, considering postoperative of the gallbladder.",0.0,33,637
+s0156,2,raw,Dilated and fluid-filled left renal pelvis.,0.05976126299576434,390,12595
+s0156,3,raw,"Linear high-density lesion is seen in the lower lobe of the right lung, considered fibrous and sclerotic focus.",0.024922977882006713,329,21418
+s0156,4,raw,Multiple rib fractures on both sides are considered.,0.0,7723,1848
+s0157,1,raw,"Uterus incomplete visualization, considered postoperative change.",0.029154849688031764,527,17103
+s0157,2,raw,Small amount of fluid accumulation seen in both pleural cavities.,0.010224525043177893,927,13548
+s0157,3,raw,"Gastric cavity seen above the diaphragm, considered thoracic stomach.",0.13532279509528733,4465,2304
+s0158,1,raw,Multiple speck-like calcifications observed in the liver.,0.00024045686804929366,16,66524
+s0158,2,raw,"Slight enlargement of the right inguinal canal, with fatty density lesions inside, suggestive of inguinal hernia.",0.0,314,16890
+s0160,1,raw,"Multiple rib fractures on both sides, consistent with fracture.",0.0,549,4710
+s0160,2,raw,"Metal clip seen in the gallbladder fossa, considering postoperative cholecystitis.",0.0,29,61
+s0160,3,raw,"Foci of high density strip shape are visible in the right middle lobe of the lung, considering atelectasis.",0.02259069663921656,332,17640
+s0161,1,raw,Left paraureteral cyst,0.0,370,15167
+s0161,2,raw,Tumor of the body and tail of pancreas,0.14152441445017863,4414,5662
+s0162,1,raw,"The middle to lower segment of the esophagus exhibits wall thickening and luminal narrowing, suggestive of a tumorous lesion.",0.6562692386620151,2143,2730
+s0162,2,raw,"Decreased density of liver parenchyma, fatty liver.",0.8399845157657657,55318,58346
+s0163,1,raw,"Aortic dissection type B involving the upper trunk and right subclavian artery, and involving the left common iliac artery inferiorly.",0.025095852213314743,7719,888
+s0163,2,raw,"Small round low-density shadow without enhancement in liver, cystic lesion of liver.",0.0007949757532395262,10,25148
+s0163,3,raw,"Fat density shadow seen in left kidney, possible ANL.",0.0,0,3821
+s0165,1,raw,"Left adrenal gland nodular thickening, left adrenal gland mass.",0.0,342,14
+s0166,1,raw,Bilateral pleural effusion,0.13120046962136778,3917,2897
+s0166,2,raw,"Sigmoid colon wall thickening, stenosis, suspected tumor.",0.0,1680,3761
+s0167,1,raw,"Pharyngeal wall and posterior wall thickening, stenosis of the lumen, possible occupation",0.02745995423340961,3939,1742
+s0170,1,raw,"Thyroid bilateral lobe shape is full, density is uneven.",0.15956129488767026,2876,14083
+s0171,1,raw,Localized dilation of the abdominal aorta to both common iliac artery walls with possible mural hematoma.,0.15919793407261126,3163,10003
+s0171,2,raw,Cystic lesion in the left lobe of the liver.,0.0,291,8274
+s0174,1,raw,"Around the right renal pelvis, there is a round low-density shadow, suggestive of a peripelvic cyst.",0.0,492,12834
+s0175,1,raw,Left upper lung with some cord-like shadow,0.00036762273084869386,25,135984
+s0178,1,raw,"Multiple round low-density lesions without enhancement in both kidneys, considered as simple kidney cysts.",0.0008322929671244278,928,1475
+s0178,2,raw,"Enlarged prostate with punctate high-density foci inside, considered as benign prostatic hyperplasia with calcification.",0.40316742081447965,1129,3291
+s0178,3,raw,"Linear high-density lesion in the rectum, considered as postoperative changes.",0.0,49,2841
+s0178,4,raw,"Right inguinal canal enlargement, considered as inguinal hernia.",0.0,720,7093
+s0178,5,raw,"Decreased density of some ribs and vertebrae, incomplete bone cortex, possible tumor.",0.012415349887133182,922,2622
+s0182,1,raw,Renal cystic disease,0.0,113,4525
+s0182,2,raw,Atherosclerosis of abdominal aorta,0.068370607028754,262,5998
+s0187,1,raw,"A tube shadow is seen in the oral and pharyngeal cavity, considering post-tracheal intubation.",0.0,553,592
+s0190,1,raw,"Incomplete display of normal structure of uterus, considered postoperative change.",0.05391218765378096,834,17455
+s0190,2,raw,"Reduced density of liver substance, considered fatty liver.",0.8903827165369881,61309,65286
+s0199,1,raw,"Multiple rib fractures on both sides, suspected fracture.",0.0,10115,556
+s0212,1,raw,"High-density suture lines are seen in the rectum, and a catheter is seen in the intestinal cavity, considering postoperative rectal surgery and drainage surgery.",0.0,953,2264
+s0212,2,raw,"Colon shadow is seen in the left lower abdominal wall, considering postoperative stoma.",0.0,813,5202
+s0212,3,raw,"Multiple patchy low and slightly low density foci are seen in the liver, considering possible cysts and metastatic lesions.",0.013493868755451421,789,116153
+s0212,4,raw,A small amount of ascites in the abdominal cavity,0.0,905,26456
+s0212,5,raw,"Nodular changes in the local peritoneum of the upper left abdomen, increased density, consideration of metastasis.",0.0,7372,152
+s0212,6,raw,Small amount of pleural effusion on both sides of the chest.,0.0,21308,4873
+s0227,1,raw,"Liver lesions with multiple round low-density shadows, some of which are enhanced, considering the possibility of hemangioma and cyst.",0.010062893081761006,36,2349
+s0227,2,raw,"A round low-density shadow is seen in the left kidney, considered to be a cyst.",0.0,0,4
+s0227,3,raw,"Uneven density in the vertebral body, pelvis, and femoral head, pending exclusion of metastasis.",0.1664695128508442,12654,5944
+s0241,1,raw,Atherosclerotic calcification foci are seen on the wall of the ascending aorta.,0.0021440057173485795,13,11181
+s0241,2,raw,Postoperative left artificial humeral head replacement.,0.8156186828385998,4681,4718
+s0241,3,raw,"Increased transparency in the lower lobe of the left lung, consistent with emphysema changes.",0.8029101462126785,45488,53751
+s0241,4,raw,"Increased transparency in the lower lobe of the right lung, consistent with emphysema changes.",0.8199015465188447,60488,57131
+s0241,5,raw,"Increased transparency in the middle lobe of the right lung, consistent with emphysema changes.",0.47099447513812154,14621,15787
+s0241,6,raw,"Increased transparency in the upper lobe of the left lung, consistent with emphysema changes.",0.7660094689813065,52573,37405
+s0241,7,raw,"Increased transparency in the upper lobe of the right lung, consistent with emphysema changes.",0.6561800978480604,45954,37645
+s0248,1,raw,Cyst-like low-density non-enhanced focus in the liver parenchyma,0.0,18,183
+s0248,2,raw,Cyst-like low-density non-enhanced foci in both kidneys,0.0,346,11
+s0248,3,raw,"High-density suture in the rectal wall, considered postoperative change.",0.0,15,989
+s0248,4,raw,"Normal structure of uterus is not displayed, considered postoperative.",0.04785787660885854,396,16153
+s0250,1,raw,Cystic lesions with low density and no enhancement in both kidneys are considered.,0.07091792965398913,1307,2190
+s0250,2,raw,"Metal clip seen in the gallbladder fossa, considering postoperative gallbladder.",0.0,16,802
+s0250,3,raw,"Reduced density of liver parenchyma, consistent with fatty liver change.",0.7781289664269182,53544,66999
+s0260,1,raw,"Left breast massive mass with incomplete edge, suspected to be malignant mammary tumor",0.0006714789323484975,32713,8986
+s0260,2,raw,"Umbilical hernia, enlarged umbilicus, fat herniation visible subcutaneously",0.0,3058,654
+s0260,3,raw,Left pleural effusion and bar-shaped pulmonary atelectasis,0.1659625829812915,1573,1741
+s0285,1,raw,"Multiple linear high-density shadows in both lungs, considering chronic inflammation and fibrous stripes",0.002385211687537269,876,801
+s0287,1,raw,Cyst in the left kidney.,0.0,38,402
+s0287,2,raw,Intermittent visualization of blood vessels in the right lower limb.,0.0,54,6181
+s0287,3,raw,Fatty liver.,0.38458632414053645,11268,23143
+s0289,1,raw,"Straightening of the cervical vertebrae, suspected cervical spondylosis",0.1710961789188647,4640,5331
+s0291,1,raw,Uterine leiomyoma with calcification,0.11868449584387424,4162,23508
+s0291,2,raw,Cystic lesion in the right adnexa,0.0,386,2867
+s0291,3,raw,Left renal calculus,0.001999067102019058,15,14992
+s0291,4,raw,Fatty liver,0.5528133371362739,84370,94439
+s0292,1,raw,"Skull defect on the right side, considered as postoperative manifestation",0.0,308,44424
+s0307,1,raw,Multiple cysts in the left kidney,0.0,27,298
+s0307,2,raw,Cystic lesion in the left adnexa,0.0,502,4324
+s0307,3,raw,Fatty liver,0.6071106705118962,46910,41858
+s0321,1,raw,"Degenerative lumbar spine, L3 spur formation",0.5265454545454545,1412,2713
+s0321,2,raw,Fatty liver,0.7817664477493425,55201,65697
+s0327,1,raw,"Left renal atrophy, multiple cysts",0.0,2857,34822
+s0327,2,raw,Left pleural effusion with incomplete expansion of the left lower lung,0.3785036146677119,42385,15020
+s0327,3,raw,Multiple bronchiectasis and exudation in the upper left lung,0.4137700215156586,24912,37833
+s0327,4,raw,"Right renal atrophy, multiple cysts",0.3790198172540643,2705,5722
+s0327,5,raw,Right pleural effusion with incomplete expansion of the right lower lung,0.21621751107917117,35376,6369
+s0327,6,raw,Multiple bronchiectasis and exudation in the upper right lung,0.10031978072179078,10590,11300
+s0327,7,raw,Cyst in liver,0.0,40,8071
+s0327,8,raw,Prostate calcification,0.0,0,14875
+s0333,1,raw,"Cervical spine curvature straightening, sequence disorder, lip-like change at the edge of vertebral body, suspected cervical spondylosis",0.1483441291852933,3021,7940
+s0334,1,raw,Subtle inflammation in the lower right lung,0.4747678920141149,9738,19451
+s0334,2,raw,Small amount of pleural effusion on the right side,0.005306799336650083,1388,1627
+s0334,3,raw,Mild fatty liver,0.6199391347894757,27364,24554
+s0336,1,raw,LAD calcified plaque,0.0,0,6910
+s0340,1,raw,"Right skull and right temporal lobe see multiple high-density shadows, considered to be postoperative manifestations of craniocerebral surgery",0.016907324757154108,762,37328
+s0340,2,raw,"Right temporal lobe sees sheet-like, strip-shaped low density, considering cerebral infarction, partial softening",0.0,4355,1123
+s0346,1,raw,"Left lobe of thyroid gland is obviously enlarged, with irregular mixed density mass, unclear boundary, considered as thyroid tumor",0.09786723294247991,2504,8327
+s0347,1,raw,LAD proximal and middle segment calcification plate,0.0,0,18581
+s0347,2,raw,Aortic atherosclerosis,0.00043244996418773736,16,73981
+s0352,1,raw,"Partial discontinuity in the right cranial bone, with visible high-density metallic shadows, suggestive of postoperative changes.",0.12795817281232802,965,6303
+s0352,2,raw,"High-density shadow observed in the right middle cerebral artery distribution, suggestive of postoperative changes.",0.0,169,13009
+s0361,1,raw,"A slightly high-density mass with unclear boundaries is seen in the front of the left femur, which is considered to be hematoma.",0.0,2369,30560
+s0362,1,raw,Esophagogastric junction surgery after,0.0,69,1018
+s0362,2,raw,Right renal calculi,0.0,0,2728
+s0362,3,raw,Gallbladder stones,0.0,17,1069
+s0362,4,raw,Multiple bone metastases,0.0031554882957143316,26681,4376
+s0367,1,raw,Subpleural inflammation of the left lower lung,0.7908555571156022,104996,137162
+s0367,2,raw,Subpleural inflammation of the right lower lung,0.7915113028418235,113968,138933
+s0369,1,raw,"Calcification foci in the wall of the ascending aorta and left coronary artery, considered arteriosclerosis.",0.0027506112469437654,9,6535
+s0369,2,raw,"Multiple calcification foci in the walls of the abdominal aorta and its branches, considered arteriosclerosis.",0.023369036027263874,103,1951
+s0369,3,raw,"Round low-density focus in the left kidney with local bulging, considered cystic.",0.08840606855216333,299,5040
+s0369,4,raw,"Soft tissue density lesion on the greater curvature side of the stomach, nodular lesions in the abdominal cavity and retroperitoneum, with a possibility of associated mass and metastasis not excluded.",0.014998369742419302,762,8439
+s0369,5,raw,Prostate hyperplasia.,0.42162934730824203,1514,2684
+s0369,6,raw,"Reduced density of liver parenchyma, consistent with fatty liver.",0.7671976709953878,30488,30654
+s0370,1,raw,Multiple nodular shadows in both lungs.,0.0,42,1785
+s0370,2,raw,"Short stripe high-density shadow in the soft tissue of the left posterior back, considered postoperative.",0.0,14,7202
+s0370,3,raw,"Calcification foci on the wall of the aorta and left coronary artery, considered arteriosclerosis.",0.0,0,3571
+s0370,4,raw,Slight enlargement of the left adrenal gland.,0.0,119,25
+s0370,5,raw,"Small amount of fluid accumulation in the right scrotum, suggestive of hydrocele of the tunica vaginalis.",0.0,333,24910
+s0370,6,raw,"Enlargement of the left inguinal canal, suggestive of inguinal hernia.",0.0,1013,7755
+s0370,7,raw,"Reduced density in the liver parenchyma, indicative of fatty liver.",0.4689750037612569,27931,65123
+s0371,1,raw,"Right upper lobe mass with cavity, considering pulmonary abscess or tumor possibility.",0.007275188224346502,6847,40437
+s0371,2,raw,Multiple enlarged lymph nodes in the right hilum and mediastinum.,0.0,408,1903
+s0371,3,raw,"Ring-shaped high-density focus seen in the gallbladder, considering cholelithiasis.",0.0,196,2221
+s0371,4,raw,"Round low-density non-enhanced focus in the left liver lobe, considered as cyst.",0.0,12,8011
+s0371,5,raw,"Multiple round air-containing cavities seen in the pleura of the left upper lung lobe, considered as paraseptal emphysema.",0.6415380877171668,45645,53127
+s0371,6,raw,"Multiple round air-containing cavities seen in the pleura of the right upper lung lobe, considered as paraseptal emphysema.",0.0024580090126997134,28859,433
+s0371,7,raw,"Hepatic density decreased, consistent with fatty liver.",0.8930701789503183,73090,76784
+s0375,1,raw,Left subclavian vein catheter insertion after surgery.,0.0,186,138
+s0375,2,raw,"High-density foci in the stomach and duodenum, postoperative? Need to combine with medical history.",0.0,81,507
+s0375,3,raw,"High-density nodular focus in the gallbladder, considering calculus.",0.0,0,55
+s0375,4,raw,"Local bulge in the fundus of the stomach, pending exclusion of tumor or diverticulum.",0.0003727171077152441,162,5204
+s0375,5,raw,"Extensive low-density nodule foci in the liver, considering metastatic tumor possible.",0.0,52110,1265
+s0376,1,raw,"Multiple calcification foci in the wall of the aorta, considering arteriosclerosis.",0.019505614187945306,947,70212
+s0376,2,raw,"Multiple calcification foci in the walls of the left and right coronary arteries, with varying degrees of stenosis of the lumen.",0.0,1162,1501
+s0376,3,raw,Multiple calcification foci in the hilum of the right lung and mediastinum.,0.0,214,296003
+s0376,4,raw,"Increased radiolucency of the lower lobe of the left lung on the seen levels, consistent with emphysema.",0.7913301023155628,171029,192943
+s0376,5,raw,"Increased radiolucency of the lower lobe of the right lung on the seen levels, consistent with emphysema.",0.10263257575757576,98857,6743
+s0376,6,raw,"Increased radiolucency of the middle lobe of the right lung on the seen levels, consistent with emphysema.",0.17585989271063426,57226,6154
+s0376,7,raw,"Increased radiolucency of the upper lobe of the left lung on the seen levels, consistent with emphysema.",0.8543277209160469,310925,246470
+s0376,8,raw,"Increased radiolucency of the upper lobe of the right lung on the seen levels, consistent with emphysema.",0.011331246203448437,169311,1897
+s0377,1,raw,"High-density suture at the manubrium sterni, metal valve prosthesis at the aortic valve, considering postoperative changes of aortic valve replacement.",0.0003077633299992306,705,12292
+s0377,2,raw,"Linear low-density shadow and stent seen in the arch of the head and neck artery and the thoracic aorta, considering postoperative changes of arterial dissection.",0.0013944223107569722,9804,236
+s0377,3,raw,"Reduced density of liver, consistent with fatty liver.",0.908481416390028,32270,29182
+s0383,1,raw,"T12 vertebral body wedge-shaped change, considering compression fracture.",0.0012671862130140025,1008,14775
+s0383,2,raw,"Linear high-density shadow seen in the right upper lobe of the lung, considering accessory lobe formation.",0.013696337774345112,895,76790
+s0383,3,raw,"Gastric cavity seen above the diaphragm, considering esophageal hiatal hernia.",0.10152143845089903,1628,12832
+s0383,4,raw,"Multiple enlarged lymph nodes seen at the right cardiophrenic angle, around the lower end of the esophagus, and in the right inguinal region.",0.0,120,1088
+s0383,5,raw,"Irregular local liver, multiple patchy slightly low-density foci seen in the substance, with enhancement, considering space-occupying lesion.",0.06886593803268826,4031,95699
+s0383,6,raw,"Small round low-density non-enhanced focus seen in the left kidney, considering cyst.",0.0,0,5062
+s0388,1,raw,"Large area of low density shadow in the right frontal temporal lobe, showing cerebrospinal fluid density, considering large area of softening in the right frontal temporal lobe",0.0,30162,707
+s0388,2,raw,"High density nodular and strip-shaped shadows are seen in the course of bilateral middle cerebral arteries, considered as postoperative manifestation",0.0,291,538
+s0388,3,raw,"High-density metal shadows are seen on both sides of the skull, considered as postoperative manifestation",0.0028860628082014016,740,95585
+s0389,1,raw,Mitral and aortic valve multiple calcification foci.,0.0,757,32570
+s0389,2,raw,"Multiple calcification foci in the wall of the thoracic aorta, considered to be arteriosclerosis.",0.007662835249042145,362,1204
+s0389,3,raw,"Multiple calcification foci in the left and right coronary arteries, with varying degrees of stenosis in the lumen, consistent with arteriosclerosis.",0.0,1432,656
+s0389,4,raw,Dilation of the lower end of the esophagus.,0.2342177493138152,1319,8518
+s0393,1,raw,"Multiple nodular shadows in both lungs, follow-up regularly.",0.0,50,1298
+s0393,2,raw,"Patchy low-density shadows in the left lobe of the thyroid gland, possible adenoma.",0.0,583,40128
+s0393,3,raw,"Calcification foci seen in the wall of the aorta, considered arteriosclerosis.",0.004848778713861446,47,16452
+s0393,4,raw,"Reduced density of liver, consistent with fatty liver.",0.8996126609022262,63252,64543
+s0402,1,raw,"sigmoid colon wall sees line-like high-density shadow, considers postoperative.",0.0,47,1234
+s0402,2,raw,"bilateral kidneys see multiple round low-density foci that do not enhance, consider cysts.",0.0,25,1117
+s0402,3,raw,"left kidney mass mixed density focus, uneven enhancement, consider occupancy lesion.",0.29345071361878083,1338,6159
+s0402,4,raw,"right renal adrenals see nodule lesions, uneven enhancement, pending exclusion of adenoma or metastasis.",0.0,53,2234
+s0402,5,raw,right lower lobe pulmonary tissue partial atelectasis.,0.0016181229773462784,175,12185
+s0402,6,raw,"bilater thyroid gland punctate low-density foci and calcification foci, consider adenoma or nodular goiter.",0.045112781954887216,12,520
+s0402,7,raw,"right upper chest wall subcutaneous to superior vena cava see duct walking, consider port catheterization.",0.13454075032341525,285,488
+s0402,8,raw,"thoracic aorta and coronary artery wall see calcified foci, consider arteriosclerosis.",0.01798665506237308,122,6772
+s0402,9,raw,"left liver lobe circular low-density focus, no enhancement, consider cyst.",0.0,0,968
+s0402,10,raw,"liver substance density decreased, consistent with fatty liver.",0.7995345635714052,30994,30024
+s0408,1,raw,Multiple bone destruction with uneven density increase throughout the body,0.027087433699169362,57259,2695
+s0410,1,raw,"A dense tubular shadow in the lateral ventricle, considered to be drainage tube placement.",0.004207573632538569,298,1128
+s0410,2,raw,"A dense shadow of the anterior cerebral artery, considered to be a metal clip occluder for an aneurysm.",0.0,30,3615
+s0410,3,raw,"A dense shadow of the aorta, considered to be calcification of the aorta.",0.0,4650,1299
+s0411,1,raw,"Aortic dense shadow, considering aortic calcification.",0.01182253349182382,199,30928
+s0420,1,raw,"Aortic plaque-like low density shadow, considered aortic dissection.",0.30387616981315374,6710,24171
+s0421,1,raw,"Effusion in both pleural cavities, partial atelectasis of both lungs, and multiple exudates.",0.04285676678863822,71023,4951
+s0423,1,raw,"Aortic and coronary dense shadows, multiple calcified plaques in aorta and coronary artery.",0.045258369298961855,329,8244
+s0423,2,raw,"Multiple nodular dense shadows in the gallbladder, considered as multiple gallstones.",0.0,0,1327
+s0429,1,raw,"Prominent tubular density in the superior vena cava, considered as the state of superior vena cava cannulation.",0.0425531914893617,204,313
+s0431,1,raw,"Cystic low-density nodule in the right kidney, considered as a simple renal cyst.",0.0,20,590
+s0431,2,raw,"Linear low-density shadow within the lumen of the aorta, considered as aortic dissection.",0.09339628007508105,1461,16120
+s0431,3,raw,"Band-like high-density shadow in the lower left lung lobe, considered as chronic inflammation of the lower left lung lobe.",0.0053281964055167325,301,48496
+s0436,1,raw,"Multiple round low-density nodules in both kidneys, considered as multiple cystic lesions in both kidneys.",0.0,71,7277
+s0436,2,raw,"Small amount of fluid with low density in the pelvic cavity, suggestive of pelvic effusion.",0.0,254,13654
+s0436,3,raw,"Cylindrical high-density shadow in the superior vena cava, considering the status of vena cava catheterization.",0.03490183857899657,603,2606
+s0436,4,raw,"Strip-like high-density shadows beneath the pleura on both sides, suggesting thickening of the pleura on both sides.",0.0,712,9666
+s0440,1,raw,"Reduced density in the liver parenchyma, suggestive of fatty liver.",0.6643153451143071,26368,28353
+s0440,2,raw,"Tubular dense shadow in the superior vena cava, suggestive of a state of superior vena cava catheterization.",0.09808102345415778,144,794
+s0440,3,raw,"Strip-like low-density shadow in the left quadratus lumborum muscle, suggestive of an abscess in the quadratus lumborum muscle.",0.010067114093959731,1358,4006
+s0446,1,raw,"Subpleural patchy and striated high-density shadow in the lower lobe of the right lung, considered as local chronic inflammatory focus of the right pleura",0.011862189271696468,432,22498
+s0446,2,raw,"Irregular liver contour with multiple patchy low-density shadows within the liver, suggestive of postoperative changes or intrahepatic lesions.",0.11264437689969604,3075,29825
+s0446,3,raw,"Small nodular-like low-density lesion observed in the right kidney, suggestive of a small cyst.",0.0,0,205
+s0446,4,raw,"Left renal sinus multiple small nodular dense shadows, considering left renal calculi",0.0014714898835070508,6,8149
+s0447,1,raw,"Right upper lobe of lung is patchy high-density shadow, consider a small amount of inflammation in the right upper lobe of lung",0.00036215013709969476,13,38645
+s0447,2,raw,"A few strips of shadow under the pleura of the left upper lobe, consider a small amount of chronic foci in the left lung",0.0011018069634200088,26,27202
+s0447,3,raw,"Lumbar vertebral body margin shows osteophyte formation, consider lumbar degenerative changes",0.0,17,174
+s0456,1,raw,"Small nodular low-density shadow at the splenic hilum, considered accessory spleen",0.0,0,6131
+s0456,2,raw,Punctate dense focus shown in the right adnexal area of the pelvis,0.0,86,2550
+s0456,3,raw,"Patchy high-density shadow in the lower lobe of the left lung, blurred margin, considered inflammation of the lower lobe of the left lung",0.03476546284765463,394,18878
+s0460,1,raw,"Bilateral periventricular and basal ganglia regions show a few slightly low-density shadows, suggestive of intracerebral lacunar lesions.",0.0,111,13412
+s0461,1,raw,"Coronary artery region with local dense shadow, considering calcified plaque",0.0,8,3408
+s0461,2,raw,"Small nodular low density shadow in the left lobe of liver, considering small cyst in the left lobe of liver",0.0,9,500
+s0461,3,raw,"Small round low density shadow in the right kidney, considering small cyst in the right kidney",0.0,25,43
+s0461,4,raw,"Small nodular dense shadow in the prostate, considering prostate calcification",0.0,15,3976
+s0467,1,raw,"Metal stent shadow in the lumen of the ascending aorta, considering postoperative change",0.32412754205372835,2047,5919
+s0467,2,raw,"Linear low-density shadow in the lumen of the abdominal aorta, considering aortic dissection",0.002425222312045271,1300,1174
+s0467,3,raw,"Effusion density shadow in the left chest, considering left pleural effusion",0.002663825253063399,1628,2126
+s0468,1,raw,"Multiple round low-density nodular shadows are seen in the liver, considered to be liver cysts.",0.0014967371130934562,25,33381
+s0468,2,raw,"A round low-density nodular shadow is seen at the edge of the right kidney, considered to be a renal cyst.",0.0,400,19
+s0468,3,raw,"High-density calcification shadow is seen inside the prostate, considered to be prostate calcification.",0.004169562195969423,10,2868
+s0472,1,raw,"Multiple linear and patchy shadows in the right lung, thickening of the pleura on the right side, considering multiple inflammatory foci in the right lung",0.04856822741603481,984,37395
+s0472,2,raw,"Small nodular low-density shadow in the left lobe of the liver, considering small cysts in the left lobe of the liver",0.0,0,5382
+s0474,1,raw,"Right temporal-parietal bone defect, considered postoperative changes in skull brain",0.008276677505172924,1091,2292
+s0476,1,raw,"Coronary artery opacification with dense shadows, considered to be calcified plaque",0.0,0,1308
+s0476,2,raw,"Small round low-density shadow on the edge of the left kidney, considered to be a left renal cyst",0.0,0,441
+s0476,3,raw,"Absence of spleen, considered to be postoperative changes",0.0,36,833
+s0477,1,raw,"Localized dense shadow in the wall of the aorta, suggestive of calcification plaques.",0.012149848126898413,72,8817
+s0477,2,raw,"Nodular high-density shadow beneath the pleura in the right lower lobe of the lung, suggestive of pulmonary nodules.",0.005026288813200622,216,30025
+s0477,3,raw,"Small round low-density shadows in both kidneys, suggestive of cysts.",0.0,0,17018
+s0477,4,raw,"Thoracolumbar vertebral metal internal fixation shadow, consider thoracolumbar spine postoperative change",0.0022156573116691287,1437,3979
+s0478,1,raw,"Sinusitis and sphenoid sinus mucosal thickening on the right side of the displayed layer, considered chronic inflammation.",0.0,213,373
+s0478,2,raw,"Aortic wall calcification seen in the chest aorta, considered arteriosclerosis.",0.0015100037750094375,31,5267
+s0478,3,raw,"Increased transparency of the upper lobe of the left lung, with multiple round cavities seen, consistent with emphysema.",0.848449514685491,35249,28215
+s0478,4,raw,"Increased transparency of the upper lobe of the right lung, with multiple round cavities seen, consistent with emphysema.",0.8661258807507846,38111,29445
+s0483,1,raw,"Multiple cystic lesions seen in both lungs, considered as lung bullae.",0.0,170,5037
+s0483,2,raw,"Metal density shadow seen in the tracheal lumen, considered as post-stent placement.",0.061572292468389224,427,3211
+s0483,3,raw,"Catheter seen running from the right upper chest wall subcutaneously to the superior vena cava, considered as post-port catheter placement.",0.0,109,210
+s0483,4,raw,"Calcification foci seen in the aortic wall, considered as arteriosclerosis.",0.0,12,4710
+s0483,5,raw,"Small round low-density shadows seen in both kidneys, no enhancement, considered as cysts.",0.0,16,5879
+s0483,6,raw,A small amount of pelvic effusion is visible.,0.0,557,1632
+s0483,7,raw,"Decreased density of liver parenchyma, consistent with fatty liver.",0.673396167316837,35303,34935
+s0483,8,raw,"Extensive punctate high-density foci seen in the lower left lung, unclear edge, considered as inflammation.",0.3591828831445445,24577,16739
+s0483,9,raw,"Extensive punctate high-density foci seen in the middle right lung, unclear edge, considered as inflammation.",0.04550587172538392,28407,7017
+s0483,10,raw,"Extensive punctate high-density foci seen in the middle right lung, unclear edge, considered as inflammation.",0.013617960986382039,10515,353
+s0483,11,raw,"Extensive punctate high-density foci seen in the upper left lung, unclear edge, considered as inflammation.",0.4542064275529231,19872,16596
+s0483,12,raw,"Extensive punctate high-density foci seen in the upper right lung, unclear edge, considered as inflammation.",0.3908486707566462,17832,13464
+s0484,1,raw,"Calcification foci in the aorta, bilateral iliac arteries and branches, coronary artery wall, considered sclerosis.",0.07173850159097483,447,3010
+s0484,2,raw,"Catheter seen coursing from right upper chest wall to superior vena cava, considered post-implantation of port-a-cath.",0.056308654848800835,257,702
+s0484,3,raw,"Small round low-density focus seen in the right kidney, no enhancement, considered cyst.",0.0,12,310
+s0484,4,raw,"Multiple punctate low-density foci seen in the spleen, considered benign.",0.0,25,3205
+s0484,5,raw,"Widespread circular low-density foci seen in the left lower lobe pleura, considered parapneumonic emphysema.",0.30923339814978495,24383,9559
+s0484,6,raw,"Widespread circular low-density foci seen in the right lower lobe pleura, considered parapneumonic emphysema.",0.6232694410629913,28113,20354
+s0484,7,raw,"Widespread circular low-density foci seen in the right middle lobe pleura, considered parapneumonic emphysema.",0.4407491535593366,11691,11642
+s0484,8,raw,"Widespread circular low-density foci seen in the right upper lobe pleura, considered parapneumonic emphysema.",0.5424135403478377,27162,17859
+s0484,9,raw,"Widespread circular low-density foci seen in the left upper lobe pleura, considered parapneumonic emphysema.",0.6918861416459817,31810,30232
+s0484,10,raw,"The liver parenchyma shows reduced density, consistent with fatty liver.",0.8252845008218216,36565,43136
+s0487,1,raw,"Catheter seen in the subcutaneous tissue of the left upper chest wall to the superior vena cava, considered as post-port implantation.",0.0,683,1640
+s0487,2,raw,"Patchy, slightly low-density lesions observed in the liver, not excluding the possibility of metastasis.",0.0,21,17137
+s0487,3,raw,"Locally increased density in multiple ribs on the right side, not excluding the possibility of metastasis.",0.0,467,4119
+s0487,4,raw,"Multiple thoracic vertebrae with uneven density, suspicious bone destruction, not excluding bone metastasis.",0.03530895334174023,2481,3070
+s0497,1,raw,Right jugular vein bulb is high.,0.0,182,8458
+s0497,2,raw,"Cervicothoracic curvature straightening, marginal bone hyperplasia, consistent with cervical and thoracic degeneration.",0.0,10246,3190
+s0497,3,raw,"Left upper lobe of the lung increased transparency, can see widespread small round gas cavity, consistent with emphysema.",0.8091987927013308,31018,27294
+s0497,4,raw,"Right upper lobe of the lung increased transparency, can see widespread small round gas cavity, consistent with emphysema.",0.7224127158292568,40142,25477
+s0498,1,raw,"Multiple nodular and linear shadows in the left lung, some of which are unclear, follow-up and review.",0.02441268044155109,1427,111629
+s0498,2,raw,"Calcified plaques on the walls of the thoracic aorta, abdominal aorta, and left coronary artery, considered to be arteriosclerosis.",0.011132905688384669,180,18683
+s0498,3,raw,"A round low-density shadow is seen in the left kidney, considered to be a cyst.",0.0,59,217
+s0498,4,raw,Left renal pelvis dilation and hydronephrosis.,0.09599575709360912,186,3585
+s0498,5,raw,"Increased transparency of the lower lobe of the left lung and visible gas cavity, consistent with emphysema with pulmonary bullae.",0.0,48915,100
+s0498,6,raw,"Increased transparency of the lower lobe of the right lung and visible gas cavity, consistent with emphysema with pulmonary bullae.",0.8171066501407407,75586,97072
+s0498,7,raw,"Increased transparency of the middle lobe of the right lung and visible gas cavity, consistent with emphysema with pulmonary bullae.",0.1422227485345491,16650,17128
+s0498,8,raw,"Increased transparency of the upper lobe of the left lung and visible gas cavity, consistent with emphysema with pulmonary bullae.",0.0024263992235522484,61665,155
+s0498,9,raw,"Increased transparency of the upper lobe of the right lung and visible gas cavity, consistent with emphysema with pulmonary bullae.",0.6959255684902588,82334,50298
+s0498,10,raw,"Reduced density of liver, consistent with fatty liver.",0.9253726971853674,65857,70715
+s0500,1,raw,"Nodule in the lower lobe of the left lung, follow-up.",0.0065040650406504065,24,4281
+s0500,2,raw,"Small round low-density lesion seen in the liver, considered cystic.",0.0,0,20682
+s0500,3,raw,"Cyst-like low-density lesion seen in the left kidney, considered cystic.",0.0,0,185
+s0500,4,raw,"Linear and short strip high-density lesions seen in the esophagus, stomach bottom, and intestinal wall, considered postoperative changes.",0.0,73,1636
+s0500,5,raw,Multiple punctate calcification foci in the left seminal vesicle.,0.0,0,383
+s0500,6,raw,"Both inguinal canals are enlarged, considering inguinal hernia.",0.0,2563,4630
+s0500,7,raw,"Increased density in multiple ribs, thoracolumbar spine, and pelvis, suggesting bone metastasis.",0.027217845083393023,7273,2500
+s0500,8,raw,"The density of the liver parenchyma is decreased, consistent with fatty liver.",0.5637851592050065,37738,20426
+s0501,1,raw,"Bilateral internal carotid artery and branch calcification foci, considered arteriosclerosis.",0.0,264,14622
+s0501,2,raw,"Right vertebral artery is slender, considered developmental abnormality.",0.0015616866215512754,1023,2819
+s0501,3,raw,"Multiple calcification foci in the wall of the thoracic aorta, considered arteriosclerosis.",0.007523908806599284,224,21839
+s0502,1,raw,"Left upper chest wall subcutaneous to superior vena cava with catheter, considered as port-a-cath implantation postoperatively.",0.008423022929340197,541,1596
+s0502,2,raw,"Pericardium slightly thickened, considered pericardial effusion.",0.0,7274,6857
+s0502,3,raw,Multiple calcification foci in aortic valve and mitral valve.,0.0,13,9751
+s0502,4,raw,"Multiple small round low-density lesions in liver, considered cysts.",0.0,28,22545
+s0502,5,raw,"Multiple short strip-shaped high-density foci around abdominal aorta, considered postoperative changes.",0.0,80,1223
+s0502,6,raw,"Multiple cystic lesions in retroperitoneum, indistinct boundary with left psoas major muscle, considered possible cystic mass.",0.21571081720981436,56780,9531
+s0502,7,raw,"Round low-density lesion in right kidney, considered cyst.",0.0,54,2282
+s0502,8,raw,"Left renal pelvis dilation and hydronephrosis, considered hydronephrosis.",0.0,1348,11625
+s0502,9,raw,"Prostate enlargement with punctate calcification, considered hyperplasia.",0.17196974858622335,1483,13194
+s0502,10,raw,Minimal pelvic fluid accumulation.,0.0,179,10580
+s0503,1,raw,"Aortic calcification, considering atherosclerosis.",0.0,28,9351
+s0503,2,raw,"Multiple calcifications in the walls of both internal carotid arteries, considering atherosclerosis.",0.0,47,823
+s0503,3,raw,"Bilateral internal carotid artery stenosis, awaiting exclusion of aneurysm.",0.0,295,385
+s0503,4,raw,"Increased transparency of the upper lobe of the left lung, suggesting emphysema.",0.8086967271378681,35469,29245
+s0503,5,raw,"Increased transparency of the upper lobe of the right lung, suggesting emphysema.",0.8355516509261293,38943,29352
+s0507,1,raw,"Coronary atherosclerosis considering multiple calcified nodules in the walls of coronary, thoracic and abdominal aortas and their branches.",0.009801095416546555,71,6867
+s0507,2,raw,"Patchy, slightly low-density lesions observed in the right lobe of the liver, with enhancement, not excluding the possibility of a vascular malformation.",0.0,45,3645
+s0507,3,raw,"High-density nodular lesion observed in the right renal calyx, suggestive of a stone.",0.0,0,3503
+s0507,4,raw,Consider bilateral renal cysts with round-shaped low-density lesions without enhancement in both kidneys.,0.0,1136,456
+s0507,5,raw,Multiple calcified nodules in both seminal vesicles.,0.0,29,1928
+s0507,6,raw,Fatty liver with decreased density of liver parenchyma.,0.829219838587294,34411,38074
+s0510,1,raw,"Patchy, slightly high-density lesions with unclear margins in the right lower lobe of the lung, suggestive of inflammation.",0.001639895719451686,81,95047
+s0510,2,raw,"Speckled calcifications seen in the wall of the thoracic aorta, indicative of arterial sclerosis.",0.0006603929337956084,8,12106
+s0510,3,raw,"Reduced density in the liver parenchyma, consistent with fatty liver.",0.9151023823013911,92491,96360
+s0514,1,raw,"Tumour in the right top soft tissue, possible meningioma.",0.0,22077,1900
+s0514,2,raw,Local curvature of the falx cerebri to the left.,0.0,2805,4945
+s0514,3,raw,"Decreased density in the local parietal bone, considering bone destruction or arachnoid granulation cyst.",0.0,1462,88794
+s0514,4,raw,Left-sided jugular venous bulb positional elevation.,0.003218884120171674,204,3524
+s0516,1,raw,"Multiple nodular shadows in both lungs, follow-up.",0.0,24,4356
+s0516,2,raw,"Multiple calcification foci are seen in the wall of bilateral coronary arteries, the thoracic aorta, the aortic valve, the mitral valve, the abdominal aorta and its branch vessel walls, considering arteriosclerosis.",0.11385199240986717,2664,12619
+s0516,3,raw,"A small round low-density focus is seen in the left kidney, without enhancement, considered cyst.",0.0,40,722
+s0516,4,raw,"High-density nodular shadow in the gallbladder, considered stones.",0.0,0,1010
+s0516,5,raw,"Local absence of prostate, considered postoperative.",0.015011547344110854,26,3438
+s0516,6,raw,"Linear high-density focus in the sigmoid colon, considered postoperative.",0.0,46,3643
+s0516,7,raw,"Increased transparency in the lower lobe of the left lung, consistent with emphysema.",0.6357157338240569,28689,35434
+s0516,8,raw,"Increased transparency in the lower lobe of the right lung, consistent with emphysema.",0.6927496281335717,30716,42563
+s0516,9,raw,"Increased transparency in the middle lobe of the right lung, consistent with emphysema.",0.39543438649568535,13385,15702
+s0516,10,raw,"Increased transparency in the upper lobe of the left lung, consistent with emphysema.",0.54660176672075,36893,18577
+s0516,11,raw,"Increased transparency in the upper lobe of the right lung, consistent with emphysema.",0.2900103861769427,34123,8241
+s0519,1,raw,"A lobulated soft tissue mass in the lower lobe of the right lung, suspected lung cancer.",0.006267929895614859,130,41351
+s0519,2,raw,"Multiple nodular lesions in both lungs, not excluding the possibility of metastasis.",0.0,50,648
+s0519,3,raw,"Multiple enlarged lymph nodes in the right hilum and mediastinum, suspected metastasis.",0.0,1267,429
+s0519,4,raw,"Calcification foci are seen in the coronary artery, thoracic aorta, abdominal aorta, and branch vessels, suggesting arteriosclerosis.",0.10264606641804298,411,5220
+s0519,5,raw,"Small round low-density non-enhancing lesion is seen in the liver, considered cyst.",0.0,0,107
+s0519,6,raw,"Small round low-density lesions are seen in both kidneys, considered cysts.",0.0,0,388
+s0519,7,raw,"Increased transparency in the lower lobe of the left lung, consistent with emphysema.",0.7228994676336702,22232,29612
+s0519,8,raw,"Increased transparency in the middle lobe of the right lung, consistent with emphysema.",0.011469985820072475,27016,4719
+s0519,9,raw,"Increased transparency in the middle lobe of the right lung, consistent with emphysema.",0.0062407132243685,6498,232
+s0519,10,raw,"Increased transparency in the upper lobe of the left lung, consistent with emphysema.",0.5015775827059449,21707,10304
+s0519,11,raw,"Increased transparency in the upper lobe of the right lung, consistent with emphysema.",0.35282573141922585,22531,4984
+s0519,12,raw,"Reduced density of liver parenchyma, consistent with fatty liver.",0.36705609042374965,25694,19073
+s0521,1,raw,Calcification foci of the ligamentum flavum.,0.0,0,9067
+s0521,2,raw," straightening of cervical curvature, osteophyte formation at the edge of vertebrae, degenerative changes of cervical vertebrae.",0.26772029223199645,18298,15237
+s0521,3,raw,"C7 vertebral body wedge-shaped change, considering compression fracture.",0.17061966175519788,3884,25503
+s0536,1,raw,"Nodules in the upper and lower lobes of the left lung, follow-up.",0.0,0,32026
+s0536,2,raw,"Multiple calcification foci in the thoracic aorta, abdominal aorta and its branches, coronary arteries, considering arteriosclerosis.",0.04214963119072708,232,7360
+s0536,3,raw,"Point-like high-density nodular foci are seen in the left kidney, suggesting calculi.",0.0,0,3641
+s0536,4,raw,"Small round low-density non-enhanced foci are seen in both kidneys, suggesting cysts.",0.0,13,5999
+s0536,5,raw,"Cystic low-density foci are seen in the spleen, suggesting cysts.",0.0,0,853
+s0536,6,raw,"Right pelvic renal shadow is seen, suggesting postoperative transplantation.",0.39844799283689003,5078,1623
+s0536,7,raw,"The gallbladder is not displayed, and the common bile duct is dilated.",0.0,156,318
+s0536,8,raw,Focal point-like calcification is seen in the prostate gland.,0.0,10,1121
+s0536,9,raw,"Left kidney atrophy, consistent with renal failure changes.",0.0,262,11
+s0536,10,raw,"Right kidney atrophy, consistent with renal failure changes.",0.0,285,104
+s0543,1,raw,"Enlargement of both lobes of the thyroid gland with uneven density, pending exclusion of nodular goiter.",0.39893617021276595,557,1323
+s0543,2,raw,"High-density focus seen in the left renal sinus, considered to be a calculus.",0.004478948939982084,97,6601
+s0543,3,raw,"Dilation and hydrops of the left renal pelvis and calyx, consistent with hydronephrosis.",0.0,6574,1796
+s0543,4,raw," Huge pelvic cystic-solid mass with calcification, suspected to originate from the right adnexa, possible cystadenoma or teratoma.",0.08780364372469636,31470,15954
+s0543,5,raw,"Reduced density of liver parenchyma, consistent with fatty liver.",0.5642439257010596,39945,46032
+s0546,1,raw,Right lung middle lobe nodule.,0.0,0,31549
+s0546,2,raw,Sclerotic lesion in the right thyroid lobe with possible adenoma or nodular goiter.,0.0,33,726
+s0546,3,raw,"Multiple calcified lesions in the aortic wall of the thoracic and abdominal aorta, considering arteriosclerosis.",0.09491645929612513,373,5253
+s0546,4,raw,"Multiple small round low-density foci in the liver, no enhancement, considered cysts.",0.0,15,8563
+s0546,5,raw,"Point-like high-density focus in the left renal pelvis, considered calculus.",0.0,0,4366
+s0548,1,raw,"Multiple round low-density foci are seen in the liver, no enhancement is seen, and cysts are considered.",0.0,856,7857
+s0548,2,raw,"Round low-density foci are seen in both kidneys, no enhancement is seen, and cysts are considered.",0.0,27,1316
+s0548,3,raw,"Multiple calcification foci are seen in the aorta and its branches, and arteriosclerosis is considered.",0.003068425897514575,136,9641
+s0548,4,raw,Catheterization after bladder catheter insertion is seen in the bladder cavity.,0.010806317539484621,171,7047
+s0548,5,raw,A small amount of pelvic effusion is seen.,0.002056969100746769,690,21673
+s0548,6,raw,"The density of the liver substance is reduced, consistent with fatty liver.",0.7297478669350973,58811,66361
+s0548,7,raw,"Multiple patchy high-density shadows are seen in the lower left lung, with unclear margins, suggesting inflammation.",0.6398158803222095,14177,9286
+s0548,8,raw,"Multiple patchy high-density shadows are seen in the lower right lung, with unclear margins, suggesting inflammation.",0.8100720424378605,22249,20920
+s0548,9,raw,"Multiple patchy high-density shadows are seen in the middle right lung, with unclear margins, suggesting inflammation.",0.2649137687305626,4693,2381
+s0549,1,raw,"Irregular nodules with a leaf-like shape in the right lung, suspected to be lung cancer",0.005563064386593798,179,50872
+s0549,2,raw,"Irregular low-density lesions without enhancement in both renal pelvises, well-defined borders, suggestive of peripelvic cysts.",0.0047562425683709865,1175,507
+s0549,3,raw,"Enlargement of bilateral seminal vesicles with decreased density, benign change is considered",0.0,324,50
+s0550,1,raw,"Thickening of the right pleura, and locally reduced density in the pleural cavity, suggestive of encapsulated effusion.",0.0054017555705604325,3234,1209
+s0550,2,raw,Focal calcification,0.0,199,5500
+s0550,3,raw,Richly supplied small nodules in liver S8,0.002170767004341534,15,13805
+s0550,4,raw,"Enlarged lymph nodes in the hepatoduodenal ligament, retroperitoneum, and mesentery",0.0,96,103
+s0550,5,raw,"Prostate volume increase with punctate calcification, considering benign prostatic hyperplasia with calcification",0.09366754617414248,690,826
+s0550,6,raw,"Multiple cords and patches with calcification in both lungs, considering chronic old lesions",0.0,182,2766
+s0550,7,raw,"Increased transparency in the lower lobe of the left lung with multiple round transparent areas, considering emphysema",0.749812149160933,29684,38189
+s0550,8,raw,"Increased transparency in the lower lobe of the right lung with multiple round transparent areas, considering emphysema",0.7939903416204614,25076,30834
+s0550,9,raw,"Increased transparency in the middle lobe of the right lung with multiple round transparent areas, considering emphysema",0.4777332381527648,11944,6267
+s0550,10,raw,"Increased transparency in the upper lobe of the left lung with multiple round transparent areas, considering emphysema",0.5167811690505688,24611,10905
+s0550,11,raw,"Increased transparency in the upper lobe of the right lung with multiple round transparent areas, considering emphysema",0.5077136900625434,9704,4686
+s0551,1,raw,Multiple cyst-like transparent shadows in both lungs: Consider pulmonary bullae,0.0,229,2000
+s0551,2,raw,"Oval low-density shadow in the right renal parenchyma, considering benign renal lesion",0.015243219009190765,391,4070
+s0551,3,raw,Dense shadow in the mitral valve area on the left side,0.0,111,10323
+s0551,4,raw,Scattered linear and patchy shadows in the right lung: Consider chronic inflammatory foci,0.001743359177868514,66,65325
+s0551,5,raw,"Multiple calcified plaques on the wall of the aorta, indicating atherosclerosis of the aorta",0.6926362106897891,7101,8353
+s0551,6,raw,"Multiple calcified plaques on the wall of the left iliac artery, indicating atherosclerosis of the left iliac artery",0.05667060212514758,391,456
+s0551,7,raw,"Bony folds and uneven density on the right scapula, considering old fracture",0.042833607907743,2494,1755
+s0551,8,raw,"Bony folds and uneven density on the 4th rib on the right side, considering old fracture",0.0,395,3199
+s0551,9,raw,"Bony folds and irregular shape on the 5th rib on the right side, considering old fracture",0.0,482,3442
+s0551,10,raw,"Multiple calcified plaques on the wall of the right iliac artery, indicating atherosclerosis of the right iliac artery",0.016666666666666666,457,503
+s0551,11,raw,"L4 vertebral body anterior slippage, discontinuity in the bone structure of both sides of the vertebral arch, suggestive of bilateral laminar fractures at L4 with vertebral slippage.",0.27834433113377327,1467,3534
+s0561,1,raw,"Multiple nodules and mass shadows in both lungs, some with cavitation: Consider tumorous lesions",0.04458125464388069,2157,7264
+s0561,2,raw,Narrowing of the right upper lobe bronchus,0.0,218,56456
+s0561,3,raw, Coronary atherosclerotic changes,0.0017409075426711577,293,26130
+s0561,4,raw,"Spotty high density inside the gallbladder, considering gallstones",0.0,0,5484
+s0561,5,raw,"Multiple round low-density shadows in both renal parenchyma, considering simple renal cysts",0.0,575,21626
+s0561,6,raw,"Duodenal descending segment pouch-like protrusion, considering diverticulum",0.0,0,490
+s0561,7,raw,"Splenic artery wall calcification, suggesting arteriosclerosis",0.007806031933767002,247,8208
+s0561,8,raw,"Superior mesenteric artery wall calcification, suggesting arteriosclerosis",0.0,314,1890
+s0561,9,raw,"Calcification of bilateral renal artery walls, suggesting arteriosclerosis",0.0,210,3451
+s0561,10,raw,"Multiple calcified plaques on the wall of the ascending aorta, indicating aortic arteriosclerosis",0.3882373845060412,8376,2880
+s0561,11,raw,"Multiple calcified plaques on the left iliac artery wall, indicating left iliac arteriosclerosis",0.033777777777777775,584,541
+s0561,12,raw,"Multiple calcified plaques on the right iliac artery wall, indicating right iliac arteriosclerosis",0.02973977695167286,575,501
+s0571,1,raw,"Low density in the left lobe of the liver, considered as a hepatic cyst",0.0,0,2597
+s0571,2,raw,Focal low enhancement in the left lobe of the liver with blurred margins,0.0,68,18834
+s0571,3,raw,"Cystic low-density area in the left kidney, considered as a renal cyst",0.0,109,64
+s0571,4,raw,"Patchy opacity in the trachea, considered as secretions",0.005420054200542005,37,701
+s0571,5,raw,"Multiple calcified plaques on the wall of the aorta, suggesting atherosclerosis",0.6749388982891521,4833,5805
+s0571,6,raw,"Increased transparency in the upper lobe of the left lung and multiple round transparent areas, considering pulmonary emphysema",0.41452750626688173,24947,26514
+s0571,7,raw,"Increased transparency in the upper lobe of the right lung and multiple round transparent areas, considering pulmonary emphysema",0.530540262847153,22113,43096
+s0571,8,raw,"Multiple calcified plaques on the wall of the left iliac artery, suggesting atherosclerosis of the left iliac artery",0.03595080416272469,291,766
+s0571,9,raw,"Multiple calcified plaques on the wall of the right iliac artery, suggesting atherosclerosis of the right iliac artery",0.06396588486140725,295,174
+s0574,1,raw,"Multiple small patchy low-density areas in the liver, considered cysts",0.0,0,52505
+s0574,2,raw,"Soft tissue density nodule around the spleen, considered accessory spleen",0.0,8,7622
+s0574,3,raw,"Low-density area in the left renal parenchyma, considered renal cyst",0.0,54,782
+s0574,4,raw,Local dilation of the lower segment of the right ureter,0.0,213,28517
+s0574,5,raw,Local dilation of the lower segment of the right ureter,0.0,273,859
+s0574,6,raw,Prostate punctate calcification,0.0,0,2198
+s0574,7,raw,"Multiple calcified plaques on the wall of the aorta, local protuberance-like changes in the aortic arch, considering atherosclerosis with local ulceration",0.6918667699457784,6032,6878
+s0574,8,raw,"Squamous plate-like high density at the lower edge of T8 vertebral body, considered squamous plate inflammation",0.050833995234312944,822,437
+s0574,9,raw,"Squamous plate-like high density at the upper edge of T9 vertebral body, considered squamous plate inflammation",0.018524755810037048,984,4954
+s0574,10,raw,"L5 vertebral body slips forward, bilateral pedicle isthmus bone discontinuity, considering L5 bilateral pedicle isthmus fracture and vertebral body slip",0.3274874110088557,1392,4367
+s0587,1,raw,"Cystic and solid mass on the left side of the pelvis, unclear boundary with surrounding structures, suspected malignant tumor",0.0,2066,22674
+s0587,2,raw,"Enlarged lymph nodes in the pelvic cavity, suspected metastasis",0.0,17,626
+s0587,3,raw,"Uneven thickening of omentum, multiple patchy shadows, suspected omental metastasis",0.0,711,2721
+s0587,4,raw, Thickening of peritoneum,0.0,71,588
+s0587,5,raw,"Spot-like high density inside gallbladder, suspected gallstone",0.0,43,180
+s0587,6,raw,"Small round low-density shadow in right kidney, suspected renal cyst",0.0,0,931
+s0587,7,raw,"Multiple round low-density shadows in left kidney, suspected renal cyst",0.0,166,562
+s0587,8,raw,"Patchy low-density focus in pancreas, suspected benign lesion",0.013097949886104784,23,3489
+s0587,9,raw,Calcified focus in right lower abdominal cavity,0.0,5,12894
+s0587,10,raw,Right renal calyx-shaped pelvis,0.0,205,2679
+s0587,11,raw,Patchy dense focus in left iliac bone: possible bone metastasis,0.0,65,2180
+s0587,12,raw," Multiple linear shadows in the lower lobe of the left lung, fine reticular changes under the pleura, suspected interstitial lung disease",0.2695214105793451,8364,2752
+s0587,13,raw,"Multiple linear shadows in the lower lobe of the right lung, fine reticular changes under the pleura, suspected interstitial lung disease",0.18258279306115296,6436,4978
+s0587,14,raw,"Thickening of sigmoid colon wall, unclear boundary with adjacent mass",0.0,11772,571
+s0595,1,raw,Left anterior descending coronary artery hardening,0.0,726,14084
+s0595,2,raw,Circumflex coronary artery hardening,0.0,306,5645
+s0595,3,raw,"Lower lobe of left lung strip-shaped high density, consider exudative change",0.04992743635849177,7672,101887
+s0595,4,raw,"Right lower lobe patchy shadow, consider exudation",0.024370067297158318,4572,40155
+s0595,5,raw,"Multiple calcified plaques on the aortic wall, suggesting atherosclerosis",0.7420486958502933,127153,101080
+s0603,1,raw,"High-density nodules are seen in the gallbladder cavity, gallbladder stones are considered",0.0,0,569
+s0605,1,raw,Pleural effusion and exudation in the mediastinum,0.004100346665672643,23414,3413
+s0605,2,raw,A small amount of gas accumulation inside the chest wall,0.0,251,7794
+s0605,3,raw,Left pleural effusion,0.004700352526439483,4707,2952
+s0605,4,raw,"The aortic lumen sees dense stent shadows, local double-lumen changes, multiple exudates around the vessel wall, indicating changes after aortic dissection stent implantation",0.7324001087251971,7765,6951
+s0605,5,raw,"Volume reduction of the left lower lung lobe, patchy high-density shadow, suggesting atelectasis of the left lower lung lobe",0.011721929776957725,5118,13309
+s0605,6,raw,"Volume reduction of the right lower lung lobe, patchy high-density shadow, suggesting atelectasis of the right lower lung lobe",0.08483754512635379,11868,3644
+s0608,1,raw,Stenosis in the left anterior descending artery with plaque,0.0,32,15436
+s0608,2,raw,Stent implantation in the left circumflex artery,0.0,167,12907
+s0608,3,raw,"Calcified plaque in the wall of the ascending aorta, indicating atherosclerosis",0.0,39,28371
+s0608,4,raw,Bronchiectasis in the lingular segment of the left upper lobe,0.006302762013374812,479,147710
+s0608,5,raw,Bronchiectasis in the left lower lobe,0.0018467220683287165,1488,41832
+s0608,6,raw,"Multiple calcified plaques in the wall of the ascending aorta, indicating atherosclerosis",0.06350216340035632,44420,2728
+s0608,7,raw,"Increased transparency and multiple round transparent areas in the left lower lobe, suggesting emphysema",0.01770487920416864,99734,1594
+s0608,8,raw,"Increased transparency and multiple round transparent areas in the left upper lobe, suggesting emphysema",0.004730192319661418,127194,1342
+s0627,1,raw,Multiple exudates and air in the mediastinum,0.0,2688,885
+s0627,2,raw,Air accumulation in soft tissues of neck and chest,0.0,1605,810
+s0627,3,raw,"Uneven shape of sternum with linear low density, considered postoperative changes",0.0,1509,18
+s0627,4,raw,"High-density strip-shaped shadows in the lower lobe of right lung, considered exudation",0.0024686278543509564,250,19194
+s0627,5,raw,"High-density strip-shaped shadows in the lower lobe of left lung, considered exudation",0.003300935264991748,372,15987
+s0627,6,raw,"High-density strip-shaped shadows in the upper lobe of left lung, considered exudation",0.00832639467110741,180,5825
+s0627,7,raw,Right pleural effusion,0.0,308,381
+s0627,8,raw,Left pleural effusion,0.0,457,1626
+s0627,9,raw,"Dense stent shadow in the aortic lumen, local double-lumen-like change, and multiple exudates around the wall, indicating changes after aortic dissection stent implantation surgery.",0.7304636985036025,2630,2783
+s0633,1,raw,"Metallic artificial joint of high density is seen in the upper segment of left femur, considering postoperative manifestation of left hip joint replacement.",0.19839774981792613,4969,34850
+s0652,1,raw,"Sternal metal wire shadow seen, considering postoperative manifestation",0.0,2890,7869
+s0652,2,raw,"Metal stent shadow seen in the aortic wall, postoperative manifestation of aortic dissection stent implantation",0.07774616044281593,5190,97426
+s0652,3,raw,"Stripe shadow in the anterior mediastinum, considering postoperative manifestation",0.0,123,8919
+s0652,4,raw,"Strip-shaped high-density in the upper lobe of the left lung, considering local inflammation",0.007482331845844779,2461,539616
+s0652,5,raw,"Aorta thickening, true and false lumen can be seen, considering aortic dissection",0.009280842614175947,91663,1001
+s0669,1,raw,"Irregular non-enhancing mass with clear borders observed in the liver, suggestive of a hepatic cyst.",0.0,3500,297
+s0669,2,raw,"Multiple high-density nodules seen in the gallbladder, suggestive of gallstones.",0.015100671140939598,98,1094
+s0669,3,raw,"Localized dilation of the abdominal aorta, with thickening of the vessel wall, suggestive of an aortic aneurysm.",0.7142353521821899,6376,7807
+s0669,4,raw,Significant enlargement of the prostate.,0.17561229807191245,2826,1012
+s0675,1,raw,"Left chest wall box-like shadow, cardiac chamber and vessel lead wire shadow, considered to be post-operative manifestation of pacemaker implantation",0.0,1834,4797
+s0675,2,raw,"High-density shadows observed in the coronary artery distribution, suggestive of coronary artery calcification.",0.0,69,1911
+s0675,3,raw,"High-density, hazy shadows beneath the pleura in the left lower lobe of the lung, suggestive of focal pneumonia.",0.4837840138467213,19343,51143
+s0675,4,raw,"High-density, hazy shadows beneath the pleura in the right lower lobe of the lung, suggestive of focal pneumonia.",0.5568457164791402,26177,57189
+s0685,1,raw,Fatty liver,0.6788342092689919,24051,38739
+s0685,2,raw,"Intraluminal nodules with mixed high density in the gallbladder fossa, considered as cholelithiasis",0.0,102,690
+s0692,1,raw,"Liver shows round low-density nodules, suggestive of hepatic cysts.",0.0020842544053559023,33,31633
+s0692,2,raw,"Thickening of the gallbladder wall with enhancement, suggestive of manifestations of chronic cholecystitis.",0.0,363,4
+s0692,3,raw,"Round low-density lesion in the right kidney, suggestive of a renal cyst.",0.0,522,112
+s0692,4,raw,"Aorta is enlarged with the presence of true and false lumens, suggestive of aortic dissection.",0.6669236328595519,10726,10029
+s0692,5,raw,"Hazy streaky shadows in the left lower lobe of the lung, suggestive of focal pneumonia.",0.6289345352445692,8914,11387
+s0692,6,raw,"Hazy streaky shadows in the right lower lobe of the lung, suggestive of focal pneumonia.",0.7150762865270235,17113,21557
+s0697,1,raw,"Multiple metal shadows seen in the sternum, considering postoperative manifestation",0.0,795,2554
+s0697,2,raw,"Metal shadow seen in the aortic valve area, considering postoperative manifestation of aortic valve replacement",0.0,113,14212
+s0697,3,raw,"Aorta thickening, true and false lumen are seen, considering aortic dissection",0.00075046904315197,12956,369
+s0707,1,raw,"Multiple patchy areas of uniform and high-density shadows in the abdominal cavity, suggestive of manifestations of hematoma or exudation.",0.06363809331945516,81190,8159
+s0707,2,raw,"Localized thickening of the right common iliac artery, with a spherical protrusion, irregularities, and evidence of rupture, suggestive of a ruptured right common iliac artery aneurysm.",0.1527159394479074,3789,703
+s0724,1,raw,"Prostate enlargement, multiple high-density calcification foci are seen inside",0.6431461810824481,4068,3840
+s0724,2,raw,"Low density shadow is seen in the bilateral iliac artery vessels, considering long segment thrombus formation",0.25509110396570206,744,1122
+s0736,1,raw,"Coronary artery region sees high density shadow, considers coronary arteriosclerosis",0.0,1567,13450
+s0736,2,raw,"Diffuse cord and patchy shadows in both lungs, considering focal interstitial pneumonia",0.0,1264,3596
+s0736,3,raw,"Aorta sees true and false lumen, wall calcification, considering aortic dissection",0.5628154050464808,40865,19375
+s0740,1,raw,"Increased density at the lower endplate of L5 vertebral body, consider degeneration of the endplate",0.001927832027157286,3755,20106
+s0740,2,raw,"Mild anterior displacement of L4 vertebral body, consider grade I spondylolisthesis",0.015167650950398555,4220,26767
+s0740,3,raw,"Increased density at the upper endplate of S1 vertebral body, consider degeneration of the endplate",0.0,2165,24403
+s0751,1,raw,"Stitches with high density at the manubrium, consistent with postoperative chest.",0.0,519,2544
+s0751,2,raw,"Endoluminal stent with high density seen in the ascending aorta, considered as postoperative aortic dissection.",0.28930907023030994,2785,11283
+s0751,3,raw,"Multifocal calcification in the thoracic and abdominal aorta and its branches, coronary artery, considered as arteriosclerosis.",0.09310496267018006,1068,1209
+s0751,4,raw,"Cystic low-density foci are seen in the spleen, without enhancement, suggesting cysts.",0.0,0,5835
+s0751,5,raw,Right inguinal hernia with intestinal contents.,0.0,3385,22181
+s0751,6,raw,Focal calcifications in the prostate.,0.01711753018493046,56,6487
+s0751,7,raw,"Multiple round air-filled cavities in the lower lobe of the left lung and under the pleura, consistent with emphysema.",0.7862527933989834,41080,40362
+s0751,8,raw,"Multiple round air-filled cavities in the lower lobe of the right lung and under the pleura, consistent with emphysema.",0.7674288438815067,50985,45493
+s0751,9,raw,"Multiple round air-filled cavities in the middle lobe of the right lung and under the pleura, consistent with emphysema.",0.5609186325798704,13283,17110
+s0751,10,raw,"Multiple round air-filled cavities in the upper lobe of the left lung and under the pleura, consistent with emphysema.",0.7204169132826147,39275,29996
+s0751,11,raw,"Multiple round air-filled cavities in the upper lobe of the right lung and under the pleura, consistent with emphysema.",0.2111695246483719,32079,4252
+s0751,12,raw,"Reduced density of liver parenchyma, consistent with fatty liver.",0.7010761755996588,43066,61285
+s0751,13,raw,"Atrophy of the pancreas with multifocal calcifications in the pancreas and peripancreatic region, pancreatic duct dilation, consistent with chronic pancreatitis changes.",0.31969384751251106,1302,2095
+s0774,1,raw,"Multiple calcification foci are seen in the body of uterus, considering as myoma of uterus with degeneration.",0.0,23441,11733
+s0783,1,raw,"Linear low-density shadow in the cortical bone of the lateral malleolus, considering a fissure fracture",0.0016120365394948952,638,3084
+s0791,1,raw,"Coronary and aortic wall multiple calcified foci, consider arteriosclerosis.",0.00474974766965505,426,134318
+s0791,2,raw,"Local protuberance of the aortic arch outward, consider aneurysm.",0.0,1642,6741
+s0791,3,raw,"The ascending aorta is fusiform dilatation, consider aneurysm.",0.1626056971172996,79164,8705
+s0791,4,raw,"A round low-density focus is seen in the left lobe of the liver, without enhancement, considering cyst.",0.0,6168,61485
+s0804,1,raw,"Right adrenal gland sees nodular lesion, considering adenoma possibility.",0.0,26,216
+s0804,2,raw,"Left adrenal gland is thickened, considering hyperplasia.",0.08928571428571429,149,75
+s0804,3,raw,Pelvic mild effusion.,0.0038816108685104317,187,1874
+s0804,4,raw,"Metal density shadow seen in right hip joint, consistent with postoperative artificial hip joint replacement.",0.00960419091967404,1536,12208
+s0837,1,raw,"A small bony density nodule on the medial condyle of the femur, which is considered to be calcification of the ligament",0.0,21,125931
+s0840,1,raw,"Stitches with high density at the manubrium sterni, considered postoperative.",0.0,2251,8015
+s0840,2,raw,"Metal valve prosthesis seen at the aortic valve, considered postoperative artificial valve replacement.",0.0,470,43989
+s0840,3,raw,"Multiple calcification foci in coronary artery, thoracic aorta wall and mitral valve, consistent with arteriosclerosis.",0.00813140348024069,2888,3261
+s0840,4,raw,"Increased transparency of the left lower lobe of the lung and multiple small cystic air spaces seen, consistent with emphysema.",0.6460433225609223,185783,272177
+s0840,5,raw,"Increased transparency of the right lower lobe of the lung and multiple small cystic air spaces seen, consistent with emphysema.",0.6088687390242707,132632,153226
+s0840,6,raw,"Increased transparency of the right middle lobe of the lung and multiple small cystic air spaces seen, consistent with emphysema.",0.49040000502124614,72923,86400
+s0840,7,raw,"Increased transparency of the left upper lobe of the lung and multiple small cystic air spaces seen, consistent with emphysema.",0.5842192887830245,210707,110039
+s0840,8,raw,"Increased transparency of the right upper lobe of the lung and multiple small cystic air spaces seen, consistent with emphysema.",0.5886533902875256,177595,80156
+s0858,1,raw,"Linear high density shadow in the manubrium, considering postoperative.",0.0,1661,2465
+s0858,2,raw,"Linear low density shadow in the ascending aorta, brachiocephalic artery and left subclavian artery, considering aortic dissection.",0.025224232405791778,1411,31256
+s0858,3,raw,Metal stent placement after endovascular intervention of the ascending aorta cavity.,0.20966046550429632,15410,44525
+s0858,4,raw,"Soft tissue density shadow in the mediastinum, pending exclusion of lesions.",0.0,3409,2578
+s0858,5,raw,Small amount of pleural effusion on the right side.,0.0014961986116668697,55651,1828
+s0895,1,raw,"Sigmoid colon slightly thickened, considering the possibility of tumors",0.044550898203592815,961,3214
+s0931,1,raw,"Right upper and middle lobe of lung shows patchy high density shadow, considering inflammation.",0.06258089341308987,2081,55093
+s0931,2,raw,Both lower lobes of the lungs are not fully expanded.,0.021320852834113363,1093,25829
+s0931,3,raw,Fluid can be found on both sides of the chest.,0.0,9070,5571
+s0931,4,raw,"Heart and superior vena cava show catheter course, considered after pacemaker implantation surgery.",0.13707165109034267,344,1261
+s0931,5,raw,"Thoracic aorta and coronary artery wall have multiple calcified lesions, considered arteriosclerosis.",0.026321036889332003,315,9715
+s0931,6,raw,"Left kidney sees a round low-density non-enhanced lesion, considered cyst.",0.0,460,2166
+s0931,7,raw,"Gallbladder is not visible, common bile duct is dilated, considered postoperative changes.",0.0,128,892
+s0931,8,raw,"Left inguinal canal is enlarged and fat density foci can be seen, considered inguinal hernia.",0.0,1252,4631
+s1004,1,raw,Part of the lower lobes of both lungs is not ventilated.,0.08120170530242472,16560,13464
+s1004,2,raw,There is a small amount of fluid accumulation in the pericardial cavity and bilateral pleural cavities.,0.0,48557,0
+s1004,3,raw,"High-density suture lines are seen at the sternum, considering postoperative changes.",0.0,516,81
+s1004,4,raw,"Linear low-density shadows and stent shadows are seen in the thoracic aorta, considering postoperative changes of aortic dissection.",0.302872653245872,4520,22006
+s1013,1,raw,"Coronary and thoracic aortic wall multiple calcification foci, considering arteriosclerosis.",0.050946523597662045,499,10964
+s1013,2,raw,"Left adrenal gland nodular thickening, considering hyperplasia or adenoma.",0.475,156,164
+s1013,3,raw,"Right kidney sees round low-density focus, no enhancement is seen, considered cystic.",0.23212487411883181,8230,7658
+s1013,4,raw,"Patchy enhancing nodules observed in the spleen, suggestive of hemangiomas.",0.026891522333637192,137,8639
+s1013,5,raw,"Reduced density in the liver parenchyma, consistent with fatty liver.",0.8232308528928707,81342,100709
+s1025,1,raw,"Aortic arch mural calcification, considering arteriosclerosis.",0.05692949277470662,3118,58748
+s1025,2,raw,"Coronary artery mural calcification, considering arteriosclerosis.",0.0,308,6714
+s1025,3,raw,"Pericardial thickening, considering a small amount of pericardial effusion.",0.0,3353,5815
+s1025,4,raw,"Left lower lobe of the lung seen at this level has increased transparency and multiple small round cavities, consistent with emphysema.",0.5578737718715885,185855,174144
+s1025,5,raw,"Right lower lobe of the lung seen at this level has increased transparency and multiple small round cavities, consistent with emphysema.",0.45800920927571537,126886,89852
+s1025,6,raw,"Right middle lobe of the lung seen at this level has increased transparency and multiple small round cavities, consistent with emphysema.",0.47046147328869936,54651,53936
+s1025,7,raw,"Left upper lobe of the lung seen at this level has increased transparency and multiple small round cavities, consistent with emphysema.",0.8489952638969323,298687,331578
+s1025,8,raw,"Right upper lobe of the lung seen at this level has increased transparency and multiple small round cavities, consistent with emphysema.",0.6240686966637362,140754,84468
+s1026,1,raw,"Soft tissue nodule lesions are visible in the anterior mediastinum, which may be thymoma or lymph node.",0.0037854889589905363,3105,9575
+s1026,2,raw,"Spotty high-density shadows are seen at the interatrial septum, considering postoperative status.",0.0,297,45953
+s1026,3,raw,"Multiple calcification foci are seen in the wall of the aorta, suggesting arteriosclerosis.",0.06302309166078451,1635,38033
+s1026,4,raw,"Multiple calcification foci are seen in the coronary artery wall, suggesting arteriosclerosis.",0.0,362,2262
+s1062,1,raw,Pulmonary nodules are visible.,0.05580905580905581,1423,9973
+s1062,2,raw,"Multiple calcification foci on the wall of the thoracic and abdominal aorta, considered arteriosclerosis.",0.002696326255476913,52,8849
+s1062,3,raw,"Multiple calcification foci on the wall of the coronary artery, considered arteriosclerosis.",0.0,0,554
+s1062,4,raw,"Enlargement of both adrenal glands, considered hyperplasia.",0.04771371769383698,373,130
+s1062,5,raw,Spot-like calcification foci in the prostate.,0.0,11,1023
+s1062,6,raw,"Fullness and uneven density of bilateral thyroid lobes, suggesting specialist examination.",0.14847161572052403,557,2191
+s1062,7,raw,"Reduced density of liver substance, consistent with fatty liver.",0.8083999614680667,48816,54994
+s1077,1,raw,"Multiple nodules in both lungs, follow up regularly.",0.0,87,2570
+s1077,2,raw,"High density suture line seen at the sternum, considered postoperative.",0.0,494,1770
+s1077,3,raw,"Multiple calcified lesions seen in the aortic wall of the chest and abdomen, considered arteriosclerosis.",0.042347079988928865,763,13689
+s1077,4,raw,"Multiple calcified lesions seen in the coronary artery wall, considered arteriosclerosis.",0.0,100,4102
+s1077,5,raw,"Linear low-density shadow seen in the left internal carotid artery, considered arterial dissection.",0.04236540158870256,63,1070
+s1077,6,raw,"Cystic lesion with low density is seen in the right kidney, no enhancement is seen, considered cyst.",0.0,136,2964
+s1094,1,raw,"A circular air cavity with gas in the upper lobe of the left lung, suspected pulmonary bullae.",0.0012892668534450699,52,80614
+s1094,2,raw,"Metal density spots and artifacts are seen at the interatrial septum, considered postoperative.",0.0,89,8541
+s1094,3,raw,"Spot calcification foci on the wall of the aorta, suspected arteriosclerosis.",0.0016207455429497568,9,11097
+s1142,1,raw,"Sutures with high density at the manubrium sterni, considered postoperative.",0.0,611,16682
+s1142,2,raw,"Stent seen in the lumen of the aortic arch, considered postoperative.",0.033556250247319064,534,24737
+s1142,3,raw,"Linear low-density shadow and pseudo-lumen seen in the lumen of the ascending aorta, considered aortic dissection.",0.014543914148545608,13286,878
+s1142,4,raw,"Multiple calcification foci on the wall of the thoracoabdominal aorta and coronary arteries, considered arteriosclerosis.",0.0,129,442
+s1142,5,raw,"Spot-like low-density lesions observed in the thyroid gland, suggestive of benign lesions, recommend follow-up.",0.0,46,1633
+s1142,6,raw,"Small round low-density non-enhancing lesions seen in the left kidney, suggestive of cysts.",0.0027800945232137894,40,3557
+s1142,7,raw,"Reduced density in the liver parenchyma, consistent with fatty liver.",0.9130235054617196,101789,105014
+s1208,1,raw,"Sutures at the sternum, considered postoperative.",0.0,513,3793
+s1208,2,raw,"Linear low-density shadows and false lumen seen in the cavity of the thoracoabdominal aorta and right iliac artery, considering aortic dissection.",0.027857061308368535,478,8281
+s1208,3,raw,"Multiple linear high-density shadows in the wall of the thoracoabdominal aorta and its branches, considering postoperative and atherosclerosis.",0.06907682375726275,874,5322
+s1208,4,raw,"Spot-like low-density foci seen in the right lobe of the thyroid gland, no enhancement is seen, considering benign lesions.",0.0,24,2805
+s1226,1,raw,"Multiple metal wire shadows seen in the sternum, considering postoperative manifestation",0.0,641,1959
+s1226,2,raw,High-density metal stent shadow seen in the ascending aorta,0.2878470847706837,10953,42096
+s1226,3,raw,"Arc-shaped liquid density seen in the left pleural cavity, considering small amount of pleural effusion",0.036492890995260666,1434,2786
+s1226,4,raw,"Patchy high-density shadow seen in the lower lobe of the left lung, considering local inflammation",0.00022197910225308788,444,62625
+s1226,5,raw,"Irregular thickening of the ascending aorta, considering aortic dissection",0.034671677738665536,36438,1345
+s1292,1,raw,"Left renal hilar low-density nodules without enhancement, clear boundary, considered as renal cyst",0.0,58,22
+s1292,2,raw,"Cyst-like lesions in the right middle lobe of the lung with clear boundaries, considered as pulmonary cysts",0.0,80,29576
+s1292,3,raw,"Glassy density changes in the pleural adhesion under the left lower lobe of the lung, considered as interstitial lung disease",0.7413303490242709,60512,82458
+s1292,4,raw,"Glassy density changes in the pleural adhesion under the right lower lobe of the lung, considered as interstitial lung disease",0.7096864038714282,55381,59512
+s1334,1,raw,"High-density block shadow in the subcutaneous tissue of the right chest wall, with high-density wire shadows in the cardiac chambers, indicative of post-implantation appearance following pacemaker surgery.",0.0,914,2042
+s1334,2,raw,Irregular dilation of the lumen of the descending aorta and iliac arteries.,0.270240227258692,3864,12329
+s1334,3,raw,"Irregular thickening of the walls of the descending aorta and iliac arteries, with irregularities in the inner walls, indicative of atherosclerosis with ulceration in the aorta and iliac arteries.",0.006487025948103792,3205,803
+s1334,4,raw,"Metallic shadow in the left hip region, indicative of postoperative changes following left hip joint replacement surgery.",0.02904590515880533,6393,9444
+s1334,5,raw,"Non-enhancing, round-shaped lesion in the left kidney, suggestive of a renal cyst.",0.0,1210,2488
+s1334,6,raw,"Multiple indistinct streaky shadows around both kidneys, indicative of perirenal effusion.",0.06924194016845774,6474,10741
+s1344,1,raw,Enlargement of the descending aorta,0.6471691265424631,12117,20947
+s1344,2,raw,"New moon-shaped thickening of the wall of the descending aorta, considering aortic pseudoaneurysm",0.022261277094317515,1194,513
+s1344,3,raw,"Three low-density non-enhancing nodules are seen in the right kidney, suggesting simple renal cysts",0.0011904761904761906,183,8217
+s1344,4,raw,"Calcified nodules are seen on the right side of the uterine body, with possible leiomyoma and degeneration",0.0,134,4436
+s1349,1,raw,"A high-density nodule in the stomach, suspected to be a gastric calculus",0.0,121,1229
+s1349,2,raw,"A low-density nodule on the edge of the left kidney, suspected to be a renal cyst",0.0,37,203
+s1349,3,raw,"A strip-like high-density blurred shadow in the right inguinal region, considering local infection possible",0.0,2900,3045
+s1357,1,raw,"The upper segment of the right femur shows a high-density metallic internal fixation shadow, suggestive of postoperative changes following internal fixation for a fracture in the upper segment of the femur.",0.12791524000258414,1423,14056
+s1359,1,raw,Right greater trochanter fracture with visible greater trochanter fracture and bone block separation,0.0,3128,7553
+s1369,1,raw,High-density shadows in the coronary artery distribution on the surface of the heart indicate coronary artery calcification plaques.,0.0,0,2569
+s1369,2,raw,"A soft tissue nodule in the right adrenal gland, which is considered to be a benign tumor",0.0,69,0
+s1371,1,raw,A high-density shadow in the area of coronary atherosclerotic calcification on the surface of the heart,0.0,11,9211
+s1371,2,raw,"Low-density nodular shadow in the right kidney, suggestive of a renal cyst.",0.0,328,147
+s1371,3,raw,Metal artificial joint in the upper segment of the right femur,0.14566156262269336,1090,4004
+s1378,1,raw,"High-density metallic shadow seen in the upper segment of the left femur, indicative of postoperative changes following left hip joint replacement surgery.",0.5459685446944057,7132,17983
+s1378,2,raw,"Multiple calcified nodules seen subcutaneously in both buttocks, indicative of benign lesions.",0.0,1276,170
+s1380,1,raw,High density shadow in the area of coronary aery calcification plaque on the surface of the heart,0.0,5,1048
+s1380,2,raw,"High density shadow in the bladder, considered to be calculus",0.0,0,4822
+s1380,3,raw,"High density shadow in the medullary cavity of the proximal humerus on the left side, considering benign lesion",0.0,23,906
+s1384,1,raw,Left upper lobe emphysema,0.6119730971565559,12542,17492
+s1384,2,raw,Right upper lobe emphysema,0.6481553904314953,10554,12459
+s1384,3,raw,"High density shadow on the surface of the heart vessel, which is calcification plaque of coronary artery vessel",0.0,5,907
+s1384,4,raw,"There are two low-density nodules in the left lobe of the liver, which may be hepatic cysts; the nodule in S2 segment may be small lipoma or hamartoma",0.0,10,6239
+s1384,5,raw,"A high-density nodule shadow in the right lobe of the liver, which may be a manifestation after interventional embolization of liver tumor",0.0010596026490066225,4,3771
+s1384,6,raw,High-density small stones in the renal sinus of the left kidney,0.0,0,1942
+s1384,7,raw,"Cervical C5/6 intervertebral space shows original slice-like dense shadow, considering as postoperative manifestation of intervertebral disc surgery",0.0,0,736
+s1388,1,raw,"Linear high-density shadow seen in the gallbladder fossa, with no visualization of the gallbladder, suggestive of a metallic clip artifact post cholecystectomy.",0.0,0,644
+s1397,1,raw,"Left lower lobe of the lung sees strip-shaped high-density shadow, considering as discoid atelectasis of the lung",0.0,183,5013
+s1397,2,raw,"High-density shadow in the blood vessel course on the surface of the heart, considering calcified plaque of coronary artery",0.0,0,2383
+s1397,3,raw,"A slightly low-density, round-shaped mass in the left kidney, suggestive of a renal tumor, possibly malignant.",0.23757455268389663,532,3492
+s1397,4,raw,"Round low-density nodule and mass in the right kidney, considered renal cyst",0.0,161,91
+s1397,5,raw,"Soft tissue thickening in the left supraglottic region, possibility of malignant tumor",0.0018115942028985507,16,4400
+s1397,6,raw,"Right inguinal canal enlargement, bowel herniation is seen, it is right inguinal hernia",0.0,519,746
+s1397,7,raw,"Extensive bone density reduction and bone destruction in spine and sternum, considering multiple bone metastases",0.07641048422923145,7883,1121
+s1399,1,raw,"The upper segment of the right femur shows a linear high-density shadow of a metal plate, indicative of postoperative internal fixation for a right femoral upper segment fracture. The surrounding muscle groups exhibit extensive atrophy, and there is an increase in fatty tissue.",0.11594202898550725,1116,12063

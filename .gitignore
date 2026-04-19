@@ -32,6 +32,9 @@ hf_cache/
 # Experiment run logs and one-off smoke-test outputs
 results/_logs/
 results/voxtell_smoke/
+results/*.log
+results/*_smoke_*.csv
+results/*_smoke_*.json
 
 # OS
 .DS_Store
