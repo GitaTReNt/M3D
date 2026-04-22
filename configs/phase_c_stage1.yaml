@@ -1,0 +1,74 @@
+# Phase C Stage-1 config
+# See docs/phase_c_plan.md §6 and docs/bp_medsam_tuning.md §4 / §5
+#
+# Stage 1: LoRA on pixel_decoder (rank 16) + transformer_decoder X-attn
+# (rank 32). Backbone + text encoder frozen. Aux heads trainable. Main-line
+# Dice+BCE untouched; aux λ's ramp over 2 epochs.
+
+stage: 1
+
+data:
+  npy_root: data/M3D_RefSeg_npy
+  aux_root: data/M3D_RefSeg_aux
+  splits_dir: data/M3D_RefSeg_splits
+  train_split: phase_c_train.txt
+  dev_split: phase_c_dev.txt
+  pos_ratio: 0.7
+  cache_arrays: true  # keep ct.npy in RAM
+
+model:
+  bp_root: third_party/BiomedParse
+  ckpt: third_party/BiomedParse/model_weights/biomedparse_v2.ckpt
+  freeze_backbone: true
+  freeze_text_encoder: true
+  lora:
+    pixel_decoder:
+      rank: 16
+      alpha: 32
+      dropout: 0.05
+      target_patterns: ["transformer"]       # MSDeformAttn Linears
+    transformer_decoder:
+      rank: 32
+      alpha: 64
+      dropout: 0.05
+      target_patterns: ["cross_attention_layers"]  # X-attn Q/K/V/O
+  aux_heads:
+    feat_dim: null    # auto-detect after first forward
+    hidden_dim: 256
+    dropout: 0.1
+
+loss:
+  lam_ex: 0.3
+  lam_sex: 0.5
+  lam_bb: 0.3
+  lam_ct: 0.1
+  lam_zr: 0.2
+  lam_dist: 0.0
+  ramp_epochs: 2
+
+train:
+  epochs: 20
+  batch_size: 8
+  grad_accum_steps: 1
+  num_workers: 2
+  lr_lora: 1.0e-5
+  lr_aux_heads: 1.0e-4
+  weight_decay: 1.0e-4
+  warmup_epochs: 1
+  use_amp: true
+  max_slices_per_epoch: null   # null = use full slice index
+  seed: 42
+  save_every_epoch: true
+  best_metric: dev_main_dice   # options: dev_main_dice, dev_bbox_iou_pos
+
+eval:
+  batch_size: 1
+  max_cases: 0   # 0 = all dev cases
+  score_threshold: 0.5
+  mask_binarize_thresh: 0.5
+  bbox_margin: 5
+  cc_strategy: largest_cc   # one of: all_pixels, largest_cc, top2_cc, per_slice_cc
+
+logging:
+  out_dir: results/phase_c/stage1
+  log_every: 20

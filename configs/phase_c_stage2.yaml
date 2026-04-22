@@ -1,0 +1,86 @@
+# Phase C Stage-2 config (escalation — only run if Stage 1 plateaus)
+# Triggered by any one of the §10 conditions in docs/bp_medsam_tuning.md:
+#   bbox_iou_pos_dev < 0.25  AND  main_dice_dev >= 0.18  → unfreeze X-attn
+#   slice_exist_f1_dev < 0.75                             → add scorer distill
+#   BP→MedSAM retention on dev < 15%                      → both + rank bump
+#
+# Continues from Stage-1 best ckpt.
+
+stage: 2
+resume_from: results/phase_c/stage1/best.pt
+
+data:
+  npy_root: data/M3D_RefSeg_npy
+  aux_root: data/M3D_RefSeg_aux
+  splits_dir: data/M3D_RefSeg_splits
+  train_split: phase_c_train.txt
+  dev_split: phase_c_dev.txt
+  pos_ratio: 0.7
+  cache_arrays: true
+
+model:
+  bp_root: third_party/BiomedParse
+  ckpt: third_party/BiomedParse/model_weights/biomedparse_v2.ckpt
+  freeze_backbone: true
+  freeze_text_encoder: true
+  lora:
+    pixel_decoder:
+      rank: 32        # bumped from 16
+      alpha: 64
+      dropout: 0.05
+      target_patterns: ["transformer"]
+    transformer_decoder:
+      rank: 32
+      alpha: 64
+      dropout: 0.05
+      target_patterns: ["cross_attention_layers"]
+  # Additionally unfreeze full X-attn blocks on top of LoRA (stage-2 escalation)
+  unfreeze_prefixes:
+    - "sem_seg_head.predictor.transformer_cross_attention_layers"
+    - "sem_seg_head.predictor.transformer_ffn_layers"
+  aux_heads:
+    feat_dim: null
+    hidden_dim: 256
+    dropout: 0.1
+
+loss:
+  lam_ex: 0.3
+  lam_sex: 0.7    # bumped: slice_exist bottleneck
+  lam_bb: 0.5     # bumped: bbox bottleneck
+  lam_ct: 0.1
+  lam_zr: 0.2
+  lam_dist: 0.2   # scorer distillation on (route B)
+  ramp_epochs: 1
+
+train:
+  epochs: 20
+  batch_size: 8
+  grad_accum_steps: 1
+  num_workers: 2
+  lr_lora: 5.0e-6
+  lr_aux_heads: 5.0e-5
+  lr_unfrozen: 5.0e-6
+  weight_decay: 1.0e-4
+  warmup_epochs: 1
+  use_amp: true
+  seed: 42
+  save_every_epoch: true
+  best_metric: dev_bbox_iou_pos
+
+scorer:
+  enabled: true
+  ckpt: results/checkpoints_slice_scorer_smoke/slice_scorer_best.pt
+  # scorer is queried per-sample at training time to provide a KL target
+  # for the slice_exist head.
+
+eval:
+  batch_size: 1
+  max_cases: 0
+  score_threshold: 0.5
+  mask_binarize_thresh: 0.5
+  bbox_margin: 5
+  cc_strategy: largest_cc
+
+logging:
+  out_dir: results/phase_c/stage2
+  log_every: 20
