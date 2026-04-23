@@ -55,8 +55,11 @@ class LoRALinear(nn.Module):
         self.rank = rank
         self.alpha = alpha
         self.scaling = alpha / rank
-        self.lora_A = nn.Parameter(torch.zeros(rank, in_f))
-        self.lora_B = nn.Parameter(torch.zeros(out_f, rank))
+        # Match base weight's device/dtype so injection after model.to(device)
+        # doesn't leave lora_A/B on CPU.
+        dev, dt = base.weight.device, base.weight.dtype
+        self.lora_A = nn.Parameter(torch.zeros(rank, in_f, device=dev, dtype=dt))
+        self.lora_B = nn.Parameter(torch.zeros(out_f, rank, device=dev, dtype=dt))
         nn.init.kaiming_uniform_(self.lora_A, a=5 ** 0.5)
         nn.init.zeros_(self.lora_B)  # LoRA starts as identity
         self.drop = nn.Dropout(dropout) if dropout > 0 else nn.Identity()
@@ -68,6 +71,20 @@ class LoRALinear(nn.Module):
     @property
     def out_features(self) -> int:
         return self.base.out_features
+
+    # Defensive: PyTorch's nn.MultiheadAttention reads out_proj.weight directly
+    # (bypassing forward) via F.multi_head_attention_forward. If inject_lora
+    # accidentally wraps an MHA-owned Linear, these properties keep the model
+    # from crashing — LoRA will simply be a no-op on that layer. The real fix
+    # is to add "out_proj"/"in_proj" to exclude_patterns so MHA-internal
+    # Linears stay unwrapped.
+    @property
+    def weight(self) -> torch.Tensor:
+        return self.base.weight
+
+    @property
+    def bias(self):
+        return self.base.bias
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         out = self.base(x)

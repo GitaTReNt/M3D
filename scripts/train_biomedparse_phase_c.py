@@ -52,6 +52,7 @@ from m3d.models.bp_lora import (  # noqa: E402
     summarize_trainable,
     unfreeze_prefixes,
 )
+from m3d.models.lora_mha import replace_mha_with_lora  # noqa: E402
 
 
 # ---------------------------------------------------------------------------
@@ -305,12 +306,18 @@ def build_model(cfg, device):
 
     freeze_all(bp_model)
     lora_cfg = cfg["model"]["lora"]
+    # PyTorch's nn.MultiheadAttention reads out_proj.weight / in_proj_weight
+    # directly, so wrapping those with LoRA silently no-ops. Default exclude
+    # keeps MHA-owned Linears untouched; real cross-attention finetuning
+    # goes through the unfreeze_prefixes path below.
+    default_exclude = ("out_proj", "in_proj")
     n_pd = inject_lora(
         bp_model.sem_seg_head.pixel_decoder,
         target_patterns=tuple(lora_cfg["pixel_decoder"]["target_patterns"]),
         rank=int(lora_cfg["pixel_decoder"]["rank"]),
         alpha=int(lora_cfg["pixel_decoder"]["alpha"]),
         dropout=float(lora_cfg["pixel_decoder"].get("dropout", 0.0)),
+        exclude_patterns=tuple(lora_cfg["pixel_decoder"].get("exclude_patterns", default_exclude)),
     )
     n_td = inject_lora(
         bp_model.sem_seg_head.predictor,
@@ -318,8 +325,27 @@ def build_model(cfg, device):
         rank=int(lora_cfg["transformer_decoder"]["rank"]),
         alpha=int(lora_cfg["transformer_decoder"]["alpha"]),
         dropout=float(lora_cfg["transformer_decoder"].get("dropout", 0.0)),
+        exclude_patterns=tuple(lora_cfg["transformer_decoder"].get("exclude_patterns", default_exclude)),
     )
-    print(f"[LoRA] pixel_decoder wrapped={n_pd}  predictor wrapped={n_td}")
+    print(f"[LoRA-linear] pixel_decoder wrapped={n_pd}  predictor wrapped={n_td}")
+
+    # Real LoRA on nn.MultiheadAttention via module replacement (standard
+    # Hu et al. 2021 LoRA on Q and V projections by default). This is the
+    # only valid way to LoRA cross-attention in BP, since PyTorch's MHA
+    # reads in_proj_weight / out_proj.weight directly.
+    mha_cfg = cfg["model"].get("lora_mha") or {}
+    if mha_cfg.get("enabled", False):
+        n_mha = replace_mha_with_lora(
+            bp_model,
+            target_patterns=tuple(mha_cfg.get("target_patterns", ())),
+            exclude_patterns=tuple(mha_cfg.get("exclude_patterns", ())),
+            rank=int(mha_cfg.get("rank", 32)),
+            alpha=int(mha_cfg.get("alpha", 64)),
+            targets=tuple(mha_cfg.get("targets", ("q", "v"))),
+            lora_dropout=float(mha_cfg.get("dropout", 0.0)),
+        )
+        print(f"[LoRA-mha] replaced {n_mha} MultiheadAttention modules "
+              f"(rank={mha_cfg.get('rank', 32)}, targets={mha_cfg.get('targets', ('q','v'))})")
 
     unfreeze_prefixes_list = cfg["model"].get("unfreeze_prefixes", [])
     if unfreeze_prefixes_list:
@@ -548,7 +574,10 @@ def main():
                 )
 
         print(f"[ep{epoch:02d}] epoch_time={time.time() - t_epoch:.1f}s — dev eval …", flush=True)
-        dev = quick_dev_metrics(bp_model, aux_heads, dev_loader, loss_fn, device)
+        dev = quick_dev_metrics(
+            bp_model, aux_heads, dev_loader, loss_fn, device,
+            max_batches=cfg["train"].get("max_dev_batches"),
+        )
         dev["epoch"] = epoch
         metrics_history.append(dev)
         print(f"[ep{epoch:02d} dev] " + "  ".join(f"{k}={v:.4f}" for k, v in dev.items() if k != "epoch"),

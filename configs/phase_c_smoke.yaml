@@ -1,0 +1,95 @@
+# Smoke-test override of phase_c_stage1.yaml — verifies the whole
+# training forward runs without crashing. Not a real training run.
+#
+# Settings:
+#   - epochs: 1
+#   - batch_size: 2
+#   - max_slices_per_epoch: 16 (≈ 8 optim steps)
+#   - no amp so any dtype issue surfaces loudly
+#   - best_metric same so checkpoint saving path is exercised
+
+stage: smoke
+
+data:
+  npy_root: data/M3D_RefSeg_npy
+  aux_root: data/M3D_RefSeg_aux
+  splits_dir: data/M3D_RefSeg_splits
+  train_split: phase_c_train.txt
+  dev_split: phase_c_dev.txt
+  pos_ratio: 0.7
+  cache_arrays: true
+
+model:
+  bp_root: third_party/BiomedParse
+  ckpt: third_party/BiomedParse/model_weights/biomedparse_v2.ckpt
+  freeze_backbone: true
+  freeze_text_encoder: true
+  lora:
+    pixel_decoder:
+      rank: 16
+      alpha: 32
+      dropout: 0.05
+      # Wrap FFN Linears inside pixel_decoder's TransformerEncoderLayer.
+      target_patterns: ["linear1", "linear2"]
+      exclude_patterns: ["out_proj", "in_proj"]
+    transformer_decoder:
+      rank: 32
+      alpha: 64
+      dropout: 0.05
+      # LoRA the BoltzFormer decoder's FFN (transformer_ffn_layers.N.linear1/2).
+      # Cross-attention is handled by lora_mha below (MHA-aware).
+      target_patterns: ["transformer_ffn_layers"]
+      exclude_patterns: ["out_proj", "in_proj"]
+  # Real LoRA on text↔image cross-attention via MHA replacement.
+  # Targets Q and V projections per Hu et al. 2021. K and O frozen.
+  # classifier_cross_attention_layers excluded — that's the per-class
+  # slot classifier, not the grounding we want to tune.
+  lora_mha:
+    enabled: true
+    rank: 32
+    alpha: 64
+    targets: ["q", "v"]
+    dropout: 0.0
+    target_patterns: ["transformer_cross_attention_layers"]
+    exclude_patterns: ["classifier_cross_attention_layers"]
+  aux_heads:
+    feat_dim: null
+    hidden_dim: 256
+    dropout: 0.1
+
+loss:
+  lam_ex: 0.3
+  lam_sex: 0.5
+  lam_bb: 0.3
+  lam_ct: 0.1
+  lam_zr: 0.2
+  lam_dist: 0.0
+  ramp_epochs: 0   # full aux weight immediately — exercises all loss terms
+
+train:
+  epochs: 1
+  batch_size: 2
+  grad_accum_steps: 1
+  num_workers: 0     # avoid multiproc issues on first run
+  lr_lora: 1.0e-5
+  lr_aux_heads: 1.0e-4
+  weight_decay: 1.0e-4
+  warmup_epochs: 0
+  use_amp: false     # catch dtype bugs
+  max_slices_per_epoch: 16
+  max_dev_batches: 4   # only 4 dev batches — smoke, not a real eval
+  seed: 42
+  save_every_epoch: false
+  best_metric: dev_main_dice
+
+eval:
+  batch_size: 2
+  max_cases: 0
+  score_threshold: 0.5
+  mask_binarize_thresh: 0.5
+  bbox_margin: 5
+  cc_strategy: largest_cc
+
+logging:
+  out_dir: results/phase_c/smoke
+  log_every: 1
