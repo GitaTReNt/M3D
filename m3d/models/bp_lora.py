@@ -8,7 +8,7 @@ wrapper instead.
 
 Typical usage from the training driver:
 
-    from src.models.bp_lora import inject_lora, freeze_all, trainable_params
+    from m3d.models.bp_lora import inject_lora, freeze_all, trainable_params
 
     freeze_all(bp_model)
     n = inject_lora(

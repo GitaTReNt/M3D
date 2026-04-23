@@ -38,15 +38,15 @@ from torch.utils.data import DataLoader
 REPO_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO_ROOT))
 
-from src.datasets.refseg_phase_c import (  # noqa: E402
+from m3d.datasets.refseg_phase_c import (  # noqa: E402
     RefSegPhaseCDataset,
     RefSegPhaseCCaseDataset,
     PosNegRatioSampler,
     collate_phase_c,
 )
-from src.losses.phase_c_losses import PhaseCLoss, PhaseCLossWeights  # noqa: E402
-from src.models.aux_heads import PhaseCAuxHeads, pool_features  # noqa: E402
-from src.models.bp_lora import (  # noqa: E402
+from m3d.losses.phase_c_losses import PhaseCLoss, PhaseCLossWeights  # noqa: E402
+from m3d.models.aux_heads import PhaseCAuxHeads, pool_features  # noqa: E402
+from m3d.models.bp_lora import (  # noqa: E402
     freeze_all,
     inject_lora,
     summarize_trainable,
@@ -73,8 +73,15 @@ def load_bp_model(bp_root: Path, ckpt: Path, device: torch.device):
     import hydra
     from hydra import compose, initialize_config_dir
 
-    bp_src = bp_root / "src"
-    sys.path.insert(0, str(bp_src))
+    # Resolve to absolute before putting on sys.path — we chdir into bp_root
+    # below, and a relative sys.path entry would rebind under the new cwd.
+    bp_root = bp_root.resolve()
+    # BP's Hydra configs resolve `_target_: src.model.biomedparse_3D.*` — we
+    # must put bp_root (parent of `src/`) on sys.path, not src/ itself.
+    sys.path.insert(0, str(bp_root))
+    # Also expose bp_root/src so BP's own internal imports like `from utils
+    # import process_input` work even when we aren't chdir'd into bp_root.
+    sys.path.insert(0, str(bp_root / "src"))
     cfg_dir = str((bp_root / "configs").resolve())
 
     with _chdir(bp_root):

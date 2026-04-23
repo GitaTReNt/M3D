@@ -49,7 +49,7 @@ from scripts.train_biomedparse_phase_c import (  # noqa: E402
     build_model,
     read_split,
 )
-from src.datasets.refseg_phase_c import RefSegPhaseCCaseDataset  # noqa: E402
+from m3d.datasets.refseg_phase_c import RefSegPhaseCCaseDataset  # noqa: E402
 
 
 def case_aux_from_slices(bp_model, aux_heads, ct_volume, text, device, slice_batch: int = 4):
