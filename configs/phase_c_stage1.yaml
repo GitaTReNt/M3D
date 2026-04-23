@@ -1,9 +1,15 @@
 # Phase C Stage-1 config
-# See docs/phase_c_plan.md §6 and docs/bp_medsam_tuning.md §4 / §5
+# See docs/phase_c_plan.md §6 and docs/bp_medsam_tuning.md §4 / §5.
 #
-# Stage 1: LoRA on pixel_decoder (rank 16) + transformer_decoder X-attn
-# (rank 32). Backbone + text encoder frozen. Aux heads trainable. Main-line
-# Dice+BCE untouched; aux λ's ramp over 2 epochs.
+# Stage 1: standard LoRA (Hu 2021). LoRA on
+#   - pixel_decoder TransformerEncoderLayer FFN Linears (linear1/linear2),
+#     rank 16
+#   - BoltzFormer decoder transformer_ffn_layers (linear1/linear2), rank 32
+#   - BoltzFormer decoder transformer_cross_attention_layers (nn.MHA
+#     replaced with LoRAMultiheadAttention), rank 32 on Q and V
+# Backbone + text encoder + classifier_cross_attention + self-attn layers
+# stay frozen. Aux heads trainable. Main-line Dice+BCE untouched; aux
+# λ's ramp over 2 epochs.
 
 stage: 1
 
@@ -26,12 +32,24 @@ model:
       rank: 16
       alpha: 32
       dropout: 0.05
-      target_patterns: ["transformer"]       # MSDeformAttn Linears
+      target_patterns: ["linear1", "linear2"]
+      exclude_patterns: ["out_proj", "in_proj"]
     transformer_decoder:
       rank: 32
       alpha: 64
       dropout: 0.05
-      target_patterns: ["cross_attention_layers"]  # X-attn Q/K/V/O
+      target_patterns: ["transformer_ffn_layers"]
+      exclude_patterns: ["out_proj", "in_proj"]
+  # Real LoRA on cross-attention via MHA replacement (Hu 2021, Q + V).
+  # classifier_cross_attention is the per-class slot head — excluded.
+  lora_mha:
+    enabled: true
+    rank: 32
+    alpha: 64
+    targets: ["q", "v"]
+    dropout: 0.0
+    target_patterns: ["transformer_cross_attention_layers"]
+    exclude_patterns: ["classifier_cross_attention_layers"]
   aux_heads:
     feat_dim: null    # auto-detect after first forward
     hidden_dim: 256
@@ -57,6 +75,7 @@ train:
   warmup_epochs: 1
   use_amp: true
   max_slices_per_epoch: null   # null = use full slice index
+  max_dev_batches: null        # null = full dev split each epoch
   seed: 42
   save_every_epoch: true
   best_metric: dev_main_dice   # options: dev_main_dice, dev_bbox_iou_pos

@@ -28,16 +28,22 @@ model:
       rank: 32        # bumped from 16
       alpha: 64
       dropout: 0.05
-      target_patterns: ["transformer"]
+      target_patterns: ["linear1", "linear2"]
+      exclude_patterns: ["out_proj", "in_proj"]
     transformer_decoder:
       rank: 32
       alpha: 64
       dropout: 0.05
-      target_patterns: ["cross_attention_layers"]
-  # Additionally unfreeze full X-attn blocks on top of LoRA (stage-2 escalation)
-  unfreeze_prefixes:
-    - "sem_seg_head.predictor.transformer_cross_attention_layers"
-    - "sem_seg_head.predictor.transformer_ffn_layers"
+      target_patterns: ["transformer_ffn_layers"]
+      exclude_patterns: ["out_proj", "in_proj"]
+  lora_mha:
+    enabled: true
+    rank: 64           # bumped from 32 — Stage-2 escalation
+    alpha: 128
+    targets: ["q", "k", "v", "o"]   # all four — full LoRA coverage on X-attn
+    dropout: 0.0
+    target_patterns: ["transformer_cross_attention_layers"]
+    exclude_patterns: ["classifier_cross_attention_layers"]
   aux_heads:
     feat_dim: null
     hidden_dim: 256
